@@ -343,6 +343,33 @@ def test_repo_hygiene() -> None:
 # Runner
 # ---------------------------------------------------------------------------
 
+def test_saved_model_inference() -> None:
+    """Saved Q-table must exist, load cleanly, reach goal with dose < 75 and no wall hits."""
+    from evaluate import greedy_rollout
+
+    q_path = REPO_ROOT / "models" / "q_table_best.npy"
+    assert q_path.exists(), f"Artifact missing: {q_path}"
+
+    Q = np.load(q_path)
+    assert Q.shape == (50, 50, 8), f"Unexpected Q-table shape: {Q.shape}"
+    assert not np.any(np.isnan(Q)), "NaN values in loaded Q-table"
+
+    env = RadiationEnv()
+    path, outcome, total_dose, steps = greedy_rollout(Q, env, start=START_CELL)
+
+    assert outcome == "goal", f"Pre-trained model did not reach goal (outcome={outcome})"
+    assert total_dose < 75.0, f"Dose {total_dose:.2f} >= 75.0 a.u."
+
+    # No wall collisions in the path
+    for idx, (r, c) in enumerate(path):
+        assert not env.walls[r, c], f"Wall collision at step {idx}: ({r},{c})"
+
+    print(
+        f"PASS: test_saved_model_inference "
+        f"(outcome={outcome}, steps={steps}, dose={total_dose:.2f} a.u.)"
+    )
+
+
 def run_all_tests() -> None:
     tests = [
         test_field_at_source,
