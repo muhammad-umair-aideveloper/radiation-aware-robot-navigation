@@ -266,3 +266,4 @@ def generate_navigation_gif(
             writer.grab_frame()
 
     plt.close(fig)
+
