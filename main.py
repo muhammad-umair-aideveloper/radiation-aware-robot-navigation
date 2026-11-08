@@ -259,7 +259,25 @@ def main() -> None:
             f"  Mean step difference: {np.mean(step_diff_q):+.2f} steps"
         )
 
-    # 9. Generate Plots & GIF
+    # 9. Save best Q-table (seed with lowest canonical dose, goal outcomes only)
+    models_dir = REPO_ROOT / "models"
+    models_dir.mkdir(parents=True, exist_ok=True)
+    goal_seeds = [
+        (q_canonical_doses[s], s)
+        for s in range(5)
+        if q_canonical_outcomes[s] == "goal"
+    ]
+    if goal_seeds:
+        best_seed = min(goal_seeds)[1]
+    else:
+        best_seed = 0  # fallback: save seed 0 even if it timed out
+    best_q_path = models_dir / "q_table_best.npy"
+    np.save(best_q_path, q_models[best_seed])
+    print(f"\nSaved best Q-table (seed {best_seed}, canonical dose "
+          f"{q_canonical_doses[best_seed]:.2f} a.u.) -> models/q_table_best.npy "
+          f"({best_q_path.stat().st_size // 1024} KB)")
+
+    # 10. Generate Plots & GIF
     print("\nGenerating publication plots and animation...")
     plot_trajectory_comparison(
         path_shortest=path_s,
