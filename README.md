@@ -138,6 +138,12 @@ python tests/test_core.py
 python main.py
 ```
 
+### Quick Inference (Pre-trained Weights)
+Load the best saved Q-table and run a zero-training-time greedy rollout from `(2,2)` to `(47,47)`:
+```powershell
+python evaluate.py
+```
+
 ---
 
 ## 9. License
