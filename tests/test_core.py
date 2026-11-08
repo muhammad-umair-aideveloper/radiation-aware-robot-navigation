@@ -383,6 +383,7 @@ def run_all_tests() -> None:
         test_q_table_bellman_update,
         test_visual_artifacts_integrity,
         test_repo_hygiene,
+        test_saved_model_inference,
     ]
 
     print("=" * 65)
