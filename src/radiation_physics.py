@@ -137,3 +137,4 @@ def trajectory_dose(
         length = math.sqrt(dr * dr + dc * dc)
         total += step_dose(path[i + 1], length, intensity_field)
     return total
+
