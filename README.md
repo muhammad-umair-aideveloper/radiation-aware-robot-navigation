@@ -148,3 +148,9 @@ python evaluate.py
 
 ## 9. License
 MIT License. See [LICENSE](LICENSE) for details.
+
+---
+
+## 10. Development Notes
+
+This project was developed with AI coding assistance (Antigravity / Gemini). The experiment specification, parameter values, and evaluation protocol were provided by the author; code implementation, testing, and result verification were carried out by the AI assistant.
