@@ -92,3 +92,4 @@ BLIND_CONFIG = RewardConfig(
     alpha=1.0,
     lambda_rad=0.0,
 )
+
