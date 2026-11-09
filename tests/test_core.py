@@ -370,6 +370,96 @@ def test_saved_model_inference() -> None:
     )
 
 
+# ---------------------------------------------------------------------------
+# Task 5: Physical invariant & edge-case unit tests (pytest-compatible)
+# ---------------------------------------------------------------------------
+
+def test_inv_sq_monotonicity() -> None:  # pragma: no cover – also in runner
+    """T5-1: Radiation strictly decreases with Euclidean distance from each source."""
+    from src.radiation_physics import PointSource, vectorized_intensity_field
+
+    src = PointSource(position=(25, 25), intensity=200.0)
+    field = vectorized_intensity_field((50, 50), [src])
+
+    # Sample along east ray from source; each successive cell must be strictly less.
+    sr, sc = src.position
+    prev = field[sr, sc]
+    for dc in range(1, 15):
+        curr = field[sr, sc + dc]
+        assert curr < prev, (
+            f"T5-1 monotonicity violated at d={dc}: I={curr:.6f} >= I_prev={prev:.6f}"
+        )
+        prev = curr
+
+    print("PASS: test_inv_sq_monotonicity")
+
+
+def test_zero_distance_stability() -> None:
+    """T5-2: No NaN or Inf when robot position exactly matches a source position."""
+    from src.radiation_physics import PointSource, total_intensity, EPSILON
+
+    source = PointSource(position=(10, 10), intensity=300.0)
+    # Robot at exact source location -> d=0 -> denominator = 0^2 + epsilon > 0
+    val = total_intensity((10.0, 10.0), [source])
+
+    assert math.isfinite(val), f"T5-2: non-finite value at source location: {val}"
+    assert not math.isnan(val), "T5-2: NaN at zero-distance"
+
+    expected = source.intensity / (0.0 + EPSILON)
+    assert math.isclose(val, expected, rel_tol=1e-9), (
+        f"T5-2: expected {expected}, got {val}"
+    )
+    print(f"PASS: test_zero_distance_stability (I_max={val:.4f})")
+
+
+def test_radiation_penalty_dominance() -> None:
+    """T5-3: Short path through a hotspot yields lower total return than a longer safe detour."""
+    from src.radiation_physics import PointSource, vectorized_intensity_field, trajectory_dose
+    from src.reward_config import AWARE_CONFIG
+
+    # Tiny 10x10 grid with one strong source at (5, 5).
+    # Short path through the hotspot: (0,0) -> (5,5) -> (9,9)  (diagonal-ish)
+    # Safe detour: (0,0) -> (0,9) -> (9,9)  (along edges, far from source)
+    shape = (10, 10)
+    src = PointSource(position=(5, 5), intensity=500.0)
+    field = vectorized_intensity_field(shape, [src])
+
+    # Build paths manually
+    hotspot_path = [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+                    (6, 6), (7, 7), (8, 8), (9, 9)]
+
+    safe_path = [(0, 0)] + [(0, c) for c in range(1, 10)] + [(r, 9) for r in range(1, 10)]
+
+    dose_hot = trajectory_dose(hotspot_path, field)
+    dose_safe = trajectory_dose(safe_path, field)
+
+    # Compute total returns using step rewards + no terminal bonus for comparison
+    def path_return(path):
+        total_r = 0.0
+        for i in range(len(path) - 1):
+            dr = path[i + 1][0] - path[i][0]
+            dc = path[i + 1][1] - path[i][1]
+            L = math.sqrt(dr * dr + dc * dc)
+            intensity = float(field[path[i + 1]])
+            total_r += AWARE_CONFIG.step_reward(L, intensity)
+        return total_r
+
+    ret_hot = path_return(hotspot_path)
+    ret_safe = path_return(safe_path)
+
+    assert dose_hot > dose_safe, (
+        f"T5-3: hotspot dose ({dose_hot:.2f}) should exceed safe detour ({dose_safe:.2f})"
+    )
+    assert ret_hot < ret_safe, (
+        f"T5-3: hotspot return ({ret_hot:.2f}) should be lower than safe detour ({ret_safe:.2f})"
+    )
+    print(
+        f"PASS: test_radiation_penalty_dominance "
+        f"(dose_hot={dose_hot:.2f} > dose_safe={dose_safe:.2f}, "
+        f"ret_hot={ret_hot:.2f} < ret_safe={ret_safe:.2f})"
+    )
+
+
 def run_all_tests() -> None:
     tests = [
         test_field_at_source,
@@ -384,6 +474,9 @@ def run_all_tests() -> None:
         test_visual_artifacts_integrity,
         test_repo_hygiene,
         test_saved_model_inference,
+        test_inv_sq_monotonicity,
+        test_zero_distance_stability,
+        test_radiation_penalty_dominance,
     ]
 
     print("=" * 65)
