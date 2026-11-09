@@ -36,3 +36,6 @@ Thumbs.db
 *.log
 scratch/
 
+# Agent instructions
+AGENTS.md
+
