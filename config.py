@@ -5,7 +5,7 @@ any experiment (see SPEC.md, Section 8). Do not change these values after
 seeing results. If a change is unavoidable, make it in its own commit and
 explain why.
 
-Placeholders that are filled in later by a dedicated commit:
+Placeholders filled in by dedicated commits:
     SOURCE_POSITIONS, SOURCE_STRENGTHS   (when the layout is designed)
     TOTAL_TIMESTEPS                      (after the training-speed smoke test)
 """

@@ -1,6 +1,6 @@
-# setup.ps1 - one-time repository bootstrap. Run it yourself (costs 0 agent credits).
+# setup.ps1 - One-time repository bootstrap script. Run it yourself.
 #
-# Put these files in the project folder first:
+# Place these files in the project folder before running:
 #   AGENTS.md  SPEC.md  STRUCTURE.md  requirements.txt  config.py  setup.ps1
 #
 # Usage (PowerShell, inside the project folder):
