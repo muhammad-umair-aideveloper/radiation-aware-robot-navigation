@@ -106,3 +106,4 @@ def dijkstra_search(
                 heapq.heappush(open_set, (tentative_cost, count, nr, nc))
 
     return None, float("inf"), float("inf"), float("inf"), nodes_expanded
+

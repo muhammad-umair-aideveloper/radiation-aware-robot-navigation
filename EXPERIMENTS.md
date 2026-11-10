@@ -30,3 +30,4 @@ For each step transition to cell $s'$ with action length $L \in \{1, \sqrt{2}\}$
   2. Mean steps (path length in cells) on successful episodes.
   3. Mean cumulative dose (arbitrary units, a.u.) on successful episodes.
   4. Paired differences on starts where both compared methods succeed. Failed episodes are never averaged into dose.
+
