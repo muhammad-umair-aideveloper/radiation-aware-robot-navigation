@@ -136,6 +136,7 @@ class QLearningAgent:
         episodes: int = 50000,
         max_steps: int = 300,
         env: Optional[RadiationEnv] = None,
+        lambda_rad: float = 2.5,
     ) -> None:
         self.alpha = alpha
         self.gamma = gamma
@@ -144,6 +145,7 @@ class QLearningAgent:
         self.episodes = episodes
         self.max_steps = max_steps
         self.env = env if env is not None else RadiationEnv()
+        self.lambda_rad = lambda_rad
 
         # Precompute transitions to maximize training speed
         self._build_transition_tables()
@@ -189,7 +191,7 @@ class QLearningAgent:
                             self.terminals[r, c, a] = True
                         else:
                             self.rewards[r, c, a] = -length * (
-                                1.0 + 2.5 * self.env.radiation[nr, nc]
+                                1.0 + self.lambda_rad * self.env.radiation[nr, nc]
                             )
                             self.terminals[r, c, a] = False
 
