@@ -32,14 +32,16 @@ def astar_search(
     goal: Tuple[int, int] = GOAL_CELL,
     mode: str = "shortest",
     env: Optional[RadiationEnv] = None,
+    lambda_rad: float = 2.5,
 ) -> Tuple[Optional[List[Tuple[int, int]]], float, float, int]:
     """A* search on the 8-connected grid.
 
     Args:
         start: Starting (row, col) cell.
         goal: Goal (row, col) cell.
-        mode: "shortest" (cost = L) or "aware" (cost = L * (1 + 2.5 * I(new))).
+        mode: "shortest" (cost = L) or "aware" (cost = L * (1 + lambda_rad * I(new))).
         env: RadiationEnv instance (created if None).
+        lambda_rad: Radiation weight when mode="aware" (default: 2.5).
 
     Returns:
         (path, total_dose, total_steps, nodes_expanded)
@@ -107,7 +109,7 @@ def astar_search(
             if mode == "shortest":
                 step_cost = length
             elif mode == "aware":
-                step_cost = length * (1.0 + 2.5 * env.radiation[nr, nc])
+                step_cost = length * (1.0 + lambda_rad * env.radiation[nr, nc])
             else:
                 raise ValueError(f"Unknown mode: {mode}")
 
