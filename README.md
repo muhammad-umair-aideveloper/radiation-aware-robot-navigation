@@ -90,6 +90,23 @@ On the 50 start pairs where both classical planners succeeded:
   - Mean dose reduction: **$-53.80$ a.u. ($-45.2\%$)**
   - Mean step increase: **$+7.94$ steps ($+21.9\%$)**
 
+### 4.4 Radiation Weight Sweep ($\lambda$)
+To systematically characterize the Pareto frontier between absorbed dose and path length, $\lambda$ was varied across $\{0.0, 0.5, 1.0, 2.5, 5.0, 10.0\}$ using step cost $L \cdot (1 + \lambda \cdot I)$. Results on the 50 evaluation starts and canonical $(2, 2) \to (47, 47)$ route:
+
+| Lambda ($\lambda$) | Method | Success on 50 starts | Mean Steps | Mean Dose (a.u.) | Canonical Steps | Canonical Dose (a.u.) | Dose Diff vs Shortest | Step Diff vs Shortest |
+|---|---|---|---|---|---|---|---|---|
+| 0.0 (ref) | A* Shortest | 50/50 (100%) | 36.18 | 119.15 | 56 | 281.88 | 0.00 (ref) | 0.00 (ref) |
+| 0.0 | A* Aware | 50/50 (100%) | 36.18 | 119.15 | 56 | 281.88 | +0.00 | +0.00 |
+| 0.5 | A* Aware | 50/50 (100%) | 40.86 | 59.11 | 70 | 69.64 | -60.04 | +4.68 |
+| 1.0 | A* Aware | 50/50 (100%) | 42.90 | 55.68 | 76 | 59.73 | -63.46 | +6.72 |
+| 2.5 | A* Aware | 50/50 (100%) | 45.04 | 54.42 | 80 | 58.15 | -64.73 | +8.86 |
+| 5.0 | A* Aware | 50/50 (100%) | 46.12 | 54.16 | 82 | 57.80 | -64.99 | +9.94 |
+| 10.0 | A* Aware | 50/50 (100%) | 46.78 | 54.09 | 83 | 57.70 | -65.06 | +10.60 |
+| All | Q-Learning (3 seeds) | *pending* | *pending* | *pending* | *pending* | *pending* | *pending* | *pending* |
+
+![Pareto Trade-off](results/pareto_dose_vs_length.png)
+*Pareto trade-off curve of mean absorbed radiation dose versus path length across radiation weights $\lambda \in [0, 10]$ on 50 fixed evaluation starts.*
+
 ---
 
 ## 5. Visualizations
