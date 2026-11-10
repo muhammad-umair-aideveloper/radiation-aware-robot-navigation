@@ -1,0 +1,3315 @@
+{
+  "metadata": {
+    "num_starts": 50,
+    "lambdas": [
+      0.0,
+      0.5,
+      1.0,
+      2.5,
+      5.0,
+      10.0
+    ],
+    "goal": [
+      47,
+      47
+    ],
+    "canonical_start": [
+      2,
+      2
+    ]
+  },
+  "astar_shortest": {
+    "lambda": 0.0,
+    "success_count": 50,
+    "total_starts": 50,
+    "success_rate": 1.0,
+    "mean_steps": 36.18,
+    "mean_dose": 119.14780991837388,
+    "planning_time_s": 0.5709729194641113,
+    "canonical": {
+      "success": true,
+      "steps": 56.0,
+      "dose": 281.8799973864778
+    },
+    "per_start": [
+      {
+        "start": [
+          31,
+          18
+        ],
+        "success": true,
+        "dose": 89.89686009809019,
+        "steps": 29.0
+      },
+      {
+        "start": [
+          7,
+          6
+        ],
+        "success": true,
+        "dose": 268.3890457038953,
+        "steps": 51.0
+      },
+      {
+        "start": [
+          17,
+          25
+        ],
+        "success": true,
+        "dose": 93.3821849249766,
+        "steps": 36.0
+      },
+      {
+        "start": [
+          32,
+          2
+        ],
+        "success": true,
+        "dose": 103.80254287409723,
+        "steps": 45.0
+      },
+      {
+        "start": [
+          37,
+          22
+        ],
+        "success": true,
+        "dose": 56.14590133954133,
+        "steps": 25.0
+      },
+      {
+        "start": [
+          7,
+          7
+        ],
+        "success": true,
+        "dose": 274.4555022778913,
+        "steps": 51.0
+      },
+      {
+        "start": [
+          7,
+          44
+        ],
+        "success": true,
+        "dose": 37.93338541894535,
+        "steps": 40.0
+      },
+      {
+        "start": [
+          20,
+          9
+        ],
+        "success": true,
+        "dose": 287.52773837120645,
+        "steps": 38.0
+      },
+      {
+        "start": [
+          10,
+          42
+        ],
+        "success": true,
+        "dose": 35.037060941091994,
+        "steps": 37.0
+      },
+      {
+        "start": [
+          24,
+          4
+        ],
+        "success": true,
+        "dose": 178.9045031498648,
+        "steps": 43.0
+      },
+      {
+        "start": [
+          26,
+          3
+        ],
+        "success": true,
+        "dose": 163.14593829922956,
+        "steps": 44.0
+      },
+      {
+        "start": [
+          22,
+          0
+        ],
+        "success": true,
+        "dose": 165.77105044158859,
+        "steps": 47.0
+      },
+      {
+        "start": [
+          30,
+          30
+        ],
+        "success": true,
+        "dose": 189.78428640909928,
+        "steps": 23.0
+      },
+      {
+        "start": [
+          28,
+          14
+        ],
+        "success": true,
+        "dose": 129.1464731607878,
+        "steps": 33.0
+      },
+      {
+        "start": [
+          29,
+          22
+        ],
+        "success": true,
+        "dose": 152.4696018561656,
+        "steps": 28.0
+      },
+      {
+        "start": [
+          32,
+          7
+        ],
+        "success": true,
+        "dose": 98.16453397135417,
+        "steps": 40.0
+      },
+      {
+        "start": [
+          8,
+          6
+        ],
+        "success": true,
+        "dose": 269.4736610091561,
+        "steps": 50.0
+      },
+      {
+        "start": [
+          42,
+          11
+        ],
+        "success": true,
+        "dose": 46.290392911671184,
+        "steps": 36.0
+      },
+      {
+        "start": [
+          25,
+          15
+        ],
+        "success": true,
+        "dose": 134.9415384394788,
+        "steps": 33.0
+      },
+      {
+        "start": [
+          4,
+          9
+        ],
+        "success": true,
+        "dose": 249.19012560600086,
+        "steps": 52.0
+      },
+      {
+        "start": [
+          22,
+          40
+        ],
+        "success": true,
+        "dose": 33.417883660021865,
+        "steps": 25.0
+      },
+      {
+        "start": [
+          17,
+          2
+        ],
+        "success": true,
+        "dose": 340.9414637043335,
+        "steps": 45.0
+      },
+      {
+        "start": [
+          39,
+          5
+        ],
+        "success": true,
+        "dose": 65.06896801359343,
+        "steps": 42.0
+      },
+      {
+        "start": [
+          31,
+          9
+        ],
+        "success": true,
+        "dose": 94.64129791355283,
+        "steps": 38.0
+      },
+      {
+        "start": [
+          9,
+          39
+        ],
+        "success": true,
+        "dose": 39.45056507273188,
+        "steps": 38.0
+      },
+      {
+        "start": [
+          40,
+          13
+        ],
+        "success": true,
+        "dose": 50.71768415710679,
+        "steps": 34.0
+      },
+      {
+        "start": [
+          49,
+          6
+        ],
+        "success": true,
+        "dose": 35.64574340457532,
+        "steps": 41.0
+      },
+      {
+        "start": [
+          31,
+          36
+        ],
+        "success": true,
+        "dose": 33.39579115753608,
+        "steps": 17.0
+      },
+      {
+        "start": [
+          17,
+          21
+        ],
+        "success": true,
+        "dose": 163.18093049133424,
+        "steps": 40.0
+      },
+      {
+        "start": [
+          47,
+          20
+        ],
+        "success": true,
+        "dose": 26.236891721613222,
+        "steps": 27.0
+      },
+      {
+        "start": [
+          6,
+          27
+        ],
+        "success": true,
+        "dose": 73.47196337242474,
+        "steps": 42.0
+      },
+      {
+        "start": [
+          22,
+          17
+        ],
+        "success": true,
+        "dose": 159.58012765471815,
+        "steps": 36.0
+      },
+      {
+        "start": [
+          18,
+          48
+        ],
+        "success": true,
+        "dose": 21.928039975698578,
+        "steps": 29.0
+      },
+      {
+        "start": [
+          29,
+          15
+        ],
+        "success": true,
+        "dose": 121.97575668968524,
+        "steps": 32.0
+      },
+      {
+        "start": [
+          29,
+          31
+        ],
+        "success": true,
+        "dose": 118.1665040212695,
+        "steps": 22.0
+      },
+      {
+        "start": [
+          41,
+          22
+        ],
+        "success": true,
+        "dose": 36.838836190520425,
+        "steps": 25.0
+      },
+      {
+        "start": [
+          34,
+          1
+        ],
+        "success": true,
+        "dose": 82.5626851024904,
+        "steps": 46.0
+      },
+      {
+        "start": [
+          14,
+          19
+        ],
+        "success": true,
+        "dose": 204.70709213037046,
+        "steps": 42.0
+      },
+      {
+        "start": [
+          34,
+          29
+        ],
+        "success": true,
+        "dose": 87.05288447579379,
+        "steps": 23.0
+      },
+      {
+        "start": [
+          45,
+          2
+        ],
+        "success": true,
+        "dose": 44.20788332071106,
+        "steps": 45.0
+      },
+      {
+        "start": [
+          29,
+          19
+        ],
+        "success": true,
+        "dose": 105.12740480616132,
+        "steps": 28.0
+      },
+      {
+        "start": [
+          43,
+          9
+        ],
+        "success": true,
+        "dose": 47.68796749296397,
+        "steps": 38.0
+      },
+      {
+        "start": [
+          45,
+          19
+        ],
+        "success": true,
+        "dose": 33.64228073467612,
+        "steps": 28.0
+      },
+      {
+        "start": [
+          39,
+          0
+        ],
+        "success": true,
+        "dose": 65.24198453134343,
+        "steps": 47.0
+      },
+      {
+        "start": [
+          33,
+          29
+        ],
+        "success": true,
+        "dose": 127.2043775776276,
+        "steps": 24.0
+      },
+      {
+        "start": [
+          20,
+          38
+        ],
+        "success": true,
+        "dose": 38.101332482784045,
+        "steps": 27.0
+      },
+      {
+        "start": [
+          16,
+          8
+        ],
+        "success": true,
+        "dose": 233.19125954009326,
+        "steps": 42.0
+      },
+      {
+        "start": [
+          33,
+          22
+        ],
+        "success": true,
+        "dose": 84.5553188702602,
+        "steps": 25.0
+      },
+      {
+        "start": [
+          11,
+          9
+        ],
+        "success": true,
+        "dose": 263.39213035869204,
+        "steps": 47.0
+      },
+      {
+        "start": [
+          30,
+          14
+        ],
+        "success": true,
+        "dose": 102.20512008987767,
+        "steps": 33.0
+      }
+    ]
+  },
+  "astar_aware": {
+    "0.0": {
+      "lambda": 0.0,
+      "success_count": 50,
+      "total_starts": 50,
+      "success_rate": 1.0,
+      "mean_steps": 36.18,
+      "mean_dose": 119.14780991837388,
+      "planning_time_s": 0.4151890277862549,
+      "canonical": {
+        "success": true,
+        "steps": 56.0,
+        "dose": 281.8799973864778
+      },
+      "paired_with_shortest": {
+        "n_pairs": 50,
+        "mean_dose_diff": 0.0,
+        "mean_step_diff": 0.0
+      },
+      "per_start": [
+        {
+          "start": [
+            31,
+            18
+          ],
+          "success": true,
+          "dose": 89.89686009809019,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            7,
+            6
+          ],
+          "success": true,
+          "dose": 268.3890457038953,
+          "steps": 51.0
+        },
+        {
+          "start": [
+            17,
+            25
+          ],
+          "success": true,
+          "dose": 93.3821849249766,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            32,
+            2
+          ],
+          "success": true,
+          "dose": 103.80254287409723,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            37,
+            22
+          ],
+          "success": true,
+          "dose": 56.14590133954133,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            7,
+            7
+          ],
+          "success": true,
+          "dose": 274.4555022778913,
+          "steps": 51.0
+        },
+        {
+          "start": [
+            7,
+            44
+          ],
+          "success": true,
+          "dose": 37.93338541894535,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            20,
+            9
+          ],
+          "success": true,
+          "dose": 287.52773837120645,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            10,
+            42
+          ],
+          "success": true,
+          "dose": 35.037060941091994,
+          "steps": 37.0
+        },
+        {
+          "start": [
+            24,
+            4
+          ],
+          "success": true,
+          "dose": 178.9045031498648,
+          "steps": 43.0
+        },
+        {
+          "start": [
+            26,
+            3
+          ],
+          "success": true,
+          "dose": 163.14593829922956,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            22,
+            0
+          ],
+          "success": true,
+          "dose": 165.77105044158859,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            30,
+            30
+          ],
+          "success": true,
+          "dose": 189.78428640909928,
+          "steps": 23.0
+        },
+        {
+          "start": [
+            28,
+            14
+          ],
+          "success": true,
+          "dose": 129.1464731607878,
+          "steps": 33.0
+        },
+        {
+          "start": [
+            29,
+            22
+          ],
+          "success": true,
+          "dose": 152.4696018561656,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            32,
+            7
+          ],
+          "success": true,
+          "dose": 98.16453397135417,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            8,
+            6
+          ],
+          "success": true,
+          "dose": 269.4736610091561,
+          "steps": 50.0
+        },
+        {
+          "start": [
+            42,
+            11
+          ],
+          "success": true,
+          "dose": 46.290392911671184,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            25,
+            15
+          ],
+          "success": true,
+          "dose": 134.9415384394788,
+          "steps": 33.0
+        },
+        {
+          "start": [
+            4,
+            9
+          ],
+          "success": true,
+          "dose": 249.19012560600086,
+          "steps": 52.0
+        },
+        {
+          "start": [
+            22,
+            40
+          ],
+          "success": true,
+          "dose": 33.417883660021865,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            17,
+            2
+          ],
+          "success": true,
+          "dose": 340.9414637043335,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            39,
+            5
+          ],
+          "success": true,
+          "dose": 65.06896801359343,
+          "steps": 42.0
+        },
+        {
+          "start": [
+            31,
+            9
+          ],
+          "success": true,
+          "dose": 94.64129791355283,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            9,
+            39
+          ],
+          "success": true,
+          "dose": 39.45056507273188,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            40,
+            13
+          ],
+          "success": true,
+          "dose": 50.71768415710679,
+          "steps": 34.0
+        },
+        {
+          "start": [
+            49,
+            6
+          ],
+          "success": true,
+          "dose": 35.64574340457532,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            31,
+            36
+          ],
+          "success": true,
+          "dose": 33.39579115753608,
+          "steps": 17.0
+        },
+        {
+          "start": [
+            17,
+            21
+          ],
+          "success": true,
+          "dose": 163.18093049133424,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            47,
+            20
+          ],
+          "success": true,
+          "dose": 26.236891721613222,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            6,
+            27
+          ],
+          "success": true,
+          "dose": 73.47196337242474,
+          "steps": 42.0
+        },
+        {
+          "start": [
+            22,
+            17
+          ],
+          "success": true,
+          "dose": 159.58012765471815,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            18,
+            48
+          ],
+          "success": true,
+          "dose": 21.928039975698578,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            29,
+            15
+          ],
+          "success": true,
+          "dose": 121.97575668968524,
+          "steps": 32.0
+        },
+        {
+          "start": [
+            29,
+            31
+          ],
+          "success": true,
+          "dose": 118.1665040212695,
+          "steps": 22.0
+        },
+        {
+          "start": [
+            41,
+            22
+          ],
+          "success": true,
+          "dose": 36.838836190520425,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            34,
+            1
+          ],
+          "success": true,
+          "dose": 82.5626851024904,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            14,
+            19
+          ],
+          "success": true,
+          "dose": 204.70709213037046,
+          "steps": 42.0
+        },
+        {
+          "start": [
+            34,
+            29
+          ],
+          "success": true,
+          "dose": 87.05288447579379,
+          "steps": 23.0
+        },
+        {
+          "start": [
+            45,
+            2
+          ],
+          "success": true,
+          "dose": 44.20788332071106,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            29,
+            19
+          ],
+          "success": true,
+          "dose": 105.12740480616132,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            43,
+            9
+          ],
+          "success": true,
+          "dose": 47.68796749296397,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            45,
+            19
+          ],
+          "success": true,
+          "dose": 33.64228073467612,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            39,
+            0
+          ],
+          "success": true,
+          "dose": 65.24198453134343,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            33,
+            29
+          ],
+          "success": true,
+          "dose": 127.2043775776276,
+          "steps": 24.0
+        },
+        {
+          "start": [
+            20,
+            38
+          ],
+          "success": true,
+          "dose": 38.101332482784045,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            16,
+            8
+          ],
+          "success": true,
+          "dose": 233.19125954009326,
+          "steps": 42.0
+        },
+        {
+          "start": [
+            33,
+            22
+          ],
+          "success": true,
+          "dose": 84.5553188702602,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            11,
+            9
+          ],
+          "success": true,
+          "dose": 263.39213035869204,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            30,
+            14
+          ],
+          "success": true,
+          "dose": 102.20512008987767,
+          "steps": 33.0
+        }
+      ]
+    },
+    "0.5": {
+      "lambda": 0.5,
+      "success_count": 50,
+      "total_starts": 50,
+      "success_rate": 1.0,
+      "mean_steps": 40.86,
+      "mean_dose": 59.11118565320174,
+      "planning_time_s": 1.3917183876037598,
+      "canonical": {
+        "success": true,
+        "steps": 70.0,
+        "dose": 69.64468715055108
+      },
+      "paired_with_shortest": {
+        "n_pairs": 50,
+        "mean_dose_diff": -60.03662426517213,
+        "mean_step_diff": 4.68
+      },
+      "per_start": [
+        {
+          "start": [
+            31,
+            18
+          ],
+          "success": true,
+          "dose": 58.95786640810486,
+          "steps": 35.0
+        },
+        {
+          "start": [
+            7,
+            6
+          ],
+          "success": true,
+          "dose": 71.78294106589347,
+          "steps": 66.0
+        },
+        {
+          "start": [
+            17,
+            25
+          ],
+          "success": true,
+          "dose": 66.58434525448452,
+          "steps": 39.0
+        },
+        {
+          "start": [
+            32,
+            2
+          ],
+          "success": true,
+          "dose": 52.57661523743852,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            37,
+            22
+          ],
+          "success": true,
+          "dose": 41.307550931603174,
+          "steps": 26.0
+        },
+        {
+          "start": [
+            7,
+            7
+          ],
+          "success": true,
+          "dose": 73.81133055813001,
+          "steps": 64.0
+        },
+        {
+          "start": [
+            7,
+            44
+          ],
+          "success": true,
+          "dose": 29.14236687942161,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            20,
+            9
+          ],
+          "success": true,
+          "dose": 92.71527632356403,
+          "steps": 57.0
+        },
+        {
+          "start": [
+            10,
+            42
+          ],
+          "success": true,
+          "dose": 30.34128114963626,
+          "steps": 37.0
+        },
+        {
+          "start": [
+            24,
+            4
+          ],
+          "success": true,
+          "dose": 70.0664623348087,
+          "steps": 52.0
+        },
+        {
+          "start": [
+            26,
+            3
+          ],
+          "success": true,
+          "dose": 62.680629254565275,
+          "steps": 51.0
+        },
+        {
+          "start": [
+            22,
+            0
+          ],
+          "success": true,
+          "dose": 65.33113535660058,
+          "steps": 56.0
+        },
+        {
+          "start": [
+            30,
+            30
+          ],
+          "success": true,
+          "dose": 99.06887026892784,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            28,
+            14
+          ],
+          "success": true,
+          "dose": 76.70388336674948,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            29,
+            22
+          ],
+          "success": true,
+          "dose": 74.1268676504012,
+          "steps": 34.0
+        },
+        {
+          "start": [
+            32,
+            7
+          ],
+          "success": true,
+          "dose": 55.945889597294325,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            8,
+            6
+          ],
+          "success": true,
+          "dose": 75.26597557074629,
+          "steps": 65.0
+        },
+        {
+          "start": [
+            42,
+            11
+          ],
+          "success": true,
+          "dose": 34.869928333560495,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            25,
+            15
+          ],
+          "success": true,
+          "dose": 100.53262772305008,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            4,
+            9
+          ],
+          "success": true,
+          "dose": 67.85460209465543,
+          "steps": 63.0
+        },
+        {
+          "start": [
+            22,
+            40
+          ],
+          "success": true,
+          "dose": 26.109782890929548,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            17,
+            2
+          ],
+          "success": true,
+          "dose": 74.03773607561473,
+          "steps": 61.0
+        },
+        {
+          "start": [
+            39,
+            5
+          ],
+          "success": true,
+          "dose": 38.81368542612067,
+          "steps": 42.0
+        },
+        {
+          "start": [
+            31,
+            9
+          ],
+          "success": true,
+          "dose": 59.81670836975677,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            9,
+            39
+          ],
+          "success": true,
+          "dose": 32.67908573737252,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            40,
+            13
+          ],
+          "success": true,
+          "dose": 36.0726974646273,
+          "steps": 34.0
+        },
+        {
+          "start": [
+            49,
+            6
+          ],
+          "success": true,
+          "dose": 32.435785686082504,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            31,
+            36
+          ],
+          "success": true,
+          "dose": 31.943411132667382,
+          "steps": 17.0
+        },
+        {
+          "start": [
+            17,
+            21
+          ],
+          "success": true,
+          "dose": 110.47249610909043,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            47,
+            20
+          ],
+          "success": true,
+          "dose": 24.57691901670167,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            6,
+            27
+          ],
+          "success": true,
+          "dose": 48.2307638220997,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            22,
+            17
+          ],
+          "success": true,
+          "dose": 117.36861047851649,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            18,
+            48
+          ],
+          "success": true,
+          "dose": 21.928039975698578,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            29,
+            15
+          ],
+          "success": true,
+          "dose": 69.22047091739938,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            29,
+            31
+          ],
+          "success": true,
+          "dose": 74.18147854176871,
+          "steps": 24.0
+        },
+        {
+          "start": [
+            41,
+            22
+          ],
+          "success": true,
+          "dose": 30.233954078940993,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            34,
+            1
+          ],
+          "success": true,
+          "dose": 46.2457557717538,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            14,
+            19
+          ],
+          "success": true,
+          "dose": 82.68506842577636,
+          "steps": 52.0
+        },
+        {
+          "start": [
+            34,
+            29
+          ],
+          "success": true,
+          "dose": 75.3928717275896,
+          "steps": 23.0
+        },
+        {
+          "start": [
+            45,
+            2
+          ],
+          "success": true,
+          "dose": 35.663702292639954,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            29,
+            19
+          ],
+          "success": true,
+          "dose": 67.86485752745554,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            43,
+            9
+          ],
+          "success": true,
+          "dose": 33.430991685641814,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            45,
+            19
+          ],
+          "success": true,
+          "dose": 28.220891774750072,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            39,
+            0
+          ],
+          "success": true,
+          "dose": 39.94091959704227,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            33,
+            29
+          ],
+          "success": true,
+          "dose": 100.98063769370115,
+          "steps": 24.0
+        },
+        {
+          "start": [
+            20,
+            38
+          ],
+          "success": true,
+          "dose": 30.414867632523812,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            16,
+            8
+          ],
+          "success": true,
+          "dose": 89.07674349462235,
+          "steps": 61.0
+        },
+        {
+          "start": [
+            33,
+            22
+          ],
+          "success": true,
+          "dose": 55.6881640851296,
+          "steps": 30.0
+        },
+        {
+          "start": [
+            11,
+            9
+          ],
+          "success": true,
+          "dose": 78.06736419779753,
+          "steps": 62.0
+        },
+        {
+          "start": [
+            30,
+            14
+          ],
+          "success": true,
+          "dose": 64.09837567063968,
+          "steps": 38.0
+        }
+      ]
+    },
+    "1.0": {
+      "lambda": 1.0,
+      "success_count": 50,
+      "total_starts": 50,
+      "success_rate": 1.0,
+      "mean_steps": 42.9,
+      "mean_dose": 55.6834656634539,
+      "planning_time_s": 1.6291093826293945,
+      "canonical": {
+        "success": true,
+        "steps": 76.0,
+        "dose": 59.73379578115225
+      },
+      "paired_with_shortest": {
+        "n_pairs": 50,
+        "mean_dose_diff": -63.46434425491998,
+        "mean_step_diff": 6.72
+      },
+      "per_start": [
+        {
+          "start": [
+            31,
+            18
+          ],
+          "success": true,
+          "dose": 56.62547316790815,
+          "steps": 37.0
+        },
+        {
+          "start": [
+            7,
+            6
+          ],
+          "success": true,
+          "dose": 62.01349849666251,
+          "steps": 71.0
+        },
+        {
+          "start": [
+            17,
+            25
+          ],
+          "success": true,
+          "dose": 64.73476620389177,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            32,
+            2
+          ],
+          "success": true,
+          "dose": 48.21034363894602,
+          "steps": 48.0
+        },
+        {
+          "start": [
+            37,
+            22
+          ],
+          "success": true,
+          "dose": 40.390973547935616,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            7,
+            7
+          ],
+          "success": true,
+          "dose": 61.532288938919635,
+          "steps": 70.0
+        },
+        {
+          "start": [
+            7,
+            44
+          ],
+          "success": true,
+          "dose": 27.707609072697974,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            20,
+            9
+          ],
+          "success": true,
+          "dose": 84.68912123669834,
+          "steps": 62.0
+        },
+        {
+          "start": [
+            10,
+            42
+          ],
+          "success": true,
+          "dose": 27.584618831104425,
+          "steps": 37.0
+        },
+        {
+          "start": [
+            24,
+            4
+          ],
+          "success": true,
+          "dose": 63.91103170948575,
+          "steps": 56.0
+        },
+        {
+          "start": [
+            26,
+            3
+          ],
+          "success": true,
+          "dose": 58.767986152160034,
+          "steps": 54.0
+        },
+        {
+          "start": [
+            22,
+            0
+          ],
+          "success": true,
+          "dose": 60.09627156350751,
+          "steps": 60.0
+        },
+        {
+          "start": [
+            30,
+            30
+          ],
+          "success": true,
+          "dose": 97.27465935866114,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            28,
+            14
+          ],
+          "success": true,
+          "dose": 72.39944095142397,
+          "steps": 43.0
+        },
+        {
+          "start": [
+            29,
+            22
+          ],
+          "success": true,
+          "dose": 71.62301945644413,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            32,
+            7
+          ],
+          "success": true,
+          "dose": 50.21952308416753,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            8,
+            6
+          ],
+          "success": true,
+          "dose": 62.98693395153592,
+          "steps": 71.0
+        },
+        {
+          "start": [
+            42,
+            11
+          ],
+          "success": true,
+          "dose": 33.2763187256809,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            25,
+            15
+          ],
+          "success": true,
+          "dose": 97.83267902206406,
+          "steps": 43.0
+        },
+        {
+          "start": [
+            4,
+            9
+          ],
+          "success": true,
+          "dose": 58.08515952542449,
+          "steps": 68.0
+        },
+        {
+          "start": [
+            22,
+            40
+          ],
+          "success": true,
+          "dose": 26.109782890929548,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            17,
+            2
+          ],
+          "success": true,
+          "dose": 67.5587375407852,
+          "steps": 65.0
+        },
+        {
+          "start": [
+            39,
+            5
+          ],
+          "success": true,
+          "dose": 38.81368542612067,
+          "steps": 42.0
+        },
+        {
+          "start": [
+            31,
+            9
+          ],
+          "success": true,
+          "dose": 53.66683814243303,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            9,
+            39
+          ],
+          "success": true,
+          "dose": 30.123305476461777,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            40,
+            13
+          ],
+          "success": true,
+          "dose": 34.7963182709013,
+          "steps": 34.0
+        },
+        {
+          "start": [
+            49,
+            6
+          ],
+          "success": true,
+          "dose": 32.435785686082504,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            31,
+            36
+          ],
+          "success": true,
+          "dose": 31.943411132667382,
+          "steps": 17.0
+        },
+        {
+          "start": [
+            17,
+            21
+          ],
+          "success": true,
+          "dose": 107.8886327726248,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            47,
+            20
+          ],
+          "success": true,
+          "dose": 23.300539822975654,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            6,
+            27
+          ],
+          "success": true,
+          "dose": 43.09238813697056,
+          "steps": 48.0
+        },
+        {
+          "start": [
+            22,
+            17
+          ],
+          "success": true,
+          "dose": 114.66866177753047,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            18,
+            48
+          ],
+          "success": true,
+          "dose": 20.795700817469243,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            29,
+            15
+          ],
+          "success": true,
+          "dose": 64.83459838325436,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            29,
+            31
+          ],
+          "success": true,
+          "dose": 72.38726763150201,
+          "steps": 26.0
+        },
+        {
+          "start": [
+            41,
+            22
+          ],
+          "success": true,
+          "dose": 30.233954078940993,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            34,
+            1
+          ],
+          "success": true,
+          "dose": 45.56744954951537,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            14,
+            19
+          ],
+          "success": true,
+          "dose": 77.39487804255471,
+          "steps": 56.0
+        },
+        {
+          "start": [
+            34,
+            29
+          ],
+          "success": true,
+          "dose": 75.3928717275896,
+          "steps": 23.0
+        },
+        {
+          "start": [
+            45,
+            2
+          ],
+          "success": true,
+          "dose": 35.663702292639954,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            29,
+            19
+          ],
+          "success": true,
+          "dose": 65.41358818877536,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            43,
+            9
+          ],
+          "success": true,
+          "dose": 33.430991685641814,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            45,
+            19
+          ],
+          "success": true,
+          "dose": 25.470449444476806,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            39,
+            0
+          ],
+          "success": true,
+          "dose": 39.94091959704227,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            33,
+            29
+          ],
+          "success": true,
+          "dose": 100.98063769370115,
+          "steps": 24.0
+        },
+        {
+          "start": [
+            20,
+            38
+          ],
+          "success": true,
+          "dose": 30.414867632523812,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            16,
+            8
+          ],
+          "success": true,
+          "dose": 78.89605177333853,
+          "steps": 67.0
+        },
+        {
+          "start": [
+            33,
+            22
+          ],
+          "success": true,
+          "dose": 54.771586701462056,
+          "steps": 31.0
+        },
+        {
+          "start": [
+            11,
+            9
+          ],
+          "success": true,
+          "dose": 68.43003096514984,
+          "steps": 67.0
+        },
+        {
+          "start": [
+            30,
+            14
+          ],
+          "success": true,
+          "dose": 59.793933255314165,
+          "steps": 41.0
+        }
+      ]
+    },
+    "2.5": {
+      "lambda": 2.5,
+      "success_count": 50,
+      "total_starts": 50,
+      "success_rate": 1.0,
+      "mean_steps": 45.04,
+      "mean_dose": 54.42185117759439,
+      "planning_time_s": 1.5824944972991943,
+      "canonical": {
+        "success": true,
+        "steps": 80.0,
+        "dose": 58.151241281774865
+      },
+      "paired_with_shortest": {
+        "n_pairs": 50,
+        "mean_dose_diff": -64.72595874077948,
+        "mean_step_diff": 8.86
+      },
+      "per_start": [
+        {
+          "start": [
+            31,
+            18
+          ],
+          "success": true,
+          "dose": 55.16378279544501,
+          "steps": 39.0
+        },
+        {
+          "start": [
+            7,
+            6
+          ],
+          "success": true,
+          "dose": 59.133853264768256,
+          "steps": 76.0
+        },
+        {
+          "start": [
+            17,
+            25
+          ],
+          "success": true,
+          "dose": 61.82318118974053,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            32,
+            2
+          ],
+          "success": true,
+          "dose": 46.92771775952807,
+          "steps": 51.0
+        },
+        {
+          "start": [
+            37,
+            22
+          ],
+          "success": true,
+          "dose": 38.417659989207266,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            7,
+            7
+          ],
+          "success": true,
+          "dose": 58.72483978131686,
+          "steps": 75.0
+        },
+        {
+          "start": [
+            7,
+            44
+          ],
+          "success": true,
+          "dose": 27.707609072697974,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            20,
+            9
+          ],
+          "success": true,
+          "dose": 80.65764754244003,
+          "steps": 69.0
+        },
+        {
+          "start": [
+            10,
+            42
+          ],
+          "success": true,
+          "dose": 27.584618831104425,
+          "steps": 37.0
+        },
+        {
+          "start": [
+            24,
+            4
+          ],
+          "success": true,
+          "dose": 60.975582330314225,
+          "steps": 60.0
+        },
+        {
+          "start": [
+            26,
+            3
+          ],
+          "success": true,
+          "dose": 56.34701417760899,
+          "steps": 58.0
+        },
+        {
+          "start": [
+            22,
+            0
+          ],
+          "success": true,
+          "dose": 58.993821815412566,
+          "steps": 63.0
+        },
+        {
+          "start": [
+            30,
+            30
+          ],
+          "success": true,
+          "dose": 96.92922222187005,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            28,
+            14
+          ],
+          "success": true,
+          "dose": 71.67103534177718,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            29,
+            22
+          ],
+          "success": true,
+          "dose": 69.5122428039419,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            32,
+            7
+          ],
+          "success": true,
+          "dose": 49.00531259107684,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            8,
+            6
+          ],
+          "success": true,
+          "dose": 60.17948479393315,
+          "steps": 76.0
+        },
+        {
+          "start": [
+            42,
+            11
+          ],
+          "success": true,
+          "dose": 33.2763187256809,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            25,
+            15
+          ],
+          "success": true,
+          "dose": 95.82482520289696,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            4,
+            9
+          ],
+          "success": true,
+          "dose": 55.20551429353023,
+          "steps": 73.0
+        },
+        {
+          "start": [
+            22,
+            40
+          ],
+          "success": true,
+          "dose": 25.56842269508444,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            17,
+            2
+          ],
+          "success": true,
+          "dose": 66.45628779269026,
+          "steps": 68.0
+        },
+        {
+          "start": [
+            39,
+            5
+          ],
+          "success": true,
+          "dose": 38.81368542612067,
+          "steps": 42.0
+        },
+        {
+          "start": [
+            31,
+            9
+          ],
+          "success": true,
+          "dose": 52.937889201101314,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            9,
+            39
+          ],
+          "success": true,
+          "dose": 30.123305476461777,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            40,
+            13
+          ],
+          "success": true,
+          "dose": 34.7963182709013,
+          "steps": 34.0
+        },
+        {
+          "start": [
+            49,
+            6
+          ],
+          "success": true,
+          "dose": 32.435785686082504,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            31,
+            36
+          ],
+          "success": true,
+          "dose": 31.943411132667382,
+          "steps": 17.0
+        },
+        {
+          "start": [
+            17,
+            21
+          ],
+          "success": true,
+          "dose": 105.18105211049554,
+          "steps": 50.0
+        },
+        {
+          "start": [
+            47,
+            20
+          ],
+          "success": true,
+          "dose": 23.300539822975654,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            6,
+            27
+          ],
+          "success": true,
+          "dose": 41.99167508944547,
+          "steps": 51.0
+        },
+        {
+          "start": [
+            22,
+            17
+          ],
+          "success": true,
+          "dose": 112.66080795836338,
+          "steps": 49.0
+        },
+        {
+          "start": [
+            18,
+            48
+          ],
+          "success": true,
+          "dose": 20.795700817469243,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            29,
+            15
+          ],
+          "success": true,
+          "dose": 64.00982597980841,
+          "steps": 43.0
+        },
+        {
+          "start": [
+            29,
+            31
+          ],
+          "success": true,
+          "dose": 72.04183049471092,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            41,
+            22
+          ],
+          "success": true,
+          "dose": 28.979557606324644,
+          "steps": 25.0
+        },
+        {
+          "start": [
+            34,
+            1
+          ],
+          "success": true,
+          "dose": 44.3748324317336,
+          "steps": 50.0
+        },
+        {
+          "start": [
+            14,
+            19
+          ],
+          "success": true,
+          "dose": 76.19363383338184,
+          "steps": 59.0
+        },
+        {
+          "start": [
+            34,
+            29
+          ],
+          "success": true,
+          "dose": 75.3928717275896,
+          "steps": 23.0
+        },
+        {
+          "start": [
+            45,
+            2
+          ],
+          "success": true,
+          "dose": 35.663702292639954,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            29,
+            19
+          ],
+          "success": true,
+          "dose": 63.948233233433825,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            43,
+            9
+          ],
+          "success": true,
+          "dose": 33.430991685641814,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            45,
+            19
+          ],
+          "success": true,
+          "dose": 25.470449444476806,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            39,
+            0
+          ],
+          "success": true,
+          "dose": 39.94091959704227,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            33,
+            29
+          ],
+          "success": true,
+          "dose": 99.39983405486802,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            20,
+            38
+          ],
+          "success": true,
+          "dose": 28.729474859363837,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            16,
+            8
+          ],
+          "success": true,
+          "dose": 77.2858785235779,
+          "steps": 71.0
+        },
+        {
+          "start": [
+            33,
+            22
+          ],
+          "success": true,
+          "dose": 52.7982731427337,
+          "steps": 33.0
+        },
+        {
+          "start": [
+            11,
+            9
+          ],
+          "success": true,
+          "dose": 63.30055632257493,
+          "steps": 76.0
+        },
+        {
+          "start": [
+            30,
+            14
+          ],
+          "success": true,
+          "dose": 59.06552764566736,
+          "steps": 43.0
+        }
+      ]
+    },
+    "5.0": {
+      "lambda": 5.0,
+      "success_count": 50,
+      "total_starts": 50,
+      "success_rate": 1.0,
+      "mean_steps": 46.12,
+      "mean_dose": 54.15841407695042,
+      "planning_time_s": 2.1514499187469482,
+      "canonical": {
+        "success": true,
+        "steps": 82.0,
+        "dose": 57.79632682659968
+      },
+      "paired_with_shortest": {
+        "n_pairs": 50,
+        "mean_dose_diff": -64.98939584142346,
+        "mean_step_diff": 9.94
+      },
+      "per_start": [
+        {
+          "start": [
+            31,
+            18
+          ],
+          "success": true,
+          "dose": 55.16378279544501,
+          "steps": 39.0
+        },
+        {
+          "start": [
+            7,
+            6
+          ],
+          "success": true,
+          "dose": 58.77893880959307,
+          "steps": 78.0
+        },
+        {
+          "start": [
+            17,
+            25
+          ],
+          "success": true,
+          "dose": 61.70361724082786,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            32,
+            2
+          ],
+          "success": true,
+          "dose": 46.72896915313801,
+          "steps": 52.0
+        },
+        {
+          "start": [
+            37,
+            22
+          ],
+          "success": true,
+          "dose": 38.22423726283212,
+          "steps": 30.0
+        },
+        {
+          "start": [
+            7,
+            7
+          ],
+          "success": true,
+          "dose": 58.36992532614168,
+          "steps": 77.0
+        },
+        {
+          "start": [
+            7,
+            44
+          ],
+          "success": true,
+          "dose": 27.707609072697974,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            20,
+            9
+          ],
+          "success": true,
+          "dose": 80.48882436228546,
+          "steps": 70.0
+        },
+        {
+          "start": [
+            10,
+            42
+          ],
+          "success": true,
+          "dose": 27.584618831104425,
+          "steps": 37.0
+        },
+        {
+          "start": [
+            24,
+            4
+          ],
+          "success": true,
+          "dose": 60.30327759891227,
+          "steps": 62.0
+        },
+        {
+          "start": [
+            26,
+            3
+          ],
+          "success": true,
+          "dose": 55.831607168547364,
+          "steps": 60.0
+        },
+        {
+          "start": [
+            22,
+            0
+          ],
+          "success": true,
+          "dose": 58.824998635258,
+          "steps": 64.0
+        },
+        {
+          "start": [
+            30,
+            30
+          ],
+          "success": true,
+          "dose": 96.81063033828275,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            28,
+            14
+          ],
+          "success": true,
+          "dose": 71.52664308312423,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            29,
+            22
+          ],
+          "success": true,
+          "dose": 68.88214217129027,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            32,
+            7
+          ],
+          "success": true,
+          "dose": 48.84991369365499,
+          "steps": 48.0
+        },
+        {
+          "start": [
+            8,
+            6
+          ],
+          "success": true,
+          "dose": 59.82457033875797,
+          "steps": 78.0
+        },
+        {
+          "start": [
+            42,
+            11
+          ],
+          "success": true,
+          "dose": 33.2763187256809,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            25,
+            15
+          ],
+          "success": true,
+          "dose": 95.82482520289696,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            4,
+            9
+          ],
+          "success": true,
+          "dose": 54.85059983835505,
+          "steps": 75.0
+        },
+        {
+          "start": [
+            22,
+            40
+          ],
+          "success": true,
+          "dose": 25.038301275072556,
+          "steps": 26.0
+        },
+        {
+          "start": [
+            17,
+            2
+          ],
+          "success": true,
+          "dose": 66.28746461253569,
+          "steps": 69.0
+        },
+        {
+          "start": [
+            39,
+            5
+          ],
+          "success": true,
+          "dose": 38.674775631118784,
+          "steps": 43.0
+        },
+        {
+          "start": [
+            31,
+            9
+          ],
+          "success": true,
+          "dose": 52.76326954891696,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            9,
+            39
+          ],
+          "success": true,
+          "dose": 30.123305476461777,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            40,
+            13
+          ],
+          "success": true,
+          "dose": 34.67414084466503,
+          "steps": 35.0
+        },
+        {
+          "start": [
+            49,
+            6
+          ],
+          "success": true,
+          "dose": 32.435785686082504,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            31,
+            36
+          ],
+          "success": true,
+          "dose": 31.943411132667382,
+          "steps": 17.0
+        },
+        {
+          "start": [
+            17,
+            21
+          ],
+          "success": true,
+          "dose": 104.99318338588407,
+          "steps": 51.0
+        },
+        {
+          "start": [
+            47,
+            20
+          ],
+          "success": true,
+          "dose": 23.300539822975654,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            6,
+            27
+          ],
+          "success": true,
+          "dose": 41.80421403641738,
+          "steps": 52.0
+        },
+        {
+          "start": [
+            22,
+            17
+          ],
+          "success": true,
+          "dose": 112.66080795836338,
+          "steps": 49.0
+        },
+        {
+          "start": [
+            18,
+            48
+          ],
+          "success": true,
+          "dose": 20.795700817469243,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            29,
+            15
+          ],
+          "success": true,
+          "dose": 63.838219339370276,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            29,
+            31
+          ],
+          "success": true,
+          "dose": 71.92323861112362,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            41,
+            22
+          ],
+          "success": true,
+          "dose": 28.7861348799495,
+          "steps": 26.0
+        },
+        {
+          "start": [
+            34,
+            1
+          ],
+          "success": true,
+          "dose": 44.190902539405684,
+          "steps": 51.0
+        },
+        {
+          "start": [
+            14,
+            19
+          ],
+          "success": true,
+          "dose": 75.59000266415454,
+          "steps": 61.0
+        },
+        {
+          "start": [
+            34,
+            29
+          ],
+          "success": true,
+          "dose": 75.3928717275896,
+          "steps": 23.0
+        },
+        {
+          "start": [
+            45,
+            2
+          ],
+          "success": true,
+          "dose": 35.663702292639954,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            29,
+            19
+          ],
+          "success": true,
+          "dose": 63.81080881659923,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            43,
+            9
+          ],
+          "success": true,
+          "dose": 33.430991685641814,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            45,
+            19
+          ],
+          "success": true,
+          "dose": 25.470449444476806,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            39,
+            0
+          ],
+          "success": true,
+          "dose": 39.94091959704227,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            33,
+            29
+          ],
+          "success": true,
+          "dose": 99.39983405486802,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            20,
+            38
+          ],
+          "success": true,
+          "dose": 28.55719368047608,
+          "steps": 30.0
+        },
+        {
+          "start": [
+            16,
+            8
+          ],
+          "success": true,
+          "dose": 72.40285696595369,
+          "steps": 84.0
+        },
+        {
+          "start": [
+            33,
+            22
+          ],
+          "success": true,
+          "dose": 52.60485041635855,
+          "steps": 34.0
+        },
+        {
+          "start": [
+            11,
+            9
+          ],
+          "success": true,
+          "dose": 62.94564186739975,
+          "steps": 78.0
+        },
+        {
+          "start": [
+            30,
+            14
+          ],
+          "success": true,
+          "dose": 58.92113538701442,
+          "steps": 44.0
+        }
+      ]
+    },
+    "10.0": {
+      "lambda": 10.0,
+      "success_count": 50,
+      "total_starts": 50,
+      "success_rate": 1.0,
+      "mean_steps": 46.78,
+      "mean_dose": 54.08620017618904,
+      "planning_time_s": 2.1423590183258057,
+      "canonical": {
+        "success": true,
+        "steps": 83.0,
+        "dose": 57.699937978447316
+      },
+      "paired_with_shortest": {
+        "n_pairs": 50,
+        "mean_dose_diff": -65.06160974218483,
+        "mean_step_diff": 10.6
+      },
+      "per_start": [
+        {
+          "start": [
+            31,
+            18
+          ],
+          "success": true,
+          "dose": 55.05194496188714,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            7,
+            6
+          ],
+          "success": true,
+          "dose": 58.6825499614407,
+          "steps": 79.0
+        },
+        {
+          "start": [
+            17,
+            25
+          ],
+          "success": true,
+          "dose": 61.70361724082786,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            32,
+            2
+          ],
+          "success": true,
+          "dose": 46.61669756169425,
+          "steps": 53.0
+        },
+        {
+          "start": [
+            37,
+            22
+          ],
+          "success": true,
+          "dose": 38.22423726283212,
+          "steps": 30.0
+        },
+        {
+          "start": [
+            7,
+            7
+          ],
+          "success": true,
+          "dose": 58.27353647798931,
+          "steps": 78.0
+        },
+        {
+          "start": [
+            7,
+            44
+          ],
+          "success": true,
+          "dose": 27.707609072697974,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            20,
+            9
+          ],
+          "success": true,
+          "dose": 80.39631064690461,
+          "steps": 71.0
+        },
+        {
+          "start": [
+            10,
+            42
+          ],
+          "success": true,
+          "dose": 27.584618831104425,
+          "steps": 37.0
+        },
+        {
+          "start": [
+            24,
+            4
+          ],
+          "success": true,
+          "dose": 60.21076388353143,
+          "steps": 63.0
+        },
+        {
+          "start": [
+            26,
+            3
+          ],
+          "success": true,
+          "dose": 55.739093453166525,
+          "steps": 61.0
+        },
+        {
+          "start": [
+            22,
+            0
+          ],
+          "success": true,
+          "dose": 58.73248491987716,
+          "steps": 65.0
+        },
+        {
+          "start": [
+            30,
+            30
+          ],
+          "success": true,
+          "dose": 96.81063033828275,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            28,
+            14
+          ],
+          "success": true,
+          "dose": 71.52664308312423,
+          "steps": 46.0
+        },
+        {
+          "start": [
+            29,
+            22
+          ],
+          "success": true,
+          "dose": 68.88214217129027,
+          "steps": 40.0
+        },
+        {
+          "start": [
+            32,
+            7
+          ],
+          "success": true,
+          "dose": 48.787968575879425,
+          "steps": 49.0
+        },
+        {
+          "start": [
+            8,
+            6
+          ],
+          "success": true,
+          "dose": 59.65051214895355,
+          "steps": 80.0
+        },
+        {
+          "start": [
+            42,
+            11
+          ],
+          "success": true,
+          "dose": 33.2763187256809,
+          "steps": 36.0
+        },
+        {
+          "start": [
+            25,
+            15
+          ],
+          "success": true,
+          "dose": 95.73802836114852,
+          "steps": 47.0
+        },
+        {
+          "start": [
+            4,
+            9
+          ],
+          "success": true,
+          "dose": 54.75421099020268,
+          "steps": 76.0
+        },
+        {
+          "start": [
+            22,
+            40
+          ],
+          "success": true,
+          "dose": 24.973878245470218,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            17,
+            2
+          ],
+          "success": true,
+          "dose": 66.19495089715484,
+          "steps": 70.0
+        },
+        {
+          "start": [
+            39,
+            5
+          ],
+          "success": true,
+          "dose": 38.674775631118784,
+          "steps": 43.0
+        },
+        {
+          "start": [
+            31,
+            9
+          ],
+          "success": true,
+          "dose": 52.69027836965759,
+          "steps": 48.0
+        },
+        {
+          "start": [
+            9,
+            39
+          ],
+          "success": true,
+          "dose": 30.0361789194824,
+          "steps": 39.0
+        },
+        {
+          "start": [
+            40,
+            13
+          ],
+          "success": true,
+          "dose": 34.67414084466503,
+          "steps": 35.0
+        },
+        {
+          "start": [
+            49,
+            6
+          ],
+          "success": true,
+          "dose": 32.435785686082504,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            31,
+            36
+          ],
+          "success": true,
+          "dose": 31.88245253091687,
+          "steps": 18.0
+        },
+        {
+          "start": [
+            17,
+            21
+          ],
+          "success": true,
+          "dose": 104.905829086553,
+          "steps": 52.0
+        },
+        {
+          "start": [
+            47,
+            20
+          ],
+          "success": true,
+          "dose": 23.300539822975654,
+          "steps": 27.0
+        },
+        {
+          "start": [
+            6,
+            27
+          ],
+          "success": true,
+          "dose": 41.68751422946244,
+          "steps": 53.0
+        },
+        {
+          "start": [
+            22,
+            17
+          ],
+          "success": true,
+          "dose": 112.57401111661494,
+          "steps": 50.0
+        },
+        {
+          "start": [
+            18,
+            48
+          ],
+          "success": true,
+          "dose": 20.795700817469243,
+          "steps": 29.0
+        },
+        {
+          "start": [
+            29,
+            15
+          ],
+          "success": true,
+          "dose": 63.838219339370276,
+          "steps": 44.0
+        },
+        {
+          "start": [
+            29,
+            31
+          ],
+          "success": true,
+          "dose": 71.92323861112362,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            41,
+            22
+          ],
+          "success": true,
+          "dose": 28.7861348799495,
+          "steps": 26.0
+        },
+        {
+          "start": [
+            34,
+            1
+          ],
+          "success": true,
+          "dose": 44.088363165942596,
+          "steps": 52.0
+        },
+        {
+          "start": [
+            14,
+            19
+          ],
+          "success": true,
+          "dose": 74.92120923485716,
+          "steps": 65.0
+        },
+        {
+          "start": [
+            34,
+            29
+          ],
+          "success": true,
+          "dose": 75.3928717275896,
+          "steps": 23.0
+        },
+        {
+          "start": [
+            45,
+            2
+          ],
+          "success": true,
+          "dose": 35.663702292639954,
+          "steps": 45.0
+        },
+        {
+          "start": [
+            29,
+            19
+          ],
+          "success": true,
+          "dose": 63.81080881659923,
+          "steps": 41.0
+        },
+        {
+          "start": [
+            43,
+            9
+          ],
+          "success": true,
+          "dose": 33.430991685641814,
+          "steps": 38.0
+        },
+        {
+          "start": [
+            45,
+            19
+          ],
+          "success": true,
+          "dose": 25.470449444476806,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            39,
+            0
+          ],
+          "success": true,
+          "dose": 39.84840588166142,
+          "steps": 48.0
+        },
+        {
+          "start": [
+            33,
+            29
+          ],
+          "success": true,
+          "dose": 99.1598437529892,
+          "steps": 28.0
+        },
+        {
+          "start": [
+            20,
+            38
+          ],
+          "success": true,
+          "dose": 28.55719368047608,
+          "steps": 30.0
+        },
+        {
+          "start": [
+            16,
+            8
+          ],
+          "success": true,
+          "dose": 72.20766091977376,
+          "steps": 86.0
+        },
+        {
+          "start": [
+            33,
+            22
+          ],
+          "success": true,
+          "dose": 52.37153197889642,
+          "steps": 35.0
+        },
+        {
+          "start": [
+            11,
+            9
+          ],
+          "success": true,
+          "dose": 62.74229314431057,
+          "steps": 80.0
+        },
+        {
+          "start": [
+            30,
+            14
+          ],
+          "success": true,
+          "dose": 58.92113538701442,
+          "steps": 44.0
+        }
+      ]
+    }
+  }
+}
