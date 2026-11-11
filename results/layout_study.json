@@ -1,0 +1,648 @@
+{
+  "metadata": {
+    "layout_seeds": [
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109
+    ],
+    "num_starts_per_layout": 50,
+    "lambda_rad": 2.5,
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 42
+  },
+  "layouts": {
+    "100": {
+      "seed": 100,
+      "wall_fraction": 0.17,
+      "sources": [
+        [
+          [
+            16,
+            46
+          ],
+          152.87197241123297
+        ],
+        [
+          [
+            42,
+            14
+          ],
+          146.96287105818664
+        ],
+        [
+          [
+            41,
+            18
+          ],
+          127.9869648298476
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 127.20991480543874,
+        "mean_steps": 37.92,
+        "canonical": {
+          "success": true,
+          "dose": 51.38102988041053,
+          "steps": 57.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 54.6137463434898,
+        "mean_steps": 41.84,
+        "canonical": {
+          "success": true,
+          "dose": 47.81665581681017,
+          "steps": 57.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -72.59616846194893,
+        "ci_95_dose_diff": [
+          -104.44091871403876,
+          -44.29739428635068
+        ],
+        "pct_dose_reduction": 57.06801122615417,
+        "mean_step_diff": 3.92,
+        "ci_95_step_diff": [
+          2.06,
+          6.06
+        ]
+      }
+    },
+    "101": {
+      "seed": 101,
+      "wall_fraction": 0.1408,
+      "sources": [
+        [
+          [
+            48,
+            43
+          ],
+          165.51495000549787
+        ],
+        [
+          [
+            44,
+            36
+          ],
+          146.24486224972898
+        ],
+        [
+          [
+            34,
+            29
+          ],
+          178.29914243248743
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 302.1761828048373,
+        "mean_steps": 34.28,
+        "canonical": {
+          "success": true,
+          "dose": 195.04119314590486,
+          "steps": 49.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 138.3440539935312,
+        "mean_steps": 57.44,
+        "canonical": {
+          "success": true,
+          "dose": 129.64027650117546,
+          "steps": 82.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -163.83212881130612,
+        "ci_95_dose_diff": [
+          -202.08451061966775,
+          -129.9644160226256
+        ],
+        "pct_dose_reduction": 54.21741954994458,
+        "mean_step_diff": 23.16,
+        "ci_95_step_diff": [
+          17.92,
+          28.800499999999992
+        ]
+      }
+    },
+    "102": {
+      "seed": 102,
+      "wall_fraction": 0.1168,
+      "sources": [
+        [
+          [
+            4,
+            49
+          ],
+          144.21283070390854
+        ],
+        [
+          [
+            19,
+            33
+          ],
+          162.46979855254753
+        ],
+        [
+          [
+            8,
+            38
+          ],
+          179.19546619751748
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 60.33636548105216,
+        "mean_steps": 34.52,
+        "canonical": {
+          "success": true,
+          "dose": 48.46970788382021,
+          "steps": 57.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 33.887292808305304,
+        "mean_steps": 45.06,
+        "canonical": {
+          "success": true,
+          "dose": 27.819749161762815,
+          "steps": 76.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -26.44907267274685,
+        "ci_95_dose_diff": [
+          -42.30541648620513,
+          -15.350807627470914
+        ],
+        "pct_dose_reduction": 43.836038949102495,
+        "mean_step_diff": 10.54,
+        "ci_95_step_diff": [
+          6.82,
+          14.88
+        ]
+      }
+    },
+    "103": {
+      "seed": 103,
+      "wall_fraction": 0.1452,
+      "sources": [
+        [
+          [
+            2,
+            7
+          ],
+          181.68695347438643
+        ],
+        [
+          [
+            12,
+            9
+          ],
+          128.87881189307967
+        ],
+        [
+          [
+            18,
+            20
+          ],
+          190.37829964222368
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 106.87483160595067,
+        "mean_steps": 37.3,
+        "canonical": {
+          "success": true,
+          "dose": 534.0433809324924,
+          "steps": 45.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 35.28859015742594,
+        "mean_steps": 47.0,
+        "canonical": {
+          "success": true,
+          "dose": 100.06622182709006,
+          "steps": 83.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -71.58624144852473,
+        "ci_95_dose_diff": [
+          -104.83226659604512,
+          -42.82629584010282
+        ],
+        "pct_dose_reduction": 66.98138408532368,
+        "mean_step_diff": 9.7,
+        "ci_95_step_diff": [
+          6.24,
+          13.46
+        ]
+      }
+    },
+    "104": {
+      "seed": 104,
+      "wall_fraction": 0.13,
+      "sources": [
+        [
+          [
+            6,
+            26
+          ],
+          139.11399322807043
+        ],
+        [
+          [
+            6,
+            38
+          ],
+          159.5118585274066
+        ],
+        [
+          [
+            12,
+            29
+          ],
+          176.61543835480904
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 89.64457134922596,
+        "mean_steps": 37.26,
+        "canonical": {
+          "success": true,
+          "dose": 88.19898954511531,
+          "steps": 56.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 53.55634133322166,
+        "mean_steps": 43.68,
+        "canonical": {
+          "success": true,
+          "dose": 31.05426228939934,
+          "steps": 71.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -36.088230016004275,
+        "ci_95_dose_diff": [
+          -61.74393536084335,
+          -17.39371395069563
+        ],
+        "pct_dose_reduction": 40.25701665237077,
+        "mean_step_diff": 6.42,
+        "ci_95_step_diff": [
+          3.68,
+          9.72
+        ]
+      }
+    },
+    "105": {
+      "seed": 105,
+      "wall_fraction": 0.1768,
+      "sources": [
+        [
+          [
+            45,
+            17
+          ],
+          178.0867299858661
+        ],
+        [
+          [
+            18,
+            36
+          ],
+          174.20353287023858
+        ],
+        [
+          [
+            40,
+            17
+          ],
+          140.15981680686576
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 151.26380275534152,
+        "mean_steps": 39.04,
+        "canonical": {
+          "success": true,
+          "dose": 95.74828705140293,
+          "steps": 60.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 67.71017212080307,
+        "mean_steps": 47.8,
+        "canonical": {
+          "success": true,
+          "dose": 62.17348805920326,
+          "steps": 86.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -83.55363063453844,
+        "ci_95_dose_diff": [
+          -115.1131381391186,
+          -54.390849066727654
+        ],
+        "pct_dose_reduction": 55.23702902648859,
+        "mean_step_diff": 8.76,
+        "ci_95_step_diff": [
+          6.02,
+          11.76
+        ]
+      }
+    },
+    "106": {
+      "seed": 106,
+      "wall_fraction": 0.1568,
+      "sources": [
+        [
+          [
+            45,
+            24
+          ],
+          193.3798890608158
+        ],
+        [
+          [
+            44,
+            35
+          ],
+          197.52710923244854
+        ],
+        [
+          [
+            23,
+            9
+          ],
+          179.22680250222737
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 222.9735454055617,
+        "mean_steps": 37.36,
+        "canonical": {
+          "success": true,
+          "dose": 126.75836345142939,
+          "steps": 50.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 67.85404916686024,
+        "mean_steps": 49.44,
+        "canonical": {
+          "success": true,
+          "dose": 55.5036116023247,
+          "steps": 74.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -155.11949623870152,
+        "ci_95_dose_diff": [
+          -208.72281366703308,
+          -105.3685952159512
+        ],
+        "pct_dose_reduction": 69.56856516613126,
+        "mean_step_diff": 12.08,
+        "ci_95_step_diff": [
+          8.84,
+          15.540499999999993
+        ]
+      }
+    },
+    "107": {
+      "seed": 107,
+      "wall_fraction": 0.1184,
+      "sources": [
+        [
+          [
+            44,
+            7
+          ],
+          165.9127877032834
+        ],
+        [
+          [
+            13,
+            10
+          ],
+          154.95494588090014
+        ],
+        [
+          [
+            8,
+            0
+          ],
+          196.93676197226267
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 44.74485372756455,
+        "mean_steps": 35.16,
+        "canonical": {
+          "success": true,
+          "dose": 249.51287397097323,
+          "steps": 49.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 31.144545013024757,
+        "mean_steps": 37.0,
+        "canonical": {
+          "success": true,
+          "dose": 66.37291479646717,
+          "steps": 70.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -13.600308714539786,
+        "ci_95_dose_diff": [
+          -22.65457033992481,
+          -5.8342362125867835
+        ],
+        "pct_dose_reduction": 30.395246786026437,
+        "mean_step_diff": 1.84,
+        "ci_95_step_diff": [
+          0.72,
+          3.24
+        ]
+      }
+    },
+    "108": {
+      "seed": 108,
+      "wall_fraction": 0.188,
+      "sources": [
+        [
+          [
+            9,
+            40
+          ],
+          161.03370093854824
+        ],
+        [
+          [
+            42,
+            32
+          ],
+          191.96651425245506
+        ],
+        [
+          [
+            39,
+            16
+          ],
+          170.58336712687134
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 180.8164974104472,
+        "mean_steps": 34.3,
+        "canonical": {
+          "success": true,
+          "dose": 95.23460549753364,
+          "steps": 59.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 86.54606529351855,
+        "mean_steps": 39.46,
+        "canonical": {
+          "success": true,
+          "dose": 91.56351919808739,
+          "steps": 62.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -94.27043211692865,
+        "ci_95_dose_diff": [
+          -135.810492344744,
+          -59.70914267826229
+        ],
+        "pct_dose_reduction": 52.13596849126992,
+        "mean_step_diff": 5.16,
+        "ci_95_step_diff": [
+          4.2,
+          6.24
+        ]
+      }
+    },
+    "109": {
+      "seed": 109,
+      "wall_fraction": 0.1296,
+      "sources": [
+        [
+          [
+            49,
+            24
+          ],
+          170.81538529674748
+        ],
+        [
+          [
+            25,
+            21
+          ],
+          132.49161879096079
+        ],
+        [
+          [
+            41,
+            33
+          ],
+          123.98729327651066
+        ]
+      ],
+      "n_pairs": 50,
+      "shortest": {
+        "success_count": 50,
+        "mean_dose": 161.46204518584835,
+        "mean_steps": 37.62,
+        "canonical": {
+          "success": true,
+          "dose": 300.1496412119401,
+          "steps": 48.0
+        }
+      },
+      "aware": {
+        "success_count": 50,
+        "mean_dose": 42.275817336099905,
+        "mean_steps": 65.54,
+        "canonical": {
+          "success": true,
+          "dose": 40.334936825369745,
+          "steps": 84.0
+        }
+      },
+      "paired": {
+        "mean_dose_diff": -119.18622784974843,
+        "ci_95_dose_diff": [
+          -150.0919010773992,
+          -88.40189609378754
+        ],
+        "pct_dose_reduction": 73.81686991054833,
+        "mean_step_diff": 27.92,
+        "ci_95_step_diff": [
+          20.94,
+          35.28
+        ]
+      }
+    }
+  },
+  "pooled": {
+    "total_pairs": 500,
+    "mean_shortest_dose": 144.75026105312682,
+    "mean_aware_dose": 61.122067356628044,
+    "pct_dose_reduction": 57.77412288452124,
+    "mean_dose_diff": -83.62819369649878,
+    "ci_95_dose_diff": [
+      -94.53468498853607,
+      -73.18063793457993
+    ],
+    "mean_step_diff": 10.95,
+    "ci_95_step_diff": [
+      9.57,
+      12.36205
+    ]
+  }
+}
