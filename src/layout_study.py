@@ -26,7 +26,7 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.environment import START_CELL, GOAL_CELL, RadiationEnv
 from src.layouts import generate_random_layout, Layout
-from src.planners import astar_search
+from src.planners import astar_search, QLearningAgent
 from main import compute_free_space_distances
 
 
@@ -273,23 +273,122 @@ def format_layout_study_markdown(results: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
+def run_layout_qlearning(
+    layout_seeds: List[int] = LAYOUT_SEEDS,
+    out_dir: Path = REPO_ROOT / "results" / "layout_q",
+    episodes: int = 50000,
+    rl_seed: int = 0,
+    lambda_rad: float = 2.5,
+) -> None:
+    """Train Tabular Q-Learning on each procedural layout (1 seed, resumable).
+
+    Saves one JSON per layout to out_dir/layout_q_seed{layout_seed}.json.
+    """
+    out_dir.mkdir(parents=True, exist_ok=True)
+    total_layouts = len(layout_seeds)
+
+    for idx, l_seed in enumerate(layout_seeds):
+        filename = f"layout_q_seed{l_seed}.json"
+        filepath = out_dir / filename
+
+        if filepath.exists():
+            print(f"[{idx+1}/{total_layouts}] Skipping completed layout: {filename}")
+            continue
+
+        print(f"[{idx+1}/{total_layouts}] Training Q-learning on Layout {l_seed} (seed={rl_seed}, {episodes} eps)...")
+        layout = generate_random_layout(seed=l_seed)
+        env = layout.to_env()
+        starts = sample_layout_starts(env, num_starts=NUM_STARTS_PER_LAYOUT, seed=l_seed * 10 + 7)
+
+        q_agent = QLearningAgent(
+            env=env,
+            episodes=episodes,
+            alpha=0.15,
+            gamma=0.98,
+            lambda_rad=lambda_rad,
+        )
+        Q, ep_rewards, ep_doses, elapsed = q_agent.train(seed=rl_seed)
+
+        # Rollout on 50 starts
+        eval_runs = []
+        for s in starts:
+            path, outcome, dose, steps = q_agent.rollout(Q, start=s)
+            succ = outcome == "goal"
+            eval_runs.append({
+                "start": list(s),
+                "success": succ,
+                "outcome": outcome,
+                "dose": float(dose) if succ else None,
+                "steps": float(steps) if succ else None,
+            })
+
+        # Canonical route
+        c_path, c_outcome, c_dose, c_steps = q_agent.rollout(Q, start=START_CELL)
+        succ_runs = [r for r in eval_runs if r["success"]]
+
+        payload = {
+            "layout_seed": l_seed,
+            "wall_fraction": layout.wall_fraction,
+            "rl_seed": rl_seed,
+            "episodes": episodes,
+            "lambda_rad": lambda_rad,
+            "training_time_s": float(elapsed),
+            "success_count": len(succ_runs),
+            "total_starts": len(starts),
+            "success_rate": len(succ_runs) / len(starts),
+            "mean_steps": float(np.mean([r["steps"] for r in succ_runs])) if succ_runs else None,
+            "mean_dose": float(np.mean([r["dose"] for r in succ_runs])) if succ_runs else None,
+            "canonical": {
+                "success": c_outcome == "goal",
+                "outcome": c_outcome,
+                "steps": float(c_steps) if c_outcome == "goal" else None,
+                "dose": float(c_dose) if c_outcome == "goal" else None,
+            },
+            "per_start": eval_runs,
+        }
+
+        with open(filepath, "w", encoding="utf-8") as f:
+            json.dump(payload, f, indent=2)
+
+        print(f"     Saved {filename} (elapsed: {elapsed:.2f}s, succ: {len(succ_runs)}/50)")
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description="Multi-layout generalization study for A* and Q-learning.")
+    parser.add_argument("--qlearning", action="store_true", help="Run per-layout Q-learning (1 seed, resumable).")
+    parser.add_argument("--episodes", type=int, default=50000, help="Episodes per layout (default: 50000).")
+    parser.add_argument("--rl-seed", type=int, default=0, help="RL training seed (default: 0).")
+    args = parser.parse_args()
+
     results_dir = REPO_ROOT / "results"
     results_dir.mkdir(parents=True, exist_ok=True)
 
-    study_results = run_astar_layout_study()
+    if args.qlearning:
+        print("=" * 70)
+        print("Running Per-Layout Tabular Q-Learning Sweep (Resumable)")
+        print("=" * 70)
+        q_dir = results_dir / "layout_q"
+        run_layout_qlearning(
+            layout_seeds=LAYOUT_SEEDS,
+            out_dir=q_dir,
+            episodes=args.episodes,
+            rl_seed=args.rl_seed,
+        )
+    else:
+        study_results = run_astar_layout_study()
 
-    json_path = results_dir / "layout_study.json"
-    with open(json_path, "w", encoding="utf-8") as f:
-        json.dump(study_results, f, indent=2)
-    print(f"\nSaved JSON results to: {json_path}")
+        json_path = results_dir / "layout_study.json"
+        with open(json_path, "w", encoding="utf-8") as f:
+            json.dump(study_results, f, indent=2)
+        print(f"\nSaved JSON results to: {json_path}")
 
-    md_text = format_layout_study_markdown(study_results)
-    md_path = results_dir / "layout_study.md"
-    with open(md_path, "w", encoding="utf-8") as f:
-        f.write(md_text + "\n")
-    print(f"Saved Markdown report to: {md_path}")
+        md_text = format_layout_study_markdown(study_results)
+        md_path = results_dir / "layout_study.md"
+        with open(md_path, "w", encoding="utf-8") as f:
+            f.write(md_text + "\n")
+        print(f"Saved Markdown report to: {md_path}")
 
 
 if __name__ == "__main__":
     main()
+
