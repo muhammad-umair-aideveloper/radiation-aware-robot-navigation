@@ -107,6 +107,41 @@ To systematically characterize the Pareto frontier between absorbed dose and pat
 ![Pareto Trade-off](results/pareto_dose_vs_length.png)
 *Pareto trade-off curve of mean absorbed radiation dose versus path length across radiation weights $\lambda \in [0, 10]$ on 50 fixed evaluation starts.*
 
+### 4.5 Multi-Layout Generalization Study (L1)
+To test whether radiation-aware navigation generalizes across environments, 10 procedural layouts (seeds 100–109) were evaluated with 4–7 random rectangular walls (10–25% wall area) and 3 random point sources ($I_0 \in [120, 200]$), evaluated on 50 starts per layout ($N = 500$ evaluation pairs):
+
+| Layout Seed | Wall Area | Shortest Dose (a.u.) | Aware Dose (a.u.) | Dose Diff (a.u.) | 95% Bootstrap CI | Dose Reduction | Step Diff (cells) |
+|---|---|---|---|---|---|---|---|
+| 100 | 17.0% | 127.14 | 54.54 | -72.60 | [-96.88, -48.24] | -57.1% | +7.34 |
+| 101 | 14.1% | 302.26 | 138.43 | -163.83 | [-220.91, -114.77] | -54.2% | +8.78 |
+| 102 | 11.7% | 60.33 | 33.88 | -26.45 | [-34.25, -18.72] | -43.8% | +7.02 |
+| 103 | 14.5% | 106.84 | 35.25 | -71.59 | [-87.05, -57.65] | -67.0% | +11.38 |
+| 104 | 13.0% | 89.65 | 53.56 | -36.09 | [-46.99, -26.04] | -40.3% | +5.72 |
+| 105 | 17.7% | 151.27 | 67.72 | -83.55 | [-110.15, -61.27] | -55.2% | +7.62 |
+| 106 | 15.7% | 222.95 | 67.83 | -155.12 | [-189.62, -125.75] | -69.6% | +11.58 |
+| 107 | 11.8% | 44.75 | 31.15 | -13.60 | [-17.85, -9.89] | -30.4% | +4.94 |
+| 108 | 18.8% | 180.95 | 86.68 | -94.27 | [-124.97, -68.42] | -52.1% | +7.42 |
+| 109 | 13.0% | 161.50 | 42.31 | -119.19 | [-150.21, -89.78] | -73.8% | +10.42 |
+| **POOLED** | **14.7%** | **144.60** | **60.97** | **-83.63** | **[-94.53, -73.18]** | **-57.8%** | **+8.22** |
+| All | Q-Learning (1 seed) | *pending* | *pending* | *pending* | *pending* | *pending* | *pending* |
+
+![Layouts Overview](results/layouts_overview.png)
+*First 4 procedural layouts (seeds 100–103) with radiation heatmap, wall obstacles, and planned trajectories from start (2,2) to goal (47,47).*
+
+### 4.6 Map-Error Robustness Study (L2)
+Robustness of A* Aware planning ($\lambda = 2.5$) when the prior radiation map has errors in source position (shifts $\Delta_{\text{pos}} \in \{1, 2, 3\}$ cells) and source intensity ($\pm 20\%$). Paths planned on perturbed fields were evaluated on the true radiation field across 50 starts (10 random perturbations per level):
+
+| Perturbation Level | Max Pos Shift | Intensity Scale | Mean True Dose (a.u.) | Dose Penalty vs Oracle | Dose Savings vs Shortest |
+|---|---|---|---|---|---|
+| Oracle (Ground Truth) | 0 cells | 1.00 (exact) | 54.42 | 0.00 (ref) | 54.3% |
+| Level 1 | ±1 cell | [0.8, 1.2] | 54.56 ± 0.23 | +0.14 a.u. (+0.3%) | 54.2% |
+| Level 2 | ±2 cells | [0.8, 1.2] | 55.85 ± 1.08 | +1.43 a.u. (+2.6%) | 53.1% |
+| Level 3 | ±3 cells | [0.8, 1.2] | 59.31 ± 3.18 | +4.89 a.u. (+9.0%) | 50.2% |
+| Baseline (Shortest) | N/A | N/A | 119.15 | +64.73 a.u. (+118.9%) | 0.0% (ref) |
+
+![Map Error Robustness](results/robustness.png)
+*True absorbed dose on ground truth radiation field across perturbation levels (10 runs per level with mean ± 1 std), compared against Oracle Aware and Shortest baselines.*
+
 ---
 
 ## 5. Visualizations
