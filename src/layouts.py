@@ -161,3 +161,4 @@ def generate_random_layout(
     raise RuntimeError(
         f"Failed to generate valid layout for seed {seed} after {max_attempts} attempts."
     )
+
