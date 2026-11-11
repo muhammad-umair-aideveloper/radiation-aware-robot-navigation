@@ -73,13 +73,20 @@ class RadiationEnv:
         start: Tuple[int, int] = START_CELL,
         goal: Tuple[int, int] = GOAL_CELL,
         max_steps: int = 300,
+        walls: Optional[np.ndarray] = None,
+        sources: Optional[List[Tuple[Tuple[int, int], float]]] = None,
+        radiation: Optional[np.ndarray] = None,
     ) -> None:
         self.shape = GRID_SHAPE
         self.start = start
         self.goal = goal
         self.max_steps = max_steps
-        self.walls = create_wall_mask(self.shape)
-        self.radiation = compute_radiation_field(self.shape, SOURCES)
+        self.walls = create_wall_mask(self.shape) if walls is None else np.array(walls, dtype=bool)
+        self.sources = SOURCES if sources is None else sources
+        if radiation is not None:
+            self.radiation = np.array(radiation, dtype=np.float64)
+        else:
+            self.radiation = compute_radiation_field(self.shape, self.sources)
         self.state = self.start
         self.steps = 0
 
