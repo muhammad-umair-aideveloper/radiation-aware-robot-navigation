@@ -1,0 +1,521 @@
+{
+  "layout_seed": 103,
+  "wall_fraction": 0.1452,
+  "rl_seed": 0,
+  "episodes": 50000,
+  "lambda_rad": 2.5,
+  "training_time_s": 80.11160850524902,
+  "success_count": 50,
+  "total_starts": 50,
+  "success_rate": 1.0,
+  "mean_steps": 49.04,
+  "mean_dose": 45.13153256700789,
+  "canonical": {
+    "success": true,
+    "outcome": "goal",
+    "steps": 86.0,
+    "dose": 109.66506338191563
+  },
+  "per_start": [
+    {
+      "start": [
+        31,
+        1
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 32.9551145199593,
+      "steps": 57.0
+    },
+    {
+      "start": [
+        7,
+        18
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 65.21373487115771,
+      "steps": 54.0
+    },
+    {
+      "start": [
+        24,
+        20
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 45.57356053474361,
+      "steps": 31.0
+    },
+    {
+      "start": [
+        34,
+        8
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 32.99329181518042,
+      "steps": 56.0
+    },
+    {
+      "start": [
+        7,
+        45
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 23.7415429563774,
+      "steps": 42.0
+    },
+    {
+      "start": [
+        4,
+        3
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 107.24364683239027,
+      "steps": 85.0
+    },
+    {
+      "start": [
+        45,
+        5
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 24.193201991360777,
+      "steps": 45.0
+    },
+    {
+      "start": [
+        5,
+        12
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 97.92659052766604,
+      "steps": 60.0
+    },
+    {
+      "start": [
+        7,
+        43
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 23.00924033902326,
+      "steps": 41.0
+    },
+    {
+      "start": [
+        29,
+        37
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 10.555192543616338,
+      "steps": 18.0
+    },
+    {
+      "start": [
+        13,
+        27
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 44.05506517942586,
+      "steps": 47.0
+    },
+    {
+      "start": [
+        28,
+        1
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 36.28052930516029,
+      "steps": 61.0
+    },
+    {
+      "start": [
+        43,
+        11
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 21.88518098872224,
+      "steps": 40.0
+    },
+    {
+      "start": [
+        10,
+        42
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 20.802198436881767,
+      "steps": 38.0
+    },
+    {
+      "start": [
+        48,
+        12
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 20.5370657114847,
+      "steps": 38.0
+    },
+    {
+      "start": [
+        18,
+        48
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 12.649664766569998,
+      "steps": 29.0
+    },
+    {
+      "start": [
+        0,
+        2
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 133.46554833506585,
+      "steps": 89.0
+    },
+    {
+      "start": [
+        10,
+        2
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 75.25862475836503,
+      "steps": 78.0
+    },
+    {
+      "start": [
+        40,
+        22
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 14.845563686762343,
+      "steps": 25.0
+    },
+    {
+      "start": [
+        11,
+        27
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 40.13355528633041,
+      "steps": 46.0
+    },
+    {
+      "start": [
+        16,
+        11
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 86.38567089204948,
+      "steps": 74.0
+    },
+    {
+      "start": [
+        37,
+        27
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 12.287535588990698,
+      "steps": 21.0
+    },
+    {
+      "start": [
+        44,
+        8
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 23.480223841174812,
+      "steps": 43.0
+    },
+    {
+      "start": [
+        16,
+        16
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 118.48071942341251,
+      "steps": 59.0
+    },
+    {
+      "start": [
+        18,
+        4
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 58.786248970619404,
+      "steps": 73.0
+    },
+    {
+      "start": [
+        19,
+        9
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 63.706089894397515,
+      "steps": 71.0
+    },
+    {
+      "start": [
+        4,
+        42
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 25.4384950402611,
+      "steps": 44.0
+    },
+    {
+      "start": [
+        25,
+        0
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 38.53819677688336,
+      "steps": 63.0
+    },
+    {
+      "start": [
+        10,
+        19
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 66.97333727669916,
+      "steps": 53.0
+    },
+    {
+      "start": [
+        24,
+        49
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 10.456979845093695,
+      "steps": 24.0
+    },
+    {
+      "start": [
+        14,
+        7
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 97.47438378238984,
+      "steps": 79.0
+    },
+    {
+      "start": [
+        19,
+        14
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 94.26499467441427,
+      "steps": 76.0
+    },
+    {
+      "start": [
+        32,
+        1
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 32.159360930076105,
+      "steps": 56.0
+    },
+    {
+      "start": [
+        1,
+        35
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 30.570630742639803,
+      "steps": 46.0
+    },
+    {
+      "start": [
+        24,
+        6
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 51.09553017231779,
+      "steps": 68.0
+    },
+    {
+      "start": [
+        47,
+        5
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 24.126505256658692,
+      "steps": 45.0
+    },
+    {
+      "start": [
+        1,
+        15
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 92.55084944656849,
+      "steps": 60.0
+    },
+    {
+      "start": [
+        9,
+        21
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 55.83681060115682,
+      "steps": 51.0
+    },
+    {
+      "start": [
+        40,
+        19
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 16.635072365058214,
+      "steps": 28.0
+    },
+    {
+      "start": [
+        1,
+        29
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 40.627190796071666,
+      "steps": 49.0
+    },
+    {
+      "start": [
+        9,
+        26
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 39.09258091178305,
+      "steps": 46.0
+    },
+    {
+      "start": [
+        34,
+        1
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 30.205961851367597,
+      "steps": 54.0
+    },
+    {
+      "start": [
+        4,
+        12
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 99.84933018071935,
+      "steps": 60.0
+    },
+    {
+      "start": [
+        34,
+        26
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 12.419766564244378,
+      "steps": 21.0
+    },
+    {
+      "start": [
+        21,
+        8
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 57.146075512489226,
+      "steps": 70.0
+    },
+    {
+      "start": [
+        27,
+        23
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 29.214085038592483,
+      "steps": 27.0
+    },
+    {
+      "start": [
+        12,
+        38
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 19.255819705457927,
+      "steps": 35.0
+    },
+    {
+      "start": [
+        14,
+        38
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 18.234256337717724,
+      "steps": 34.0
+    },
+    {
+      "start": [
+        30,
+        28
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 15.853520823198153,
+      "steps": 22.0
+    },
+    {
+      "start": [
+        27,
+        35
+      ],
+      "success": true,
+      "outcome": "goal",
+      "dose": 12.112291721647763,
+      "steps": 20.0
+    }
+  ]
+}
