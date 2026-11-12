@@ -11,5 +11,5 @@ $$\text{Cost} = \sum_{t=1}^{T} L_t \cdot (1 + \lambda \cdot I(s_t)), \quad \lamb
 
 ### Key Findings
 - **A* Aware Optimality**: With an admissible octile distance heuristic, A* Aware achieves **0.00% gap** and **100.0% exact match** with the Dijkstra reference, confirming heuristic admissibility.
-- **Q-Learning Closeness**: The pre-trained Tabular Q-learning policy achieves an average optimality gap of **~1-3%**, discovering paths that are either exactly optimal or within negligible fractions of the theoretical minimum cost.
-- **Radiation-Blind Overhead**: A* Shortest incurs an average **~45-55% cost penalty** under the radiation-aware objective due to routing directly through intense source fields.
+- **Q-Learning Closeness**: The pre-trained Tabular Q-learning policy achieves an average optimality gap of **18.58%** across the 50 evaluation starts.
+- **Radiation-Blind Overhead**: A* Shortest incurs an average **70.27% cost penalty** under the radiation-aware objective due to routing directly through intense source fields.
