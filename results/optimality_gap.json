@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "num_starts": 50,
+    "goal": [
+      47,
+      47
+    ],
+    "canonical_start": [
+      2,
+      2
+    ],
+    "saved_q_table_evaluated": true,
+    "notes": "Full Q-table weights are evaluated for models/q_table_best.npy (\u03bb=2.5). Sweep runs serialized scalar metrics only; no retraining was executed per protocol."
+  },
+  "methods": {
+    "q_learning_best_lam2.5": {
+      "lambda": 2.5,
+      "source": "models/q_table_best.npy",
+      "evaluated_starts": 50,
+      "success_count": 50,
+      "mean_gap_pct": 18.57643204590094,
+      "std_gap_pct": 7.01504383469794,
+      "median_gap_pct": 18.464331881551473,
+      "exact_optimal_count": 0,
+      "exact_optimal_share_pct": 0.0
+    },
+    "astar_aware_lam2.5": {
+      "lambda": 2.5,
+      "source": "src/planners.py:astar_search",
+      "evaluated_starts": 50,
+      "success_count": 50,
+      "mean_gap_pct": 0.0,
+      "std_gap_pct": 0.0,
+      "median_gap_pct": 0.0,
+      "exact_optimal_count": 50,
+      "exact_optimal_share_pct": 100.0
+    },
+    "astar_shortest_lam2.5_objective": {
+      "lambda": 2.5,
+      "source": "src/planners.py:astar_search(mode='shortest')",
+      "evaluated_starts": 50,
+      "success_count": 50,
+      "mean_gap_pct": 70.27011263713854,
+      "std_gap_pct": 68.11215129990353,
+      "median_gap_pct": 44.08695896387138,
+      "exact_optimal_count": 0,
+      "exact_optimal_share_pct": 0.0
+    }
+  }
+}

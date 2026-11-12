@@ -211,12 +211,17 @@ def format_optimality_markdown(results: Dict[str, Any]) -> str:
             f"**{d['exact_optimal_share_pct']:.1f}%** |"
         )
 
+    q_data = results["methods"].get("q_learning_best_lam2.5", {})
+    sh_data = results["methods"].get("astar_shortest_lam2.5_objective", {})
+    q_gap_str = f"{q_data.get('mean_gap_pct', 0.0):.2f}%"
+    sh_gap_str = f"{sh_data.get('mean_gap_pct', 0.0):.2f}%"
+
     lines.extend([
         "",
         "### Key Findings",
         "- **A* Aware Optimality**: With an admissible octile distance heuristic, A* Aware achieves **0.00% gap** and **100.0% exact match** with the Dijkstra reference, confirming heuristic admissibility.",
-        "- **Q-Learning Closeness**: The pre-trained Tabular Q-learning policy achieves an average optimality gap of **~1-3%**, discovering paths that are either exactly optimal or within negligible fractions of the theoretical minimum cost.",
-        "- **Radiation-Blind Overhead**: A* Shortest incurs an average **~45-55% cost penalty** under the radiation-aware objective due to routing directly through intense source fields.",
+        f"- **Q-Learning Closeness**: The pre-trained Tabular Q-learning policy achieves an average optimality gap of **{q_gap_str}** across the 50 evaluation starts.",
+        f"- **Radiation-Blind Overhead**: A* Shortest incurs an average **{sh_gap_str} cost penalty** under the radiation-aware objective due to routing directly through intense source fields.",
     ])
     return "\n".join(lines)
 
