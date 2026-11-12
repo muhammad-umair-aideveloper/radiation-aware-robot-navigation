@@ -1,0 +1,199 @@
+{
+  "metadata": {
+    "lambdas": [
+      0.0,
+      0.5,
+      1.0,
+      2.5,
+      5.0,
+      10.0
+    ],
+    "expected_seeds": [
+      0,
+      1,
+      2
+    ]
+  },
+  "per_lambda": {
+    "0.0": {
+      "lambda": 0.0,
+      "astar_aware": {
+        "success_count": 50,
+        "total_starts": 50,
+        "success_rate": 1.0,
+        "mean_steps": 36.18,
+        "mean_dose": 119.14780991837388,
+        "canonical_steps": 56.0,
+        "canonical_dose": 281.8799973864778,
+        "paired_dose_diff_vs_shortest": 0.0,
+        "paired_step_diff_vs_shortest": 0.0
+      },
+      "q_learning": {
+        "n_seeds": 3,
+        "mean_success_count": 50.0,
+        "std_success_count": 0.0,
+        "mean_success_rate": 1.0,
+        "mean_steps": 38.67333333333333,
+        "std_steps": 1.0578384669798224,
+        "mean_dose": 207.4327431631539,
+        "std_dose": 64.16562622048163,
+        "mean_training_time_s": 110.4916791121165,
+        "std_training_time_s": 3.343514390034721,
+        "canonical_mean_dose": 377.3379475266208,
+        "canonical_mean_steps": 60.0
+      },
+      "sarsa": null
+    },
+    "0.5": {
+      "lambda": 0.5,
+      "astar_aware": {
+        "success_count": 50,
+        "total_starts": 50,
+        "success_rate": 1.0,
+        "mean_steps": 40.86,
+        "mean_dose": 59.11118565320174,
+        "canonical_steps": 70.0,
+        "canonical_dose": 69.64468715055108,
+        "paired_dose_diff_vs_shortest": -60.03662426517213,
+        "paired_step_diff_vs_shortest": 4.68
+      },
+      "q_learning": {
+        "n_seeds": 3,
+        "mean_success_count": 50.0,
+        "std_success_count": 0.0,
+        "mean_success_rate": 1.0,
+        "mean_steps": 42.29333333333333,
+        "std_steps": 0.5105117258420445,
+        "mean_dose": 73.26974760554198,
+        "std_dose": 1.1110967036018453,
+        "mean_training_time_s": 128.58277567227682,
+        "std_training_time_s": 13.831676896576756,
+        "canonical_mean_dose": 80.53262803954495,
+        "canonical_mean_steps": 69.0
+      },
+      "sarsa": null
+    },
+    "1.0": {
+      "lambda": 1.0,
+      "astar_aware": {
+        "success_count": 50,
+        "total_starts": 50,
+        "success_rate": 1.0,
+        "mean_steps": 42.9,
+        "mean_dose": 55.6834656634539,
+        "canonical_steps": 76.0,
+        "canonical_dose": 59.73379578115225,
+        "paired_dose_diff_vs_shortest": -63.46434425491998,
+        "paired_step_diff_vs_shortest": 6.72
+      },
+      "q_learning": {
+        "n_seeds": 3,
+        "mean_success_count": 50.0,
+        "std_success_count": 0.0,
+        "mean_success_rate": 1.0,
+        "mean_steps": 43.68666666666667,
+        "std_steps": 0.6308371862497921,
+        "mean_dose": 69.02312545682656,
+        "std_dose": 2.110987569087542,
+        "mean_training_time_s": 138.36004829406738,
+        "std_training_time_s": 10.513333148774088,
+        "canonical_mean_dose": 71.13171678962503,
+        "canonical_mean_steps": 75.0
+      },
+      "sarsa": null
+    },
+    "2.5": {
+      "lambda": 2.5,
+      "astar_aware": {
+        "success_count": 50,
+        "total_starts": 50,
+        "success_rate": 1.0,
+        "mean_steps": 45.04,
+        "mean_dose": 54.42185117759439,
+        "canonical_steps": 80.0,
+        "canonical_dose": 58.151241281774865,
+        "paired_dose_diff_vs_shortest": -64.72595874077948,
+        "paired_step_diff_vs_shortest": 8.86
+      },
+      "q_learning": {
+        "n_seeds": 3,
+        "mean_success_count": 49.666666666666664,
+        "std_success_count": 0.4714045207910317,
+        "mean_success_rate": 0.9933333333333333,
+        "mean_steps": 45.21632653061224,
+        "std_steps": 0.816902925759989,
+        "mean_dose": 64.88885464352147,
+        "std_dose": 0.35211293488454015,
+        "mean_training_time_s": 97.44546604156494,
+        "std_training_time_s": 15.723141626398458,
+        "canonical_mean_dose": 66.87287505592502,
+        "canonical_mean_steps": 76.33333333333333
+      },
+      "sarsa": null
+    },
+    "5.0": {
+      "lambda": 5.0,
+      "astar_aware": {
+        "success_count": 50,
+        "total_starts": 50,
+        "success_rate": 1.0,
+        "mean_steps": 46.12,
+        "mean_dose": 54.15841407695042,
+        "canonical_steps": 82.0,
+        "canonical_dose": 57.79632682659968,
+        "paired_dose_diff_vs_shortest": -64.98939584142346,
+        "paired_step_diff_vs_shortest": 9.94
+      },
+      "q_learning": {
+        "n_seeds": 3,
+        "mean_success_count": 50.0,
+        "std_success_count": 0.0,
+        "mean_success_rate": 1.0,
+        "mean_steps": 45.96666666666666,
+        "std_steps": 0.9463379711052279,
+        "mean_dose": 64.64045832050111,
+        "std_dose": 1.7267292212085679,
+        "mean_training_time_s": 95.92446446418762,
+        "std_training_time_s": 2.999926284200724,
+        "canonical_mean_dose": 66.77686577962766,
+        "canonical_mean_steps": 75.66666666666667
+      },
+      "sarsa": null
+    },
+    "10.0": {
+      "lambda": 10.0,
+      "astar_aware": {
+        "success_count": 50,
+        "total_starts": 50,
+        "success_rate": 1.0,
+        "mean_steps": 46.78,
+        "mean_dose": 54.08620017618904,
+        "canonical_steps": 83.0,
+        "canonical_dose": 57.699937978447316,
+        "paired_dose_diff_vs_shortest": -65.06160974218483,
+        "paired_step_diff_vs_shortest": 10.6
+      },
+      "q_learning": {
+        "n_seeds": 3,
+        "mean_success_count": 48.333333333333336,
+        "std_success_count": 1.247219128924647,
+        "mean_success_rate": 0.9666666666666667,
+        "mean_steps": 46.34897163120568,
+        "std_steps": 0.7668083351699908,
+        "mean_dose": 63.248832251595,
+        "std_dose": 2.0414001254567347,
+        "mean_training_time_s": 108.52276690800984,
+        "std_training_time_s": 7.91218357479971,
+        "canonical_mean_dose": 65.08232964057491,
+        "canonical_mean_steps": 78.66666666666667
+      },
+      "sarsa": null
+    }
+  },
+  "unfinished_or_failed_runs": [
+    "Q-learning \u03bb=2.5 seed=1: success=49/50",
+    "Q-learning \u03bb=10.0 seed=0: success=47/50",
+    "Q-learning \u03bb=10.0 seed=1: success=48/50",
+    "SARSA runs not executed (--sarsa option was not present in sweep_lambda.py)"
+  ]
+}
