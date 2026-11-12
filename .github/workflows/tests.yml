@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy matplotlib pillow
+
+      - name: Run test_core.py
+        run: python tests/test_core.py
+
+      - name: Run test_dp.py
+        run: python tests/test_dp.py
+
+      - name: Run test_layouts.py
+        run: python tests/test_layouts.py
+
+      - name: Run test_sweep.py
+        run: python tests/test_sweep.py
+
+      - name: Run test_optimality_gap.py
+        run: python tests/test_optimality_gap.py
