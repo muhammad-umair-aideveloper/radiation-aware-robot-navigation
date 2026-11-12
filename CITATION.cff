@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+title: "Radiation-Aware Robot Navigation: Path Planning & Reinforcement Learning"
+authors:
+  - family-names: "Umair"
+    given-names: "Muhammad"
+year: 2026
+date-released: 2026-11-12
+url: "https://github.com/muhammad-umair-aideveloper/radiation-aware-robot-navigation"
+repository-code: "https://github.com/muhammad-umair-aideveloper/radiation-aware-robot-navigation"
+license: "MIT"
+keywords:
+  - "robotics"
+  - "path-planning"
+  - "reinforcement-learning"
+  - "radiation-protection"
+  - "alara"
