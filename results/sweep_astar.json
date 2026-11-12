@@ -25,7 +25,7 @@
     "success_rate": 1.0,
     "mean_steps": 36.18,
     "mean_dose": 119.14780991837388,
-    "planning_time_s": 0.5709729194641113,
+    "planning_time_s": 0.24912142753601074,
     "canonical": {
       "success": true,
       "steps": 56.0,
@@ -492,7 +492,7 @@
       "success_rate": 1.0,
       "mean_steps": 36.18,
       "mean_dose": 119.14780991837388,
-      "planning_time_s": 0.4151890277862549,
+      "planning_time_s": 0.266359806060791,
       "canonical": {
         "success": true,
         "steps": 56.0,
@@ -963,7 +963,7 @@
       "success_rate": 1.0,
       "mean_steps": 40.86,
       "mean_dose": 59.11118565320174,
-      "planning_time_s": 1.3917183876037598,
+      "planning_time_s": 1.161048412322998,
       "canonical": {
         "success": true,
         "steps": 70.0,
@@ -1434,7 +1434,7 @@
       "success_rate": 1.0,
       "mean_steps": 42.9,
       "mean_dose": 55.6834656634539,
-      "planning_time_s": 1.6291093826293945,
+      "planning_time_s": 1.0980746746063232,
       "canonical": {
         "success": true,
         "steps": 76.0,
@@ -1905,7 +1905,7 @@
       "success_rate": 1.0,
       "mean_steps": 45.04,
       "mean_dose": 54.42185117759439,
-      "planning_time_s": 1.5824944972991943,
+      "planning_time_s": 2.0721821784973145,
       "canonical": {
         "success": true,
         "steps": 80.0,
@@ -2376,7 +2376,7 @@
       "success_rate": 1.0,
       "mean_steps": 46.12,
       "mean_dose": 54.15841407695042,
-      "planning_time_s": 2.1514499187469482,
+      "planning_time_s": 3.0083494186401367,
       "canonical": {
         "success": true,
         "steps": 82.0,
@@ -2847,7 +2847,7 @@
       "success_rate": 1.0,
       "mean_steps": 46.78,
       "mean_dose": 54.08620017618904,
-      "planning_time_s": 2.1423590183258057,
+      "planning_time_s": 2.363027334213257,
       "canonical": {
         "success": true,
         "steps": 83.0,
