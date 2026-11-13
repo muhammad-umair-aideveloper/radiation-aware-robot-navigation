@@ -215,3 +215,4 @@ def compute_huber_loss_and_grad(
     grad[np.arange(batch_size), actions] = grad_chosen
 
     return mean_loss, grad
+

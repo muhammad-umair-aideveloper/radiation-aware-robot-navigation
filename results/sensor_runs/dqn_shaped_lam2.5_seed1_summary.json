@@ -1,0 +1,12 @@
+{
+  "run_tag": "dqn_shaped_lam2.5_seed1",
+  "variant": "shaped",
+  "lambda_rad": 2.5,
+  "seed": 1,
+  "total_steps": 400000,
+  "total_episodes": 1676,
+  "wall_clock_time_s": 304.6810655593872,
+  "steps_per_sec": 1312.848237764987,
+  "weights_file": "dqn_shaped_lam2.5_seed1_weights.npz",
+  "log_file": "dqn_shaped_lam2.5_seed1_log.csv"
+}

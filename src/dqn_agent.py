@@ -190,3 +190,4 @@ class DQNAgent:
         """Load online network parameters and synchronize target network."""
         self.online_net.load(filepath)
         self.target_net.copy_from(self.online_net)
+

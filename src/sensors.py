@@ -148,3 +148,4 @@ def get_sensor_observation(
     geiger = compute_geiger_readings(robot_pos, walls, radiation, shape=shape)
     goal_feat = compute_goal_features(robot_pos, goal_pos, shape=shape)
     return np.concatenate([lidar, geiger, goal_feat], axis=0).astype(np.float32)
+

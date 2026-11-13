@@ -159,3 +159,4 @@ class SensorNavigationEnv:
 
         obs = self._get_obs()
         return obs, float(returned_reward), self.done, info
+

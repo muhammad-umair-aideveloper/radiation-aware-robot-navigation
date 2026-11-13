@@ -147,3 +147,4 @@ def load_sensor_pairs(filepath: Path = SENSOR_PAIRS_FILE) -> Dict[str, Any]:
 
 if __name__ == "__main__":
     save_sensor_pairs()
+
