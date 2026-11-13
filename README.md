@@ -17,13 +17,13 @@ Benchmark summary on 50 fixed evaluation starts ($\ge 20$ cells to goal $(47, 47
 | Method | Type | Success Rate | Mean Steps | Mean Dose (a.u.) | Optimality Gap vs. Dijkstra | Planning / Training Time * |
 |---|---|---|---|---|---|---|
 | **Dijkstra (Exact Reference)** | Global Optimal | 50/50 (100%) | 45.04 | 54.42 | **0.00% (Exact)** | 1.85 s total |
-| **A\* Radiation-Aware** | Heuristic Search | 50/50 (100%) | 45.04 | 54.42 | **0.00%** | 2.08 s total |
+| **A\* Radiation-Aware** | Heuristic Search | 50/50 (100%) | 45.04 | 54.42 | **0.00% (Consistency Check)** | 2.08 s total |
 | **Tabular Q-Learning (Best Seed)** | Off-Policy RL | 50/50 (100%) | 43.68 | 65.59 | **18.58% ± 7.02%** | 97.4 ± 15.7 s |
 | **Tabular Q-Learning (3 seeds)** | Off-Policy RL | 49.7 ± 0.5/50 (99.3%) | 45.22 ± 0.82 | 64.89 ± 0.35 | *not measured* | 97.4 ± 15.7 s |
-| **SARSA (3 seeds)** | On-Policy RL | 49.0 ± 0.8/50 (98.0%) | 46.83 ± 0.69 | 67.01 ± 1.24 | *not measured* | 160.6 ± 5.6 s |
+| **SARSA (3 seeds, λ=2.5 only)** | On-Policy RL | 49.0 ± 0.8/50 (98.0%) | 46.83 ± 0.69 | 67.01 ± 1.24 | *not measured* | 160.6 ± 5.6 s |
 | **A\* Shortest (Radiation-Blind)** | Baseline Search | 50/50 (100%) | 36.18 | 119.15 | **+70.27% ± 68.11%** | 0.45 s total |
 
-*\* Note: Training times were measured sequentially on a 2-core laptop CPU.*
+*\* Note: Training times were measured sequentially on a 2-core laptop CPU. SARSA was measured only at $\lambda = 2.5$. The 0.00% optimality gap of A* Aware is a consistency check (both methods optimize the identical objective with an admissible heuristic), not evidence that A* is superior. The per-layout Q-learning study uses 1 seed per layout.*
 
 ---
 
