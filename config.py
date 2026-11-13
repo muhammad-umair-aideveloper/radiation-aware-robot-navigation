@@ -117,8 +117,11 @@ PPO_PARAMS: dict[str, object] = {
 POLICY_NET_ARCH: tuple[int, ...] = (64, 64)
 
 # Chosen once, after the training-speed smoke test, in its own commit
-# (target: about 10 to 12 minutes per run on the user's laptop).
-TOTAL_TIMESTEPS: int | None = None
+# (target: about 8 minutes per run on the user's 2-core laptop CPU).
+TOTAL_TIMESTEPS: int = 400000
+SENSOR_DQN_STEPS: int = 400000
+SENSOR_DQN_MEASURED_SPS: float = 891.0
+SENSOR_DQN_TARGET_TIME_MIN: float = 7.5
 
 # ---------------------------------------------------------------------------
 # Evaluation and plots

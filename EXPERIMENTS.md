@@ -166,5 +166,11 @@ All observations are continuous values derived strictly from local egocentric pe
     3. Primary hypothesis test: Sensor DQN $\lambda = 2.5$ vs. $\lambda = 0.0$ for the same seed.
   - Tabular Q-learning agent was trained specifically on the canonical single-goal task and is compared strictly on the canonical $(2, 2) \to (47, 47)$ route.
 
+### 8. Declared Step Budget from Measured Speed
+- **Speed Test Measurement**: 20,000 environment steps completed in 22.45 seconds ($891.0$ steps/second) on a 2-core CPU.
+- **Target Wall-Clock Duration**: ~7.5 to 8.0 minutes ($450$ to $480$ seconds) per run.
+- **Declared Step Budget**: **400,000 steps** per run ($400,000 / 891.0 \approx 448.9\text{ s} \approx 7.5\text{ minutes}$).
+- **Status**: Fixed uniformly for all 7 experimental runs before launching training.
+
 
 
