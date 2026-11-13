@@ -110,7 +110,7 @@ On the 50 start pairs where both classical planners succeeded:
   - Mean step increase: **$+7.94$ steps ($+21.9\%$)**
 
 ### 4.4 Radiation Weight Sweep ($\lambda$) and Pareto Trade-Off
-To systematically characterize the Pareto frontier between absorbed dose and path length, $\lambda$ was varied across $\{0.0, 0.5, 1.0, 2.5, 5.0, 10.0\}$ using step cost $L \cdot (1 + \lambda \cdot I)$. Results on the 50 evaluation starts and canonical $(2, 2) \to (47, 47)$ route across A* Aware and Tabular Q-Learning (3 seeds each):
+To systematically characterize the Pareto frontier between absorbed dose and path length, $\lambda$ was varied across $\{0.0, 0.5, 1.0, 2.5, 5.0, 10.0\}$ using step cost $L \cdot (1 + \lambda \cdot I)$. Results on the 50 evaluation starts and canonical $(2, 2) \to (47, 47)$ route across A* Aware and Tabular Q-Learning (3 seeds each). *(Note: SARSA was evaluated only at $\lambda = 2.5$ for algorithmic comparison in Section 4.5, not across the full multi-$\lambda$ sweep).*
 
 | Lambda ($\lambda$) | Method | Success on 50 starts | Mean Steps | Mean Dose (a.u.) | Canonical Steps | Canonical Dose (a.u.) | Training Time * |
 |---|---|---|---|---|---|---|---|
@@ -133,14 +133,15 @@ To systematically characterize the Pareto frontier between absorbed dose and pat
 *Pareto trade-off curve of mean absorbed radiation dose versus path length across radiation weights $\lambda \in [0, 10]$ on 50 fixed evaluation starts.*
 
 ### 4.5 On-Policy vs. Off-Policy Comparison: Tabular Q-Learning vs. SARSA ($\lambda = 2.5$)
-Empirical comparison of off-policy Q-Learning versus on-policy SARSA across 3 independent training seeds ($50,000$ episodes each) on the radiation-aware navigation benchmark:
+Empirical comparison of off-policy Q-Learning versus on-policy SARSA across 3 independent training seeds ($50,000$ episodes each) measured exclusively at $\lambda = 2.5$ (not the full $\lambda$ sweep):
 
 | Algorithm | Type | Success on 50 starts | Mean Steps | Mean Dose (a.u.) | Canonical Steps | Canonical Dose (a.u.) | Training Time / Seed * |
 |---|---|---|---|---|---|---|---|
 | **Q-Learning** | Off-policy | 49.7 ± 0.5/50 (99.3%) | 45.22 ± 0.82 | 64.89 ± 0.35 | 76.3 | 66.87 | 97.4 ± 15.7 s |
 | **SARSA** | On-policy | 49.0 ± 0.8/50 (98.0%) | 46.83 ± 0.69 | 67.01 ± 1.24 | 78.3 | 75.20 | 160.6 ± 5.6 s |
 
-- **Policy Safety Trade-off (Hypothesis)**: Because SARSA is on-policy and takes exploratory actions into account during updates, it tends to learn conservative paths with wider clearance margins around obstacle walls and radiation sources.
+- **Comparison Assessment**: The performance difference between Q-learning (99.3% success, 64.89 a.u. dose) and SARSA (98.0% success, 67.01 a.u. dose) is small and evaluated across 3 seeds; therefore, no winner is claimed.
+- **Policy Safety Trade-off (Hypothesis)**: Because SARSA is on-policy and accounts for exploratory actions during updates, it may learn slightly more conservative clearance margins around obstacle walls and radiation sources.
 - **Sample Efficiency**: Both algorithms converge within 50,000 episodes on this discrete grid space. Training times were measured on a 2-core laptop CPU with jobs running one after another.
 
 ### 4.6 Exact Optimality Gap Analysis (Dijkstra Reference)
@@ -152,14 +153,14 @@ Comparison of navigation trajectories against the exact global optimum computed 
 | **A* Radiation-Aware (Admissible Heuristic)** | 2.5 | 50/50 | **0.00%** | ±0.00% | 0.00% | 50/50 | **100.0%** |
 | **A* Shortest (Radiation-Blind Baseline)** | 2.5 | 50/50 | **70.27%** | ±68.11% | 44.09% | 0/50 | **0.0%** |
 
-- **A* Aware Admissibility**: A* Aware achieves **0.00% gap** (100% exact match) with Dijkstra across all 50 starts, verifying that the octile distance heuristic is strictly admissible for the additive radiation cost function.
+- **A* Aware Consistency Check**: A* Aware achieves **0.00% gap** (100% exact match) with Dijkstra across all 50 starts. This serves as a mathematical consistency check (both methods optimize the exact same objective and the octile distance heuristic is strictly admissible), rather than evidence that A* is inherently better.
 - **Q-Learning Closeness**: Tabular Q-learning achieves an average gap of **18.58%** relative to the exact global optimum without prior access to the map.
 - **Radiation-Blind Penalty**: A* Shortest incurs an average **70.27% cost penalty** under the radiation-aware objective due to routing directly through intense source cores.
 
 ### 4.7 Multi-Layout Generalization Study (L1)
-To test whether radiation-aware navigation generalizes across environments, 10 procedural layouts (seeds 100–109) were evaluated with 4–7 random rectangular walls (10–25% wall area) and 3 random point sources ($I_0 \in [120, 200]$), evaluated on 50 starts per layout ($N = 500$ evaluation pairs). In addition to classical search, Tabular Q-Learning (50,000 episodes, $\lambda = 2.5$) was trained on each layout:
+To test whether radiation-aware navigation generalizes across environments, 10 procedural layouts (seeds 100–109) were evaluated with 4–7 random rectangular walls (10–25% wall area) and 3 random point sources ($I_0 \in [120, 200]$), evaluated on 50 starts per layout ($N = 500$ evaluation pairs). In addition to classical search, Tabular Q-Learning (50,000 episodes, $\lambda = 2.5$) was trained on each layout using **1 seed** (seed 0):
 
-| Layout Seed | Wall Frac | Q-Learning Success | Q-Learning Steps | Q-Learning Dose (a.u.) | A* Aware Success | A* Aware Steps | A* Aware Dose (a.u.) | Dose Gap (a.u.) | Dose Gap (%) | Q Train Time * |
+| Layout Seed | Wall Frac | Q-Learning Success (1 seed) | Q-Learning Steps | Q-Learning Dose (a.u.) | A* Aware Success | A* Aware Steps | A* Aware Dose (a.u.) | Dose Gap (a.u.) | Dose Gap (%) | Q Train Time * |
 |---|---|---|---|---|---|---|---|---|---|---|
 | 100 | 17.0% | 49/50 (98%) | 43.59 | 64.31 | 50/50 | 41.84 | 54.61 | +9.69 | +17.7% | 112.8s |
 | 101 | 14.1% | 46/50 (92%) | 72.24 | 152.90 | 50/50 | 57.44 | 138.34 | +14.55 | +10.5% | 175.7s |
@@ -176,7 +177,7 @@ To test whether radiation-aware navigation generalizes across environments, 10 p
 *\* Note: Training times were measured on a 2-core laptop CPU with jobs running one after another.*
 
 - **A* Aware Pooled Benchmark**: Across all $N=500$ evaluation pairs, A* Aware achieved a pooled dose reduction of **57.8%** (mean difference: **-83.63 a.u.**, 95% bootstrap CI: `[-94.53, -73.18]`) relative to A* Shortest.
-- **Q-Learning Generalization**: Tabular Q-learning achieved an average evaluation success rate of **98.8%** across all 10 procedural layouts with a mean dose gap of **+13.23 a.u. (+24.3%)** relative to optimal A* Aware.
+- **Q-Learning Generalization (1 Seed)**: Tabular Q-learning evaluated with 1 seed (seed 0) per layout achieved an average evaluation success rate of **98.8%** across all 10 procedural layouts with a mean dose gap of **+13.23 a.u. (+24.3%)** relative to optimal A* Aware.
 
 ![Layouts Overview](results/layouts_overview.png)
 *First 4 procedural layouts (seeds 100–103) with radiation heatmap, wall obstacles, and planned trajectories from start (2,2) to goal (47,47).*
@@ -209,7 +210,7 @@ Robustness of A* Aware planning ($\lambda = 2.5$) when the prior radiation map h
 
 ### Greedy Success Rate Convergence
 ![Greedy Success Rate](results/convergence_greedy_success.png)
-*Periodic greedy evaluation ($N=50$ starts, $\epsilon=0$) every 2,500 training episodes for Tabular Q-learning ($\lambda=2.5$, Seed 0). The greedy policy reaches 100% navigation success by episode 22,500 and remains stable.*
+*Periodic greedy evaluation ($N=50$ starts, $\epsilon=0$) every 2,500 training episodes from a separate diagnostic training run ($\lambda=2.5$, Seed 0; not from the sweep runs). The greedy policy reaches 100% navigation success by episode 22,500 and remains stable.*
 
 ---
 
