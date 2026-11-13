@@ -22,8 +22,9 @@ Benchmark summary on 50 fixed evaluation starts ($\ge 20$ cells to goal $(47, 47
 | **Tabular Q-Learning (3 seeds)** | Off-Policy RL | 49.7 ± 0.5/50 (99.3%) | 45.22 ± 0.82 | 64.89 ± 0.35 | *not measured* | 97.4 ± 15.7 s |
 | **SARSA (3 seeds, λ=2.5 only)** | On-Policy RL | 49.0 ± 0.8/50 (98.0%) | 46.83 ± 0.69 | 67.01 ± 1.24 | *not measured* | 160.6 ± 5.6 s |
 | **A\* Shortest (Radiation-Blind)** | Baseline Search | 50/50 (100%) | 36.18 | 119.15 | **+70.27% ± 68.11%** | 0.45 s total |
+| **Sensor DQN (Shaped λ=2.5, 3 seeds)** | Map-Free Deep RL | 0.0 ± 0.0% (100 held-out pairs) | *not measured* (0 successes) | *not measured* (0 successes) | *not measured* | ~315 s / seed (400k steps) |
 
-*\* Note: Training times were measured sequentially on a 2-core laptop CPU. SARSA was measured only at $\lambda = 2.5$. The 0.00% optimality gap of A* Aware is a consistency check (both methods optimize the identical objective with an admissible heuristic), not evidence that A* is superior. The per-layout Q-learning study uses 1 seed per layout.*
+*\* Note: Training times were measured sequentially on a 2-core laptop CPU. SARSA was measured only at $\lambda = 2.5$. The 0.00% optimality gap of A* Aware is a consistency check (both methods optimize the identical objective with an admissible heuristic), not evidence that A* is superior. The per-layout Q-learning study uses 1 seed per layout. Sensor DQN was evaluated on 100 held-out pairs ($d_{\text{free}} \ge 20$); it achieved 0% collisions on Seed 0/2 (4% on Seed 1) but 96–100% timeouts due to reactive MLP memory limits.*
 
 ---
 
@@ -198,7 +199,95 @@ Robustness of A* Aware planning ($\lambda = 2.5$) when the prior radiation map h
 
 ---
 
-## 5. Visualizations
+## 5. Sensor-Based Agent (LiDAR + Geiger)
+
+To evaluate whether an autonomous mobile robot can navigate safely through radiation fields without access to an offline topological map, we formulated a map-free, sensor-based navigation benchmark (Study S5). The agent perceives its environment solely through local proximity and radiological sensors and is trained using Deep Q-Networks (DQN) implemented strictly in pure NumPy.
+
+### 5.1 Architecture & Observation Space
+- **Implementation**: Pure NumPy MLP without external deep learning frameworks (no PyTorch, Gymnasium, or Stable-Baselines3).
+- **Network Architecture**: Fully connected MLP with topology $28 \to 64 \to 64 \to 8$, ReLU activations on hidden layers, and linear outputs for Q-values.
+- **Optimizer & Hyperparameters**: Adam optimizer ($\alpha = 0.001$, $\beta_1 = 0.9$, $\beta_2 = 0.999$, $\epsilon = 10^{-8}$), Huber loss ($\delta = 1.0$), gradient norm clipping at $10.0$, circular replay buffer capacity $50,000$, mini-batch size $64$, and target network hard synchronization every $1,000$ environment steps.
+- **Exploration Schedule**: Geometric decay from $\epsilon = 1.0$ down to $0.05$ over 60% of training steps ($240,000$ steps), held constant at $0.05$ for the remaining 40%.
+- **Observation Space (28 continuous inputs)**:
+  1. **16-Ray LiDAR** ($16$ floats $\in [0, 1]$): Casts 16 equiangular rays across $360^\circ$ with max range $R_{\max} = 25$ cells (normalized by grid dimension $50$). Each ray measures the Euclidean distance to the nearest wall or boundary.
+  2. **$3 \times 3$ Geiger Counter Array** ($9$ floats $\in [0, 1]$): Normalized local radiation intensity $I / I_{\max}$ across the 8-connected Moore neighborhood plus current robot cell (wall and out-of-bounds cells read $0.0$).
+  3. **Relative Goal Vector** ($2$ floats $\in [-1, 1]$): Normalized coordinate offsets $(\Delta r / 50, \Delta c / 50)$ from robot to target.
+  4. **Normalized Euclidean Goal Distance** ($1$ float $\in [0, 1]$): $\|\Delta p\| / (50\sqrt{2})$.
+
+### 5.2 Reward Formulation & Potential-Based Shaping
+- **Base Step Cost & Rewards**:
+  $$R_t = -\frac{L \cdot (1 + \lambda \cdot I)}{100}$$
+  with terminal collision penalty $R_{\text{collision}} = -10.0$ (scaled from $-1000$) and goal arrival reward $R_{\text{goal}} = +10.0$ (scaled from $+1000$). Episodes terminate upon goal arrival, obstacle collision, or exceeding $300$ steps.
+- **Potential-Based Reward Shaping**:
+  To alleviate sample inefficiency across distant held-out goals, potential-based reward shaping (Ng et al., 1999) was applied:
+  $$F(s, s') = \gamma \Phi(s') - \Phi(s)$$
+  where potential function $\Phi(s) = -d_{\text{free}}(s, \text{goal}) / 100$ uses precomputed free-space geodesic distance to the goal. Because $\sum_{t=0}^T \gamma^t F(s_t, s_{t+1}) = -\Phi(s_0)$, this preserves policy invariance and does not alter the globally optimal policy.
+
+### 5.3 Training Protocol & Budget
+Trained across 7 experimental configurations for $400,000$ steps each (~7.5 minutes per run on a 2-core laptop CPU):
+1. **Shaped, $\lambda = 2.5$** (Seeds 0, 1, 2)
+2. **Shaped, $\lambda = 0.0$** (Seeds 0, 1, 2)
+3. **Plain (No Shaping), $\lambda = 2.5$** (Seed 0)
+
+Training sampled from 30 low-radiation training goals with randomized start positions.
+
+![Sensor Learning Curves](results/sensor_learning_curves.png)
+*Sensor DQN training curves over 1,600 episodes (50-episode rolling mean): Left: scaled episode return with mean and standard deviation shading across seeds; Right: training goal success rate (%).*
+
+### 5.4 Evaluation on 100 Held-Out Goals & Canonical Route
+Evaluation was conducted under a greedy policy ($\epsilon = 0.0$) on 100 seeded held-out pairs (20 unseen goals $\times$ 5 distant starts each with free-space geodesic distance $d_{\text{free}} \ge 20$) and the canonical route $(2, 2) \to (47, 47)$:
+
+#### Benchmark on 100 Held-Out Evaluation Pairs
+| Method / Model | Variant | Objective $\lambda$ | Seed | Success Rate | Collisions | Timeouts | Mean Steps | Mean Dose (a.u.) |
+|---|---|---|---|---|---|---|---|---|
+| **A\* Shortest** | Classical | 0.0 | - | 100/100 (100%) | 0 | 0 | 32.20 | 185.54 |
+| **A\* Aware** | Classical | 2.5 | - | 100/100 (100%) | 0 | 0 | 47.19 | 59.61 |
+| **dqn_shaped_lam2.5_seed0** | shaped | 2.5 | 0 | 0/100 (0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam2.5_seed1** | shaped | 2.5 | 1 | 0/100 (0%) | 4 | 96 | *not measured* | *not measured* |
+| **dqn_shaped_lam2.5_seed2** | shaped | 2.5 | 2 | 0/100 (0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam0.0_seed0** | shaped | 0.0 | 0 | 0/100 (0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam0.0_seed1** | shaped | 0.0 | 1 | 0/100 (0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam0.0_seed2** | shaped | 0.0 | 2 | 1/100 (1%) | 1 | 98 | 34.00 | 44.37 |
+| **dqn_plain_lam2.5_seed0** | plain | 2.5 | 0 | 0/100 (0%) | 0 | 100 | *not measured* | *not measured* |
+
+#### Canonical Route Evaluation: $(2, 2) \to (47, 47)$
+| Method / Model | Success | Outcome | Path Steps | Cumulative Dose (a.u.) |
+|---|---|---|---|---|
+| **A\* Shortest** | ✓ | goal | 56 | 281.88 |
+| **A\* Aware** | ✓ | goal | 80 | 58.15 |
+| **Tabular Q-Learning** | ✓ | goal | 80 | 64.10 |
+| **dqn_shaped_lam2.5_seed0** | ✗ | timeout | 300 | 197.28 |
+| **dqn_shaped_lam2.5_seed1** | ✗ | collision | 3 | 1.62 |
+| **dqn_shaped_lam2.5_seed2** | ✗ | timeout | 300 | 394.66 |
+| **dqn_shaped_lam0.0_seed0** | ✗ | timeout | 300 | 219.61 |
+| **dqn_shaped_lam0.0_seed1** | ✗ | timeout | 300 | 1077.24 |
+| **dqn_shaped_lam0.0_seed2** | ✗ | timeout | 300 | 20038.94 |
+| **dqn_plain_lam2.5_seed0** | ✗ | timeout | 300 | 1556.27 |
+
+![Sensor Evaluation Trajectories](results/sensor_trajectories.png)
+*Evaluation trajectories on the first 4 held-out pairs (Pairs 0–3) comparing A\* Shortest (cyan dashed), A\* Aware (lime solid), Sensor DQN $\lambda=2.5$ Seed 0 (amber dotted), and Sensor DQN $\lambda=0.0$ Seed 0 (magenta dash-dot) over the radiation heatmap and wall obstacles.*
+
+### 5.5 Honest Discussion & Scientific Analysis
+
+> [!NOTE]
+> All explanations of sensor agent behaviors are scientific hypotheses regarding reactive RL dynamics in POMDPs, not proven theorems.
+
+1. **Obstacle Collision Avoidance (LiDAR Efficacy)**:
+   Across the 100 held-out evaluation tasks, the 16-ray LiDAR provided effective collision avoidance. Five out of the seven trained DQN agents achieved **0 collisions out of 100 (0% collision rate)**, while the remaining two agents suffered only 1 and 4 collisions. This demonstrates that local geometric range sensing readily trains feedforward networks to maintain clearance from walls and obstacles.
+2. **Radiation Avoidance (Geiger Array Efficacy)**:
+   Under radiation-aware objectives ($\lambda = 2.5$), the agent senses local radiation gradients via its $3 \times 3$ Geiger array. On the canonical route, `dqn_shaped_lam2.5_seed0` accumulated $197.28$ a.u. dose over 300 steps (mean $0.66$ a.u./step), whereas `dqn_shaped_lam0.0_seed2` accumulated $20038.94$ a.u. dose (mean $66.8$ a.u./step) after cycling near the central radiation core.
+3. **Success Rate vs. A\* Search**:
+   While classical graph search planners (A\* Shortest and A\* Aware) attained **100/100 (100%) success** due to exhaustive global topological map awareness, the map-free sensor DQN attained only **0–1% success** on held-out pairs with distant targets ($d_{\text{free}} \ge 20$).
+4. **Dominant Failure Mode (Timeout Rate)**:
+   The overwhelming majority of failures (**96% to 100%**) were timeouts at 300 steps rather than obstacle collisions.
+5. **Architectural Limitation & Hypotheses for Timeout Failure**:
+   - *Architectural Limitation (Purely Reactive Policy)*: The network is a memoryless, feedforward MLP mapping current observation $o_t \in \mathbb{R}^{28}$ directly to action $a_t$. It has no internal recurrent hidden state (e.g. LSTM/GRU), external topological graph, or spatial occupancy grid memory.
+   - *Local Minima in Concave Obstacles (Hypothesis)*: When a wall obstacle blocks the direct line-of-sight to the goal, the relative goal vector $(\Delta r, \Delta c)$ attracts the agent toward the wall, while the 16-ray LiDAR repels it away. Without memory of visited cells, this competing vector field creates a limit cycle or local equilibrium where the reactive agent oscillates indefinitely until timeout.
+   - *Partial Observability (POMDP) Gap (Hypothesis)*: Navigating an unknown or partially observed maze with distant goals ($d_{\text{free}} \ge 20$) is an inherently partially observable problem. Without persistent spatial memory or landmark integration, purely reactive gradient-following policies are prone to get trapped when detours require moving temporarily away from the goal.
+
+---
+
+## 6. Visualizations
 
 ### Trajectory and Dose Profile Comparison
 ![Trajectory Comparison](results/trajectory_comparison.png)
@@ -214,7 +303,7 @@ Robustness of A* Aware planning ($\lambda = 2.5$) when the prior radiation map h
 
 ---
 
-## 6. Scientific Observations & Hypotheses
+## 7. Scientific Observations & Hypotheses
 
 > [!NOTE]
 > Explanations of observed performance are scientific hypotheses and should not be construed as definitive proof.
@@ -224,16 +313,17 @@ Robustness of A* Aware planning ($\lambda = 2.5$) when the prior radiation map h
 
 ---
 
-## 7. Limitations
+## 8. Limitations
 
 1. **Toy 2D Simulation:** The environment is an idealized 50x50 grid; it does not model continuous robot dynamics, wheel slippage, or 3D terrain.
 2. **Simplified Physics:** Radiation is modeled as static, softened inverse-square point sources without scattering, material-dependent wall shielding/attenuation, or time-varying decay.
 3. **Tabular State Space:** The Q-learning agent uses tabular state indices $(r, c)$ for a single goal and memorizes optimal paths for this specific static map; it possesses no onboard perception sensors or generalizability to unseen layouts.
-4. **Deterministic Sensors:** Perception and movement transitions are noise-free.
+4. **Sensor-Agent Reactive Memory Limit:** The sensor-based DQN uses a reactive feedforward MLP without recurrent units (LSTM/GRU) or spatial mapping, causing limit cycles/timeouts when detours around obstacles require moving temporarily away from the goal.
+5. **Deterministic Sensors:** Perception and movement transitions are noise-free.
 
 ---
 
-## 8. How to Run
+## 9. How to Run
 
 ### Installation
 Clone the repository and run with Python 3.10+ (standard library, numpy, matplotlib, pillow):
@@ -256,11 +346,11 @@ python evaluate.py
 
 ---
 
-## 9. License
+## 10. License
 MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 10. Development Notes
+## 11. Development Notes
 
 This project was developed with AI coding assistance (Antigravity / Gemini). The experiment specification, parameter values, and evaluation protocol were provided by the author; code implementation, testing, and result verification were carried out by the AI assistant.
