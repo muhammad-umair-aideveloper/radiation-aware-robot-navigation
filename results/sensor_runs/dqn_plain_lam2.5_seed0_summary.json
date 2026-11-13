@@ -1,0 +1,12 @@
+{
+  "run_tag": "dqn_plain_lam2.5_seed0",
+  "variant": "plain",
+  "lambda_rad": 2.5,
+  "seed": 0,
+  "total_steps": 400000,
+  "total_episodes": 1699,
+  "wall_clock_time_s": 246.76275372505188,
+  "steps_per_sec": 1620.9901776573956,
+  "weights_file": "dqn_plain_lam2.5_seed0_weights.npz",
+  "log_file": "dqn_plain_lam2.5_seed0_log.csv"
+}
