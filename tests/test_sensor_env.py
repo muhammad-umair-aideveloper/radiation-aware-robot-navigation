@@ -12,7 +12,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.environment import RadiationEnv, ACTIONS, START_CELL, GOAL_CELL
-from src.sensor_env import SensorNavigationEnv
+from src.sensor_env import SensorNavigationEnv, FrameStack
 from src.sensors import OBS_DIM
 
 
@@ -168,6 +168,68 @@ def test_same_seed_reproducibility() -> None:
     print("PASS: test_same_seed_reproducibility")
 
 
+def test_frame_stacking_shape_and_mechanics() -> None:
+    """Verify that 4-frame stacking produces 112 features, repeats on reset, and drops oldest frame."""
+    env = SensorNavigationEnv(num_stack=4)
+    obs = env.reset(start=(10, 10), goal=(40, 40))
+
+    # 1. Shape must be 112
+    assert obs.shape == (112,), f"Expected shape (112,), got {obs.shape}"
+
+    # 2. First frame repeated 4 times at reset
+    f0 = obs[0:28]
+    f1 = obs[28:56]
+    f2 = obs[56:84]
+    f3 = obs[84:112]
+    assert np.allclose(f0, f1) and np.allclose(f1, f2) and np.allclose(f2, f3), "Frames must be identical at reset"
+
+    # 3. Oldest frame dropped after step
+    # Action 2 is East (0, 1) -> moves to (10, 11)
+    next_obs, r, done, info = env.step(2)
+    assert next_obs.shape == (112,)
+
+    # The new next_obs frames 0, 1, 2 should equal the previous obs frames 1, 2, 3
+    assert np.allclose(next_obs[0:84], obs[28:112]), "Oldest frame must be dropped and prior frames shifted"
+    # The newest frame (84:112) must differ from the initial frame (position changed from (10,10) to (10,11))
+    assert not np.allclose(next_obs[84:112], f0), "New frame must reflect updated agent state"
+
+    # 4. Also test standalone FrameStack wrapper
+    base_env = SensorNavigationEnv(num_stack=1)
+    wrapper = FrameStack(base_env, k=4)
+    w_obs = wrapper.reset(start=(10, 10), goal=(40, 40))
+    assert w_obs.shape == (112,)
+    assert np.allclose(w_obs[:28], w_obs[28:56])
+
+    w_next, _, _, _ = wrapper.step(2)
+    assert w_next.shape == (112,)
+    assert np.allclose(w_next[0:84], w_obs[28:112])
+
+    print("PASS: test_frame_stacking_shape_and_mechanics")
+
+
+def test_frame_stacking_reproducibility() -> None:
+    """Verify that running with identical actions produces identical stacked observations and rewards."""
+    env1 = FrameStack(SensorNavigationEnv(num_stack=1), k=4)
+    env2 = FrameStack(SensorNavigationEnv(num_stack=1), k=4)
+
+    start = (15, 15)
+    goal = (35, 35)
+    actions = [2, 3, 2, 4, 3, 1, 0]
+
+    obs1 = env1.reset(start=start, goal=goal)
+    obs2 = env2.reset(start=start, goal=goal)
+    assert np.allclose(obs1, obs2)
+
+    for a in actions:
+        o1, r1, d1, _ = env1.step(a)
+        o2, r2, d2, _ = env2.step(a)
+        assert np.allclose(o1, o2)
+        assert math.isclose(r1, r2)
+        assert d1 == d2
+
+    print("PASS: test_frame_stacking_reproducibility")
+
+
 def run_all_tests() -> None:
     print("Running SensorNavigationEnv unit tests...")
     test_observation_shape_and_ranges()
@@ -176,6 +238,8 @@ def run_all_tests() -> None:
     test_timeout_after_300_steps()
     test_shaping_terms_telescope_along_trajectory()
     test_same_seed_reproducibility()
+    test_frame_stacking_shape_and_mechanics()
+    test_frame_stacking_reproducibility()
     print("All sensor environment tests passed successfully!")
 
 
