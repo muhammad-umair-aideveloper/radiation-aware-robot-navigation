@@ -22,9 +22,10 @@ Benchmark summary on 50 fixed evaluation starts ($\ge 20$ cells to goal $(47, 47
 | **Tabular Q-Learning (3 seeds)** | Off-Policy RL | 49.7 ± 0.5/50 (99.3%) | 45.22 ± 0.82 | 64.89 ± 0.35 | *not measured* | 97.4 ± 15.7 s |
 | **SARSA (3 seeds, λ=2.5 only)** | On-Policy RL | 49.0 ± 0.8/50 (98.0%) | 46.83 ± 0.69 | 67.01 ± 1.24 | *not measured* | 160.6 ± 5.6 s |
 | **A\* Shortest (Radiation-Blind)** | Baseline Search | 50/50 (100%) | 36.18 | 119.15 | **+70.27% ± 68.11%** | 0.45 s total |
-| **Sensor DQN (Shaped λ=2.5, 3 seeds)** | Map-Free Deep RL | 0.0 ± 0.0% (100 held-out pairs) | *not measured* (0 successes) | *not measured* (0 successes) | *not measured* | ~315 s / seed (400k steps) |
+| **Sensor DQN Baseline (Shaped λ=2.5, 3 seeds)** | Map-Free Deep RL | 0.0 ± 0.0% (100 test pairs) | *not measured* (0 successes) | *not measured* (0 successes) | *not measured* | ~315 s / seed (400k steps) |
+| **Sensor DQN M1 (Frame Stack k=4, Seed 0)** | Map-Free Deep RL | 1/100 (1.0% on test set) | 29.00 (N=1) | 158.00 (N=1) | *not measured* | 258.9 s (400k steps) |
 
-*\* Note: Training times were measured sequentially on a 2-core laptop CPU. SARSA was measured only at $\lambda = 2.5$. The 0.00% optimality gap of A* Aware is a consistency check (both methods optimize the identical objective with an admissible heuristic), not evidence that A* is superior. The per-layout Q-learning study uses 1 seed per layout. Sensor DQN was evaluated on 100 held-out pairs ($d_{\text{free}} \ge 20$); it achieved 0% collisions on Seed 0/2 (4% on Seed 1) but 96–100% timeouts due to reactive MLP memory limits.*
+*\* Note: Training times were measured sequentially on a 2-core laptop CPU. SARSA was measured only at $\lambda = 2.5$. The 0.00% optimality gap of A* Aware is a consistency check (both methods optimize the identical objective with an admissible heuristic), not evidence that A* is superior. The per-layout Q-learning study uses 1 seed per layout. Sensor DQN agents were evaluated on 100 held-out test pairs ($d_{\text{free}} \ge 20$); all baseline seeds reached 0% success (92–100% timeouts), while M1 reached 1% success (88% timeouts, 11% collisions).*
 
 ---
 
@@ -287,7 +288,106 @@ Evaluation was conducted under a greedy policy ($\epsilon = 0.0$) on 100 seeded 
 
 ---
 
-## 6. Visualizations
+## 6. S6: Why the Sensor Agent Fails and What Helped
+
+Following Study S5 (where the reactive sensor DQN achieved 0% to 1% success on 100 held-out pairs due to 96% to 100% timeouts), Study S6 was conducted under a strict, pre-declared, leakage-free protocol to:
+1. Empirically diagnose the failure mechanism across all 7 pre-trained models without any retraining.
+2. Test four targeted architectural and training improvements under a pre-declared Stage A usability gate ($\ge 10\%$ validation success).
+3. Evaluate the final models ONCE on a guarded, previously unseen 100-pair test set and report outcomes honestly.
+
+### 6.1 Diagnosis Results (Offline Analysis of Pre-Trained Models)
+
+Evaluated across the 7 existing S5 models on 100 Diagnostic Pairs (from training goals) versus 100 Held-Out Pairs:
+- **Training vs. Held-Out Goals**: All models exhibited identical failure rates on training goals (0% success on 6 of 7 models, 1% on plain) and held-out goals (0% on 6 of 7 models, 1% on shaped $\lambda=0.0$ seed 2). This disproves the hypothesis that failures are caused by overfitting to specific goal coordinates; the policy suffers from a general execution failure on long-horizon navigation ($d_{\text{free}} \ge 20$).
+- **Distance Sensitivity**: Across distance bins ($[20, 30)$, $[30, 45)$, $[\ge 45]$ cells), success was virtually zero across all bins (at most 1 success in the shortest bin).
+- **Line-of-Sight Obstruction**: When straight line-of-sight was clear of walls (34% of pairs), success was 0% to 2.9%; when blocked by walls (66% of pairs), success was exactly 0.0% across all 7 models.
+- **Timeout Loop Trapping (Key Empirical Telemetry)**:
+  - During 300-step timeout episodes, the average **revisit ratio** ($\text{unique cells} / \text{steps}$) was **$0.053$ to $0.079$**. Across 300 steps, agents visited only ~16 to 24 distinct grid cells, confirming severe limit-cycle trapping in small 2-to-4 cell local loops.
+  - The mean ratio of final distance to initial distance from the goal was **$1.057$** (Seed 0), demonstrating that trapped agents make no net forward progress toward the target.
+  - Exactly **0.0%** of timeout episodes ended within 5 cells of the goal.
+
+### 6.2 Four Improvement Variants (Stage A, Seed 0, $\lambda = 2.5$)
+
+To address these empirical failure modes, four variants were pre-declared and trained for 400,000 steps each on a 2-core laptop CPU:
+- **M1 (Frame Stacking, $k=4$)**: Concatenates the last 4 observations into a 112-dimensional vector. *Hypothesis*: temporal context allows the agent to infer its velocity and direction, breaking 2-cell memoryless limit cycles.
+- **M2 (Distance Curriculum)**: Linearly increases minimum start-goal distance from 5 to 20 cells over the first 40% of steps (160,000 steps), then holds constant at 20 cells. *Hypothesis*: bootstrapping navigation skills on short paths builds gradient following before encountering distant dead-ends.
+- **M3 (M1 + M2 Combined)**: Both 4-frame stacking and linear distance curriculum.
+- **M4 (150-Goal Pool)**: Expands training goals from 30 to 150 disjoint low-radiation goals. *Hypothesis*: exposure to diverse gradient fields prevents policy overfitting.
+
+![S6 Learning Curves](results/s6_learning_curves.png)
+*Stage A training reward and success rate curves (50-episode rolling mean) across the four variants compared against the Baseline (Shaped Seed 0).*
+
+### 6.3 Selection Rule Application & Stage A Usability Gate
+
+The four variants and the three Day-5 baseline seeds were evaluated under greedy rollout on the **100 NEW Validation Pairs** (disjoint goals, $d_{\text{free}} \ge 20$):
+
+| Method / Model | Variant | Objective $\lambda$ | Seed | Validation Success | Collisions | Timeouts | Mean Steps | Mean Dose (a.u.) |
+|---|---|---|---|---|---|---|---|---|
+| **A\* Shortest** | Classical | 0.0 | - | 100/100 (100%) | 0 | 0 | 31.26 | 192.81 |
+| **A\* Aware** | Classical | 2.5 | - | 100/100 (100%) | 0 | 0 | 47.34 | 54.29 |
+| **dqn_shaped_lam2.5_seed0** | Baseline | 2.5 | 0 | 1/100 (1.0%) | 0 | 99 | 21.00 | 138.79 |
+| **dqn_shaped_lam2.5_seed1** | Baseline | 2.5 | 1 | 0/100 (0.0%) | 6 | 94 | *not measured* | *not measured* |
+| **dqn_shaped_lam2.5_seed2** | Baseline | 2.5 | 2 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_s6_m1_lam2.5_seed0** | M1 (Stack-4) | 2.5 | 0 | 0/100 (0.0%) | 6 | 94 | *not measured* | *not measured* |
+| **dqn_s6_m2_lam2.5_seed0** | M2 (Curriculum) | 2.5 | 0 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_s6_m3_lam2.5_seed0** | M3 (Stack+Curr) | 2.5 | 0 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_s6_m4_lam2.5_seed0** | M4 (150-Pool) | 2.5 | 0 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+
+**Selection Decision & Negative Result Path**:
+- Highest variant validation success: **0.0%**.
+- By the pre-declared tie-breaker (fewer timeouts), M1 is ranked first (94 timeouts vs 100 for M2, M3, M4).
+- Because 0.0% is strictly below the pre-declared 10% usability threshold, **no variant was deemed usable**.
+- As required by protocol, **Stage B was skipped**, and we proceeded directly to evaluate the baseline and the best variant (M1, Seed 0) on the test set once to report a definitive negative result.
+
+### 6.4 Final Guarded Test Set Evaluation
+
+The final evaluation was executed **strictly once** on the **100 NEW Test Pairs** (disjoint goals, $d_{\text{free}} \ge 20$), recorded and guarded in `results/test_usage_log.md`:
+
+| Method / Model | Variant | Objective $\lambda$ | Seed | Success Rate | Collisions | Timeouts | Mean Steps | Mean Dose (a.u.) |
+|---|---|---|---|---|---|---|---|---|
+| **A\* Shortest** | Classical | 0.0 | - | 100/100 (100%) | 0 | 0 | 32.80 | 214.48 |
+| **A\* Aware** | Classical | 2.5 | - | 100/100 (100%) | 0 | 0 | 50.30 | 59.79 |
+| **dqn_shaped_lam2.5_seed0** | Baseline | 2.5 | 0 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam2.5_seed1** | Baseline | 2.5 | 1 | 0/100 (0.0%) | 8 | 92 | *not measured* | *not measured* |
+| **dqn_shaped_lam2.5_seed2** | Baseline | 2.5 | 2 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam0.0_seed0** | Baseline | 0.0 | 0 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam0.0_seed1** | Baseline | 0.0 | 1 | 0/100 (0.0%) | 0 | 100 | *not measured* | *not measured* |
+| **dqn_shaped_lam0.0_seed2** | Baseline | 0.0 | 2 | 0/100 (0.0%) | 1 | 99 | *not measured* | *not measured* |
+| **dqn_s6_m1_lam2.5_seed0** | M1 (Stack-4) | 2.5 | 0 | 1/100 (1.0%) | 11 | 88 | 29.00 (N=1) | 158.00 (N=1) |
+
+#### Distance Bin Breakdown & Trajectories
+![S6 Distance Bins](results/s6_distance_bins.png)
+*Success and timeout rates across distance bins on the test set: M1 achieved 1 success in $[20, 30)$ cells and reduced timeout rate from 100% to 88% by increasing exploration into collisions.*
+
+![S6 Trajectories](results/s6_trajectories.png)
+*Evaluation trajectories on the first 4 test pairs comparing A\* Shortest (cyan dashed), A\* Aware (lime solid), M1 Frame Stack (amber dotted), and Baseline $\lambda=0.0$ (magenta dash-dot).*
+
+#### Paired Statistical Comparisons
+- **Baseline $\lambda = 2.5$ vs. $\lambda = 0.0$**: Mutual successes $N=0$ across all 3 seeds (*not measured* due to lack of mutual successes).
+- **M1 ($\lambda = 2.5$, Seed 0) vs. A\* Shortest ($N=1$)**: Dose difference: **$-45.77$ a.u.**, Step difference: **$+6.00$ steps**.
+- **M1 ($\lambda = 2.5$, Seed 0) vs. A\* Aware ($N=1$)**: Dose difference: **$+69.88$ a.u.**, Step difference: **$-26.00$ steps**.
+
+### 6.5 Honest Scientific Failures & Limitations
+
+> [!NOTE]
+> Explanations of failure modes are scientific hypotheses grounded in POMDP navigation theory, not mathematical theorems.
+
+1. **Why None of the Four Variants Solved the Problem (Hypothesis)**:
+   - *Frame Stacking (M1)*: Concatenating 4 observations slightly perturbed the policy (reducing timeouts from 100 to 88 and producing 1 success on the test set), but 4 timesteps (~4 grid moves) represents only a horizon of ~4 cells. When a concave obstacle requires detouring 15–20 cells away from the target, a 4-step history is insufficient to maintain a persistent detour direction.
+   - *Curriculum (M2)*: While the agent learned to solve short paths ($d < 10$), the learned policy still collapsed into local oscillations once evaluation starts were distant ($d_{\text{free}} \ge 20$).
+   - *Goal Pool (M4)*: Increasing training targets from 30 to 150 goals did not alleviate dead-ends because the failure stems from memoryless architecture rather than sample diversity.
+2. **Fundamental Architectural Limitation**:
+   - Navigation in complex obstacle environments with partial, egocentric sensor observations (16-ray LiDAR + $3 \times 3$ Geiger) is a Partially Observable Markov Decision Process (POMDP).
+   - Feedforward MLPs without recurrent units (LSTM/GRU), topological memory, or slam-based spatial maps cannot resolve perceptual aliasing and dead-end traps when detour gradients oppose the direct goal vector.
+3. **Study Limitations**:
+   - Evaluated on a single 50x50 layout.
+   - Noise-free deterministic sensors.
+   - 1 seed per variant evaluated in Stage A (Seed 0); Stage B was correctly aborted under the negative-result rule.
+   - 400,000 training steps per run on a 2-core laptop CPU.
+
+---
+
+## 7. Visualizations
 
 ### Trajectory and Dose Profile Comparison
 ![Trajectory Comparison](results/trajectory_comparison.png)
@@ -303,7 +403,7 @@ Evaluation was conducted under a greedy policy ($\epsilon = 0.0$) on 100 seeded 
 
 ---
 
-## 7. Scientific Observations & Hypotheses
+## 8. Scientific Observations & Hypotheses
 
 > [!NOTE]
 > Explanations of observed performance are scientific hypotheses and should not be construed as definitive proof.
@@ -313,7 +413,7 @@ Evaluation was conducted under a greedy policy ($\epsilon = 0.0$) on 100 seeded 
 
 ---
 
-## 8. Limitations
+## 9. Limitations
 
 1. **Toy 2D Simulation:** The environment is an idealized 50x50 grid; it does not model continuous robot dynamics, wheel slippage, or 3D terrain.
 2. **Simplified Physics:** Radiation is modeled as static, softened inverse-square point sources without scattering, material-dependent wall shielding/attenuation, or time-varying decay.
@@ -323,7 +423,7 @@ Evaluation was conducted under a greedy policy ($\epsilon = 0.0$) on 100 seeded 
 
 ---
 
-## 9. How to Run
+## 10. How to Run
 
 ### Installation
 Clone the repository and run with Python 3.10+ (standard library, numpy, matplotlib, pillow):
@@ -346,11 +446,11 @@ python evaluate.py
 
 ---
 
-## 10. License
+## 11. License
 MIT License. See [LICENSE](LICENSE) for details.
 
 ---
 
-## 11. Development Notes
+## 12. Development Notes
 
 This project was developed with AI coding assistance (Antigravity / Gemini). The experiment specification, parameter values, and evaluation protocol were provided by the author; code implementation, testing, and result verification were carried out by the AI assistant.
