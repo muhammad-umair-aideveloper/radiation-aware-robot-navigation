@@ -1,0 +1,15 @@
+{
+  "run_tag": "dqn_s6_m3_lam2.5_seed0",
+  "variant": "shaped",
+  "lambda_rad": 2.5,
+  "seed": 0,
+  "stack": 4,
+  "curriculum": true,
+  "goal_pool": 30,
+  "total_steps": 400000,
+  "total_episodes": 1814,
+  "wall_clock_time_s": 224.84921741485596,
+  "steps_per_sec": 1778.9699452766326,
+  "weights_file": "dqn_s6_m3_lam2.5_seed0_weights.npz",
+  "log_file": "dqn_s6_m3_lam2.5_seed0_log.csv"
+}
