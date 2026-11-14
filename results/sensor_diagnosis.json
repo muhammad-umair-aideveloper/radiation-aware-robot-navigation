@@ -1,0 +1,688 @@
+{
+  "metadata": {
+    "num_models": 7,
+    "num_heldout_pairs": 100,
+    "num_diag_pairs": 100
+  },
+  "models": {
+    "dqn_shaped_lam2.5_seed0": {
+      "variant": "shaped",
+      "lambda": 2.5,
+      "seed": 0,
+      "heldout": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 46,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 34,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 66,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.05330000000000001,
+          "mean_dist_ratio": 1.056655950871823,
+          "mean_d_start": 33.8950261428808,
+          "mean_d_end": 35.28030132110274,
+          "share_near_goal_5cells": 0.0
+        }
+      },
+      "diag": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 28,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 51,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 21,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 37,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 63,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.046900000000000004,
+          "mean_dist_ratio": 0.9990250481499158,
+          "mean_d_start": 33.96275365334367,
+          "mean_d_end": 33.55889251142851,
+          "share_near_goal_5cells": 0.0
+        }
+      }
+    },
+    "dqn_shaped_lam2.5_seed1": {
+      "variant": "shaped",
+      "lambda": 2.5,
+      "seed": 1,
+      "heldout": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 4,
+        "collision_rate": 0.04,
+        "timeouts": 96,
+        "timeout_rate": 0.96,
+        "bins": {
+          "[20, 30)": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 46,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 34,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 66,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 96,
+          "mean_revisit_ratio": 0.0754513888888889,
+          "mean_dist_ratio": 0.7707541920135208,
+          "mean_d_start": 33.38634025649886,
+          "mean_d_end": 25.091406172713164,
+          "share_near_goal_5cells": 0.0
+        }
+      },
+      "diag": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 6,
+        "collision_rate": 0.06,
+        "timeouts": 94,
+        "timeout_rate": 0.94,
+        "bins": {
+          "[20, 30)": {
+            "total": 28,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 51,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 21,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 37,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 63,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 94,
+          "mean_revisit_ratio": 0.07280141843971631,
+          "mean_dist_ratio": 0.800071208908085,
+          "mean_d_start": 33.720775367613236,
+          "mean_d_end": 26.07952019202172,
+          "share_near_goal_5cells": 0.010638297872340425
+        }
+      }
+    },
+    "dqn_shaped_lam2.5_seed2": {
+      "variant": "shaped",
+      "lambda": 2.5,
+      "seed": 2,
+      "heldout": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 46,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 34,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 66,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.0548,
+          "mean_dist_ratio": 0.9192004551984784,
+          "mean_d_start": 33.8950261428808,
+          "mean_d_end": 30.548281035210895,
+          "share_near_goal_5cells": 0.0
+        }
+      },
+      "diag": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 28,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 51,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 21,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 37,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 63,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.055099999999999996,
+          "mean_dist_ratio": 0.9060830230154616,
+          "mean_d_start": 33.96275365334367,
+          "mean_d_end": 30.879734931545535,
+          "share_near_goal_5cells": 0.0
+        }
+      }
+    },
+    "dqn_shaped_lam0.0_seed0": {
+      "variant": "shaped",
+      "lambda": 0.0,
+      "seed": 0,
+      "heldout": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 46,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 34,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 66,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.07029999999999999,
+          "mean_dist_ratio": 0.8689643232272465,
+          "mean_d_start": 33.8950261428808,
+          "mean_d_end": 28.660946449810027,
+          "share_near_goal_5cells": 0.0
+        }
+      },
+      "diag": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 28,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 51,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 21,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 37,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 63,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.0794,
+          "mean_dist_ratio": 0.7313993355945142,
+          "mean_d_start": 33.96275365334367,
+          "mean_d_end": 23.979914497967084,
+          "share_near_goal_5cells": 0.01
+        }
+      }
+    },
+    "dqn_shaped_lam0.0_seed1": {
+      "variant": "shaped",
+      "lambda": 0.0,
+      "seed": 1,
+      "heldout": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 46,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 34,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 66,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.0716,
+          "mean_dist_ratio": 0.8438498453664961,
+          "mean_d_start": 33.8950261428808,
+          "mean_d_end": 28.15372301107176,
+          "share_near_goal_5cells": 0.0
+        }
+      },
+      "diag": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 28,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 51,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 21,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 37,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 63,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.09080000000000002,
+          "mean_dist_ratio": 0.7618619733394506,
+          "mean_d_start": 33.96275365334367,
+          "mean_d_end": 25.79158126391219,
+          "share_near_goal_5cells": 0.02
+        }
+      }
+    },
+    "dqn_shaped_lam0.0_seed2": {
+      "variant": "shaped",
+      "lambda": 0.0,
+      "seed": 2,
+      "heldout": {
+        "total": 100,
+        "successes": 1,
+        "success_rate": 0.01,
+        "collisions": 1,
+        "collision_rate": 0.01,
+        "timeouts": 98,
+        "timeout_rate": 0.98,
+        "bins": {
+          "[20, 30)": {
+            "total": 27,
+            "successes": 1,
+            "success_rate": 0.037037037037037035
+          },
+          "[30, 45)": {
+            "total": 46,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 34,
+            "successes": 1,
+            "success_rate": 0.029411764705882353
+          },
+          "blocked": {
+            "total": 66,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 98,
+          "mean_revisit_ratio": 0.07329931972789117,
+          "mean_dist_ratio": 0.795210971552287,
+          "mean_d_start": 34.11849299004966,
+          "mean_d_end": 26.116017615148525,
+          "share_near_goal_5cells": 0.0
+        }
+      },
+      "diag": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 28,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 51,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 21,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 37,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 63,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.07053333333333334,
+          "mean_dist_ratio": 0.8213650609007555,
+          "mean_d_start": 33.96275365334367,
+          "mean_d_end": 26.751571731727022,
+          "share_near_goal_5cells": 0.0
+        }
+      }
+    },
+    "dqn_plain_lam2.5_seed0": {
+      "variant": "plain",
+      "lambda": 2.5,
+      "seed": 0,
+      "heldout": {
+        "total": 100,
+        "successes": 0,
+        "success_rate": 0.0,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 100,
+        "timeout_rate": 1.0,
+        "bins": {
+          "[20, 30)": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[30, 45)": {
+            "total": 46,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 27,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 34,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 66,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "timeout_dynamics": {
+          "count": 100,
+          "mean_revisit_ratio": 0.0788,
+          "mean_dist_ratio": 0.7913232870657076,
+          "mean_d_start": 33.8950261428808,
+          "mean_d_end": 25.81529661542071,
+          "share_near_goal_5cells": 0.0
+        }
+      },
+      "diag": {
+        "total": 100,
+        "successes": 1,
+        "success_rate": 0.01,
+        "collisions": 0,
+        "collision_rate": 0.0,
+        "timeouts": 99,
+        "timeout_rate": 0.99,
+        "bins": {
+          "[20, 30)": {
+            "total": 28,
+            "successes": 1,
+            "success_rate": 0.03571428571428571
+          },
+          "[30, 45)": {
+            "total": 51,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "[>= 45]": {
+            "total": 21,
+            "successes": 0,
+            "success_rate": 0.0
+          }
+        },
+        "line_of_sight": {
+          "clear": {
+            "total": 37,
+            "successes": 0,
+            "success_rate": 0.0
+          },
+          "blocked": {
+            "total": 63,
+            "successes": 1,
+            "success_rate": 0.015873015873015872
+          }
+        },
+        "timeout_dynamics": {
+          "count": 99,
+          "mean_revisit_ratio": 0.07787878787878787,
+          "mean_dist_ratio": 0.7186497649464251,
+          "mean_d_start": 34.10455057059794,
+          "mean_d_end": 23.895321452578475,
+          "share_near_goal_5cells": 0.04040404040404041
+        }
+      }
+    }
+  }
+}
