@@ -325,7 +325,8 @@ def run_full_sensor_evaluation(
 
         # Inspect weight matrix to determine obs_dim and stack count
         data = np.load(weights_path)
-        obs_dim = int(data["w0"].shape[0])
+        w_key = "w_0" if "w_0" in data else "w0"
+        obs_dim = int(data[w_key].shape[0])
         num_stack = max(1, obs_dim // OBS_DIM)
         agent_stacks[tag] = num_stack
 

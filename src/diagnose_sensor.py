@@ -387,3 +387,4 @@ def write_diagnosis_markdown(results: Dict[str, Any], filepath: Path) -> None:
 
 if __name__ == "__main__":
     run_diagnosis()
+

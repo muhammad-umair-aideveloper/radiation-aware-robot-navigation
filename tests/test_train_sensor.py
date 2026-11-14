@@ -81,3 +81,4 @@ if __name__ == "__main__":
     test_training_argument_defaults()
     test_network_input_dimension_from_stack()
     print("All training option tests passed!")
+

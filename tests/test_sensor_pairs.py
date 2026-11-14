@@ -150,3 +150,4 @@ if __name__ == "__main__":
     test_free_space_distance_rule()
     test_canonical_goal_excluded()
     print("All sensor pair tests passed!")
+
