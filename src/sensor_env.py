@@ -34,6 +34,7 @@ class SensorNavigationEnv:
         gamma: float = 0.99,
         max_steps: int = 300,
         scale_reward: bool = True,
+        num_stack: int = 1,
     ) -> None:
         self.base_env = RadiationEnv() if base_env is None else base_env
         self.lambda_rad = float(lambda_rad)
@@ -41,6 +42,7 @@ class SensorNavigationEnv:
         self.gamma = float(gamma)
         self.max_steps = int(max_steps)
         self.scale_reward = bool(scale_reward)
+        self.num_stack = max(1, int(num_stack))
 
         self.robot_pos: Tuple[int, int] = self.base_env.start
         self.goal_pos: Tuple[int, int] = self.base_env.goal
@@ -48,9 +50,15 @@ class SensorNavigationEnv:
         self.cumulative_dose: float = 0.0
         self.done: bool = False
         self.outcome: str = "init"
+        self.frames: List[np.ndarray] = []
 
         # Global cache for free-space distance maps (keyed by goal cell)
         self._distance_cache: Dict[Tuple[int, int], np.ndarray] = {}
+
+    @property
+    def obs_dim(self) -> int:
+        """Return observation dimension considering frame stacking."""
+        return OBS_DIM * self.num_stack
 
     def get_distance_map(self, goal: Tuple[int, int]) -> np.ndarray:
         """Retrieve or compute the 8-connected free-space geodesic distance map to goal."""
@@ -81,7 +89,11 @@ class SensorNavigationEnv:
         self.done = False
         self.outcome = "in_progress"
 
-        return self._get_obs()
+        base_obs = self._get_obs()
+        if self.num_stack > 1:
+            self.frames = [base_obs.copy() for _ in range(self.num_stack)]
+            return np.concatenate(self.frames, axis=0)
+        return base_obs
 
     def _get_obs(self) -> np.ndarray:
         """Return 28-dimensional egocentric sensor observation."""
@@ -157,6 +169,85 @@ class SensorNavigationEnv:
             "goal_pos": list(self.goal_pos),
         }
 
-        obs = self._get_obs()
+        base_obs = self._get_obs()
+        if self.num_stack > 1:
+            self.frames.pop(0)
+            self.frames.append(base_obs.copy())
+            obs = np.concatenate(self.frames, axis=0)
+        else:
+            obs = base_obs
+
         return obs, float(returned_reward), self.done, info
+
+
+class FrameStack:
+    """Observation frame-stacking wrapper for SensorNavigationEnv.
+
+    Concatenates the last `k` observations along dimension 0.
+    At reset(), the initial observation is repeated `k` times.
+    At step(), the oldest observation is dropped and the new observation is appended.
+    Resulting observation dimension: k * base_obs_dim (e.g., 4 * 28 = 112).
+    """
+
+    def __init__(self, env: SensorNavigationEnv, k: int = 4) -> None:
+        self.env = env
+        self.k = int(k)
+        self.frames: List[np.ndarray] = []
+
+    @property
+    def obs_dim(self) -> int:
+        return OBS_DIM * self.k
+
+    @property
+    def base_env(self) -> RadiationEnv:
+        return self.env.base_env
+
+    @property
+    def robot_pos(self) -> Tuple[int, int]:
+        return self.env.robot_pos
+
+    @property
+    def goal_pos(self) -> Tuple[int, int]:
+        return self.env.goal_pos
+
+    @property
+    def steps(self) -> int:
+        return self.env.steps
+
+    @property
+    def cumulative_dose(self) -> float:
+        return self.env.cumulative_dose
+
+    @property
+    def done(self) -> bool:
+        return self.env.done
+
+    @property
+    def outcome(self) -> str:
+        return self.env.outcome
+
+    def reset(
+        self,
+        start: Optional[Tuple[int, int]] = None,
+        goal: Optional[Tuple[int, int]] = None,
+    ) -> np.ndarray:
+        obs = self.env.reset(start=start, goal=goal)
+        # If env already stacks, extract base obs
+        if getattr(self.env, "num_stack", 1) > 1:
+            obs = obs[:OBS_DIM]
+        self.frames = [obs.copy() for _ in range(self.k)]
+        return np.concatenate(self.frames, axis=0)
+
+    def step(self, action: int) -> Tuple[np.ndarray, float, bool, Dict[str, Any]]:
+        obs, reward, done, info = self.env.step(action)
+        if getattr(self.env, "num_stack", 1) > 1:
+            obs = obs[-OBS_DIM:]
+        self.frames.pop(0)
+        self.frames.append(obs.copy())
+        stacked_obs = np.concatenate(self.frames, axis=0)
+        return stacked_obs, reward, done, info
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self.env, name)
+
 
