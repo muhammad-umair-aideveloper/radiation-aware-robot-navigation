@@ -1,0 +1,1486 @@
+{
+  "goals": [
+    [
+      49,
+      3
+    ],
+    [
+      10,
+      35
+    ],
+    [
+      7,
+      43
+    ],
+    [
+      37,
+      6
+    ],
+    [
+      8,
+      36
+    ],
+    [
+      11,
+      38
+    ],
+    [
+      47,
+      11
+    ],
+    [
+      8,
+      32
+    ],
+    [
+      12,
+      22
+    ],
+    [
+      10,
+      39
+    ],
+    [
+      18,
+      6
+    ],
+    [
+      38,
+      14
+    ],
+    [
+      13,
+      15
+    ],
+    [
+      11,
+      20
+    ],
+    [
+      43,
+      11
+    ],
+    [
+      41,
+      43
+    ],
+    [
+      29,
+      2
+    ],
+    [
+      2,
+      24
+    ],
+    [
+      18,
+      33
+    ],
+    [
+      9,
+      15
+    ]
+  ],
+  "pairs": [
+    {
+      "pair_id": 0,
+      "goal_index": 0,
+      "goal": [
+        49,
+        3
+      ],
+      "start_index": 0,
+      "start": [
+        1,
+        36
+      ],
+      "free_space_distance": 64.59797974644661
+    },
+    {
+      "pair_id": 1,
+      "goal_index": 0,
+      "goal": [
+        49,
+        3
+      ],
+      "start_index": 1,
+      "start": [
+        38,
+        24
+      ],
+      "free_space_distance": 25.55634918610405
+    },
+    {
+      "pair_id": 2,
+      "goal_index": 0,
+      "goal": [
+        49,
+        3
+      ],
+      "start_index": 2,
+      "start": [
+        10,
+        45
+      ],
+      "free_space_distance": 62.84062043356591
+    },
+    {
+      "pair_id": 3,
+      "goal_index": 0,
+      "goal": [
+        49,
+        3
+      ],
+      "start_index": 3,
+      "start": [
+        49,
+        32
+      ],
+      "free_space_distance": 29.0
+    },
+    {
+      "pair_id": 4,
+      "goal_index": 0,
+      "goal": [
+        49,
+        3
+      ],
+      "start_index": 4,
+      "start": [
+        28,
+        45
+      ],
+      "free_space_distance": 50.69848480983497
+    },
+    {
+      "pair_id": 5,
+      "goal_index": 1,
+      "goal": [
+        10,
+        35
+      ],
+      "start_index": 0,
+      "start": [
+        38,
+        5
+      ],
+      "free_space_distance": 44.52691193458117
+    },
+    {
+      "pair_id": 6,
+      "goal_index": 1,
+      "goal": [
+        10,
+        35
+      ],
+      "start_index": 1,
+      "start": [
+        43,
+        44
+      ],
+      "free_space_distance": 36.727922061357845
+    },
+    {
+      "pair_id": 7,
+      "goal_index": 1,
+      "goal": [
+        10,
+        35
+      ],
+      "start_index": 2,
+      "start": [
+        38,
+        49
+      ],
+      "free_space_distance": 33.798989873223334
+    },
+    {
+      "pair_id": 8,
+      "goal_index": 1,
+      "goal": [
+        10,
+        35
+      ],
+      "start_index": 3,
+      "start": [
+        45,
+        6
+      ],
+      "free_space_distance": 51.112698372208065
+    },
+    {
+      "pair_id": 9,
+      "goal_index": 1,
+      "goal": [
+        10,
+        35
+      ],
+      "start_index": 4,
+      "start": [
+        46,
+        33
+      ],
+      "free_space_distance": 36.828427124746185
+    },
+    {
+      "pair_id": 10,
+      "goal_index": 2,
+      "goal": [
+        7,
+        43
+      ],
+      "start_index": 0,
+      "start": [
+        38,
+        44
+      ],
+      "free_space_distance": 31.414213562373096
+    },
+    {
+      "pair_id": 11,
+      "goal_index": 2,
+      "goal": [
+        7,
+        43
+      ],
+      "start_index": 1,
+      "start": [
+        29,
+        2
+      ],
+      "free_space_distance": 50.11269837220806
+    },
+    {
+      "pair_id": 12,
+      "goal_index": 2,
+      "goal": [
+        7,
+        43
+      ],
+      "start_index": 2,
+      "start": [
+        7,
+        15
+      ],
+      "free_space_distance": 28.0
+    },
+    {
+      "pair_id": 13,
+      "goal_index": 2,
+      "goal": [
+        7,
+        43
+      ],
+      "start_index": 3,
+      "start": [
+        34,
+        8
+      ],
+      "free_space_distance": 48.526911934581165
+    },
+    {
+      "pair_id": 14,
+      "goal_index": 2,
+      "goal": [
+        7,
+        43
+      ],
+      "start_index": 4,
+      "start": [
+        44,
+        8
+      ],
+      "free_space_distance": 57.94112549695424
+    },
+    {
+      "pair_id": 15,
+      "goal_index": 3,
+      "goal": [
+        37,
+        6
+      ],
+      "start_index": 0,
+      "start": [
+        41,
+        48
+      ],
+      "free_space_distance": 46.97056274847712
+    },
+    {
+      "pair_id": 16,
+      "goal_index": 3,
+      "goal": [
+        37,
+        6
+      ],
+      "start_index": 1,
+      "start": [
+        5,
+        47
+      ],
+      "free_space_distance": 57.18376618407353
+    },
+    {
+      "pair_id": 17,
+      "goal_index": 3,
+      "goal": [
+        37,
+        6
+      ],
+      "start_index": 2,
+      "start": [
+        39,
+        30
+      ],
+      "free_space_distance": 24.82842712474619
+    },
+    {
+      "pair_id": 18,
+      "goal_index": 3,
+      "goal": [
+        37,
+        6
+      ],
+      "start_index": 3,
+      "start": [
+        41,
+        29
+      ],
+      "free_space_distance": 24.65685424949238
+    },
+    {
+      "pair_id": 19,
+      "goal_index": 3,
+      "goal": [
+        37,
+        6
+      ],
+      "start_index": 4,
+      "start": [
+        5,
+        8
+      ],
+      "free_space_distance": 32.82842712474619
+    },
+    {
+      "pair_id": 20,
+      "goal_index": 4,
+      "goal": [
+        8,
+        36
+      ],
+      "start_index": 0,
+      "start": [
+        35,
+        7
+      ],
+      "free_space_distance": 42.52691193458117
+    },
+    {
+      "pair_id": 21,
+      "goal_index": 4,
+      "goal": [
+        8,
+        36
+      ],
+      "start_index": 1,
+      "start": [
+        46,
+        5
+      ],
+      "free_space_distance": 54.35533905932735
+    },
+    {
+      "pair_id": 22,
+      "goal_index": 4,
+      "goal": [
+        8,
+        36
+      ],
+      "start_index": 2,
+      "start": [
+        37,
+        21
+      ],
+      "free_space_distance": 38.142135623730944
+    },
+    {
+      "pair_id": 23,
+      "goal_index": 4,
+      "goal": [
+        8,
+        36
+      ],
+      "start_index": 3,
+      "start": [
+        29,
+        20
+      ],
+      "free_space_distance": 34.798989873223334
+    },
+    {
+      "pair_id": 24,
+      "goal_index": 4,
+      "goal": [
+        8,
+        36
+      ],
+      "start_index": 4,
+      "start": [
+        48,
+        19
+      ],
+      "free_space_distance": 47.04163056034259
+    },
+    {
+      "pair_id": 25,
+      "goal_index": 5,
+      "goal": [
+        11,
+        38
+      ],
+      "start_index": 0,
+      "start": [
+        43,
+        23
+      ],
+      "free_space_distance": 38.21320343559642
+    },
+    {
+      "pair_id": 26,
+      "goal_index": 5,
+      "goal": [
+        11,
+        38
+      ],
+      "start_index": 1,
+      "start": [
+        45,
+        12
+      ],
+      "free_space_distance": 48.284271247461874
+    },
+    {
+      "pair_id": 27,
+      "goal_index": 5,
+      "goal": [
+        11,
+        38
+      ],
+      "start_index": 2,
+      "start": [
+        34,
+        16
+      ],
+      "free_space_distance": 38.55634918610404
+    },
+    {
+      "pair_id": 28,
+      "goal_index": 5,
+      "goal": [
+        11,
+        38
+      ],
+      "start_index": 3,
+      "start": [
+        18,
+        0
+      ],
+      "free_space_distance": 40.89949493661166
+    },
+    {
+      "pair_id": 29,
+      "goal_index": 5,
+      "goal": [
+        11,
+        38
+      ],
+      "start_index": 4,
+      "start": [
+        7,
+        7
+      ],
+      "free_space_distance": 32.65685424949238
+    },
+    {
+      "pair_id": 30,
+      "goal_index": 6,
+      "goal": [
+        47,
+        11
+      ],
+      "start_index": 0,
+      "start": [
+        35,
+        39
+      ],
+      "free_space_distance": 35.798989873223334
+    },
+    {
+      "pair_id": 31,
+      "goal_index": 6,
+      "goal": [
+        47,
+        11
+      ],
+      "start_index": 1,
+      "start": [
+        43,
+        45
+      ],
+      "free_space_distance": 35.656854249492376
+    },
+    {
+      "pair_id": 32,
+      "goal_index": 6,
+      "goal": [
+        47,
+        11
+      ],
+      "start_index": 2,
+      "start": [
+        1,
+        4
+      ],
+      "free_space_distance": 48.899494936611646
+    },
+    {
+      "pair_id": 33,
+      "goal_index": 6,
+      "goal": [
+        47,
+        11
+      ],
+      "start_index": 3,
+      "start": [
+        8,
+        4
+      ],
+      "free_space_distance": 41.899494936611646
+    },
+    {
+      "pair_id": 34,
+      "goal_index": 6,
+      "goal": [
+        47,
+        11
+      ],
+      "start_index": 4,
+      "start": [
+        18,
+        42
+      ],
+      "free_space_distance": 44.76955262170046
+    },
+    {
+      "pair_id": 35,
+      "goal_index": 7,
+      "goal": [
+        8,
+        32
+      ],
+      "start_index": 0,
+      "start": [
+        41,
+        49
+      ],
+      "free_space_distance": 40.041630560342604
+    },
+    {
+      "pair_id": 36,
+      "goal_index": 7,
+      "goal": [
+        8,
+        32
+      ],
+      "start_index": 1,
+      "start": [
+        26,
+        39
+      ],
+      "free_space_distance": 20.899494936611667
+    },
+    {
+      "pair_id": 37,
+      "goal_index": 7,
+      "goal": [
+        8,
+        32
+      ],
+      "start_index": 2,
+      "start": [
+        49,
+        23
+      ],
+      "free_space_distance": 47.2132034355964
+    },
+    {
+      "pair_id": 38,
+      "goal_index": 7,
+      "goal": [
+        8,
+        32
+      ],
+      "start_index": 3,
+      "start": [
+        44,
+        39
+      ],
+      "free_space_distance": 38.89949493661167
+    },
+    {
+      "pair_id": 39,
+      "goal_index": 7,
+      "goal": [
+        8,
+        32
+      ],
+      "start_index": 4,
+      "start": [
+        36,
+        20
+      ],
+      "free_space_distance": 38.970562748477136
+    },
+    {
+      "pair_id": 40,
+      "goal_index": 8,
+      "goal": [
+        12,
+        22
+      ],
+      "start_index": 0,
+      "start": [
+        46,
+        34
+      ],
+      "free_space_distance": 42.14213562373095
+    },
+    {
+      "pair_id": 41,
+      "goal_index": 8,
+      "goal": [
+        12,
+        22
+      ],
+      "start_index": 1,
+      "start": [
+        27,
+        40
+      ],
+      "free_space_distance": 24.798989873223338
+    },
+    {
+      "pair_id": 42,
+      "goal_index": 8,
+      "goal": [
+        12,
+        22
+      ],
+      "start_index": 2,
+      "start": [
+        18,
+        41
+      ],
+      "free_space_distance": 21.48528137423857
+    },
+    {
+      "pair_id": 43,
+      "goal_index": 8,
+      "goal": [
+        12,
+        22
+      ],
+      "start_index": 3,
+      "start": [
+        2,
+        43
+      ],
+      "free_space_distance": 26.313708498984763
+    },
+    {
+      "pair_id": 44,
+      "goal_index": 8,
+      "goal": [
+        12,
+        22
+      ],
+      "start_index": 4,
+      "start": [
+        2,
+        2
+      ],
+      "free_space_distance": 24.142135623730955
+    },
+    {
+      "pair_id": 45,
+      "goal_index": 9,
+      "goal": [
+        10,
+        39
+      ],
+      "start_index": 0,
+      "start": [
+        14,
+        8
+      ],
+      "free_space_distance": 33.48528137423857
+    },
+    {
+      "pair_id": 46,
+      "goal_index": 9,
+      "goal": [
+        10,
+        39
+      ],
+      "start_index": 1,
+      "start": [
+        49,
+        40
+      ],
+      "free_space_distance": 39.41421356237309
+    },
+    {
+      "pair_id": 47,
+      "goal_index": 9,
+      "goal": [
+        10,
+        39
+      ],
+      "start_index": 2,
+      "start": [
+        31,
+        13
+      ],
+      "free_space_distance": 38.21320343559642
+    },
+    {
+      "pair_id": 48,
+      "goal_index": 9,
+      "goal": [
+        10,
+        39
+      ],
+      "start_index": 3,
+      "start": [
+        42,
+        32
+      ],
+      "free_space_distance": 34.89949493661166
+    },
+    {
+      "pair_id": 49,
+      "goal_index": 9,
+      "goal": [
+        10,
+        39
+      ],
+      "start_index": 4,
+      "start": [
+        32,
+        16
+      ],
+      "free_space_distance": 37.97056274847714
+    },
+    {
+      "pair_id": 50,
+      "goal_index": 10,
+      "goal": [
+        18,
+        6
+      ],
+      "start_index": 0,
+      "start": [
+        5,
+        26
+      ],
+      "free_space_distance": 25.384776310850242
+    },
+    {
+      "pair_id": 51,
+      "goal_index": 10,
+      "goal": [
+        18,
+        6
+      ],
+      "start_index": 1,
+      "start": [
+        38,
+        9
+      ],
+      "free_space_distance": 21.242640687119284
+    },
+    {
+      "pair_id": 52,
+      "goal_index": 10,
+      "goal": [
+        18,
+        6
+      ],
+      "start_index": 2,
+      "start": [
+        10,
+        30
+      ],
+      "free_space_distance": 29.65685424949238
+    },
+    {
+      "pair_id": 53,
+      "goal_index": 10,
+      "goal": [
+        18,
+        6
+      ],
+      "start_index": 3,
+      "start": [
+        13,
+        32
+      ],
+      "free_space_distance": 28.071067811865476
+    },
+    {
+      "pair_id": 54,
+      "goal_index": 10,
+      "goal": [
+        18,
+        6
+      ],
+      "start_index": 4,
+      "start": [
+        34,
+        42
+      ],
+      "free_space_distance": 42.627416997969505
+    },
+    {
+      "pair_id": 55,
+      "goal_index": 11,
+      "goal": [
+        38,
+        14
+      ],
+      "start_index": 0,
+      "start": [
+        24,
+        47
+      ],
+      "free_space_distance": 38.79898987322332
+    },
+    {
+      "pair_id": 56,
+      "goal_index": 11,
+      "goal": [
+        38,
+        14
+      ],
+      "start_index": 1,
+      "start": [
+        8,
+        11
+      ],
+      "free_space_distance": 31.242640687119284
+    },
+    {
+      "pair_id": 57,
+      "goal_index": 11,
+      "goal": [
+        38,
+        14
+      ],
+      "start_index": 2,
+      "start": [
+        46,
+        40
+      ],
+      "free_space_distance": 29.313708498984763
+    },
+    {
+      "pair_id": 58,
+      "goal_index": 11,
+      "goal": [
+        38,
+        14
+      ],
+      "start_index": 3,
+      "start": [
+        13,
+        4
+      ],
+      "free_space_distance": 29.142135623730955
+    },
+    {
+      "pair_id": 59,
+      "goal_index": 11,
+      "goal": [
+        38,
+        14
+      ],
+      "start_index": 4,
+      "start": [
+        31,
+        42
+      ],
+      "free_space_distance": 30.899494936611667
+    },
+    {
+      "pair_id": 60,
+      "goal_index": 12,
+      "goal": [
+        13,
+        15
+      ],
+      "start_index": 0,
+      "start": [
+        26,
+        45
+      ],
+      "free_space_distance": 35.384776310850235
+    },
+    {
+      "pair_id": 61,
+      "goal_index": 12,
+      "goal": [
+        13,
+        15
+      ],
+      "start_index": 1,
+      "start": [
+        7,
+        33
+      ],
+      "free_space_distance": 20.48528137423857
+    },
+    {
+      "pair_id": 62,
+      "goal_index": 12,
+      "goal": [
+        13,
+        15
+      ],
+      "start_index": 2,
+      "start": [
+        38,
+        17
+      ],
+      "free_space_distance": 25.82842712474619
+    },
+    {
+      "pair_id": 63,
+      "goal_index": 12,
+      "goal": [
+        13,
+        15
+      ],
+      "start_index": 3,
+      "start": [
+        5,
+        42
+      ],
+      "free_space_distance": 30.313708498984763
+    },
+    {
+      "pair_id": 64,
+      "goal_index": 12,
+      "goal": [
+        13,
+        15
+      ],
+      "start_index": 4,
+      "start": [
+        38,
+        2
+      ],
+      "free_space_distance": 30.384776310850242
+    },
+    {
+      "pair_id": 65,
+      "goal_index": 13,
+      "goal": [
+        11,
+        20
+      ],
+      "start_index": 0,
+      "start": [
+        33,
+        39
+      ],
+      "free_space_distance": 32.798989873223334
+    },
+    {
+      "pair_id": 66,
+      "goal_index": 13,
+      "goal": [
+        11,
+        20
+      ],
+      "start_index": 1,
+      "start": [
+        5,
+        38
+      ],
+      "free_space_distance": 20.48528137423857
+    },
+    {
+      "pair_id": 67,
+      "goal_index": 13,
+      "goal": [
+        11,
+        20
+      ],
+      "start_index": 2,
+      "start": [
+        5,
+        43
+      ],
+      "free_space_distance": 25.48528137423857
+    },
+    {
+      "pair_id": 68,
+      "goal_index": 13,
+      "goal": [
+        11,
+        20
+      ],
+      "start_index": 3,
+      "start": [
+        29,
+        44
+      ],
+      "free_space_distance": 31.45584412271572
+    },
+    {
+      "pair_id": 69,
+      "goal_index": 13,
+      "goal": [
+        11,
+        20
+      ],
+      "start_index": 4,
+      "start": [
+        5,
+        44
+      ],
+      "free_space_distance": 26.48528137423857
+    },
+    {
+      "pair_id": 70,
+      "goal_index": 14,
+      "goal": [
+        43,
+        11
+      ],
+      "start_index": 0,
+      "start": [
+        4,
+        19
+      ],
+      "free_space_distance": 42.31370849898474
+    },
+    {
+      "pair_id": 71,
+      "goal_index": 14,
+      "goal": [
+        43,
+        11
+      ],
+      "start_index": 1,
+      "start": [
+        3,
+        3
+      ],
+      "free_space_distance": 43.31370849898474
+    },
+    {
+      "pair_id": 72,
+      "goal_index": 14,
+      "goal": [
+        43,
+        11
+      ],
+      "start_index": 2,
+      "start": [
+        3,
+        39
+      ],
+      "free_space_distance": 55.11269837220805
+    },
+    {
+      "pair_id": 73,
+      "goal_index": 14,
+      "goal": [
+        43,
+        11
+      ],
+      "start_index": 3,
+      "start": [
+        38,
+        48
+      ],
+      "free_space_distance": 40.72792206135784
+    },
+    {
+      "pair_id": 74,
+      "goal_index": 14,
+      "goal": [
+        43,
+        11
+      ],
+      "start_index": 4,
+      "start": [
+        1,
+        47
+      ],
+      "free_space_distance": 62.18376618407354
+    },
+    {
+      "pair_id": 75,
+      "goal_index": 15,
+      "goal": [
+        41,
+        43
+      ],
+      "start_index": 0,
+      "start": [
+        0,
+        9
+      ],
+      "free_space_distance": 58.01219330881971
+    },
+    {
+      "pair_id": 76,
+      "goal_index": 15,
+      "goal": [
+        41,
+        43
+      ],
+      "start_index": 1,
+      "start": [
+        17,
+        41
+      ],
+      "free_space_distance": 24.82842712474619
+    },
+    {
+      "pair_id": 77,
+      "goal_index": 15,
+      "goal": [
+        41,
+        43
+      ],
+      "start_index": 2,
+      "start": [
+        49,
+        14
+      ],
+      "free_space_distance": 32.31370849898476
+    },
+    {
+      "pair_id": 78,
+      "goal_index": 15,
+      "goal": [
+        41,
+        43
+      ],
+      "start_index": 3,
+      "start": [
+        9,
+        4
+      ],
+      "free_space_distance": 58.11269837220805
+    },
+    {
+      "pair_id": 79,
+      "goal_index": 15,
+      "goal": [
+        41,
+        43
+      ],
+      "start_index": 4,
+      "start": [
+        19,
+        30
+      ],
+      "free_space_distance": 29.142135623730955
+    },
+    {
+      "pair_id": 80,
+      "goal_index": 16,
+      "goal": [
+        29,
+        2
+      ],
+      "start_index": 0,
+      "start": [
+        3,
+        2
+      ],
+      "free_space_distance": 26.0
+    },
+    {
+      "pair_id": 81,
+      "goal_index": 16,
+      "goal": [
+        29,
+        2
+      ],
+      "start_index": 1,
+      "start": [
+        1,
+        30
+      ],
+      "free_space_distance": 39.59797974644666
+    },
+    {
+      "pair_id": 82,
+      "goal_index": 16,
+      "goal": [
+        29,
+        2
+      ],
+      "start_index": 2,
+      "start": [
+        17,
+        34
+      ],
+      "free_space_distance": 36.970562748477136
+    },
+    {
+      "pair_id": 83,
+      "goal_index": 16,
+      "goal": [
+        29,
+        2
+      ],
+      "start_index": 3,
+      "start": [
+        45,
+        36
+      ],
+      "free_space_distance": 40.62741699796951
+    },
+    {
+      "pair_id": 84,
+      "goal_index": 16,
+      "goal": [
+        29,
+        2
+      ],
+      "start_index": 4,
+      "start": [
+        38,
+        44
+      ],
+      "free_space_distance": 45.72792206135783
+    },
+    {
+      "pair_id": 85,
+      "goal_index": 17,
+      "goal": [
+        2,
+        24
+      ],
+      "start_index": 0,
+      "start": [
+        35,
+        47
+      ],
+      "free_space_distance": 42.52691193458117
+    },
+    {
+      "pair_id": 86,
+      "goal_index": 17,
+      "goal": [
+        2,
+        24
+      ],
+      "start_index": 1,
+      "start": [
+        17,
+        11
+      ],
+      "free_space_distance": 20.384776310850242
+    },
+    {
+      "pair_id": 87,
+      "goal_index": 17,
+      "goal": [
+        2,
+        24
+      ],
+      "start_index": 2,
+      "start": [
+        32,
+        48
+      ],
+      "free_space_distance": 39.94112549695428
+    },
+    {
+      "pair_id": 88,
+      "goal_index": 17,
+      "goal": [
+        2,
+        24
+      ],
+      "start_index": 3,
+      "start": [
+        20,
+        31
+      ],
+      "free_space_distance": 20.899494936611667
+    },
+    {
+      "pair_id": 89,
+      "goal_index": 17,
+      "goal": [
+        2,
+        24
+      ],
+      "start_index": 4,
+      "start": [
+        23,
+        1
+      ],
+      "free_space_distance": 31.69848480983501
+    },
+    {
+      "pair_id": 90,
+      "goal_index": 18,
+      "goal": [
+        18,
+        33
+      ],
+      "start_index": 0,
+      "start": [
+        48,
+        27
+      ],
+      "free_space_distance": 34.14213562373095
+    },
+    {
+      "pair_id": 91,
+      "goal_index": 18,
+      "goal": [
+        18,
+        33
+      ],
+      "start_index": 1,
+      "start": [
+        45,
+        15
+      ],
+      "free_space_distance": 37.8700576850888
+    },
+    {
+      "pair_id": 92,
+      "goal_index": 18,
+      "goal": [
+        18,
+        33
+      ],
+      "start_index": 2,
+      "start": [
+        3,
+        18
+      ],
+      "free_space_distance": 24.142135623730955
+    },
+    {
+      "pair_id": 93,
+      "goal_index": 18,
+      "goal": [
+        18,
+        33
+      ],
+      "start_index": 3,
+      "start": [
+        45,
+        35
+      ],
+      "free_space_distance": 27.82842712474619
+    },
+    {
+      "pair_id": 94,
+      "goal_index": 18,
+      "goal": [
+        18,
+        33
+      ],
+      "start_index": 4,
+      "start": [
+        36,
+        17
+      ],
+      "free_space_distance": 32.14213562373095
+    },
+    {
+      "pair_id": 95,
+      "goal_index": 19,
+      "goal": [
+        9,
+        15
+      ],
+      "start_index": 0,
+      "start": [
+        40,
+        20
+      ],
+      "free_space_distance": 33.071067811865476
+    },
+    {
+      "pair_id": 96,
+      "goal_index": 19,
+      "goal": [
+        9,
+        15
+      ],
+      "start_index": 1,
+      "start": [
+        14,
+        44
+      ],
+      "free_space_distance": 31.899494936611667
+    },
+    {
+      "pair_id": 97,
+      "goal_index": 19,
+      "goal": [
+        9,
+        15
+      ],
+      "start_index": 2,
+      "start": [
+        12,
+        47
+      ],
+      "free_space_distance": 34.89949493661166
+    },
+    {
+      "pair_id": 98,
+      "goal_index": 19,
+      "goal": [
+        9,
+        15
+      ],
+      "start_index": 3,
+      "start": [
+        41,
+        48
+      ],
+      "free_space_distance": 50.35533905932735
+    },
+    {
+      "pair_id": 99,
+      "goal_index": 19,
+      "goal": [
+        9,
+        15
+      ],
+      "start_index": 4,
+      "start": [
+        39,
+        45
+      ],
+      "free_space_distance": 47.11269837220807
+    }
+  ]
+}
