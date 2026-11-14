@@ -172,5 +172,84 @@ All observations are continuous values derived strictly from local egocentric pe
 - **Declared Step Budget**: **400,000 steps** per run ($400,000 / 891.0 \approx 448.9\text{ s} \approx 7.5\text{ minutes}$).
 - **Status**: Fixed uniformly for all 7 experimental runs before launching training.
 
+---
+
+## S6: Improving the Sensor Agent
+
+**Status**: Plan fixed before running experiments. No step budget increase and no extra variants after seeing results.
+
+### 1. Objective & Motivation
+In Study S5, the purely reactive sensor-based DQN agent achieved near-zero collisions (obstacle avoidance succeeded via LiDAR) but suffered a 0% to 1% success rate on 100 held-out pairs due to 96% to 100% timeouts. The objective of Study S6 is:
+1. Diagnose why timeouts occur using the existing 7 finished runs without any retraining.
+2. Formulate and test 4 pre-declared architectural and training improvements under a leakage-free protocol.
+3. Report the outcome honestly, including negative results if no variant meets the pre-declared usability threshold.
+
+### 2. Fixed Parameters Across All Runs
+Unless explicitly overridden by a variant below, all experimental settings remain strictly identical to Study S5:
+- **DQN Architecture**: MLP ($H_1=64, H_2=64$, ReLU hidden, linear output), Adam ($\text{lr}=10^{-3}, \beta_1=0.9, \beta_2=0.999$), Huber loss ($\delta=1.0$), gradient norm clipping at $10.0$.
+- **Replay & Updates**: Replay buffer 50,000 transitions, batch size 64, 1 update per 4 environment steps, target network sync every 1,000 steps.
+- **Exploration**: Geometric epsilon decay from $1.0$ down to $0.05$ over the first 60% of steps (240,000 steps), constant $0.05$ thereafter.
+- **Reward & Physics**: Scaled reward $\tilde{R} = R/100$, base cost $L \cdot (1 + \lambda \cdot I)$, terminal $+10.0$ goal, $-10.0$ collision, potential-based shaping with geodesic free-space distance, $\lambda = 2.5$, episode timeout guard at 300 steps.
+- **Training Step Budget**: Exactly 400,000 steps per run.
+- **Evaluation Rules**: Purely greedy policy ($\epsilon = 0.0$), 300-step timeout guard, final model evaluation only (no intermediate checkpoint selection).
+
+### 3. Four Pre-Declared Improvement Variants (Stage A, $\lambda = 2.5$, Seed 0)
+- **M1 (Frame Stacking)**:
+  - Observation concatenates the last 4 consecutive 28-dimensional observations into a 112-dimensional vector.
+  - At episode reset, the initial observation is repeated 4 times.
+  - Oldest observation is dropped upon each transition.
+  - Network input layer dimension: 112 ($112 \to 64 \to 64 \to 8$).
+  - *Hypothesis*: Short temporal history allows the network to infer velocity and direction, breaking memoryless limit-cycle oscillations.
+- **M2 (Distance Curriculum)**:
+  - The minimum free-space start-goal distance $d_{\text{min}}$ of training episodes rises linearly from $5$ to $20$ cells over the first 40% of the training step budget ($160,000$ steps), then stays fixed at $20$ cells for the remaining 60%.
+  - Network input dimension remains 28 ($28 \to 64 \to 64 \to 8$).
+  - *Hypothesis*: Learning to reach nearby goals first builds effective local gradient navigation before tackling long-range topological detours.
+- **M3 (M1 + M2 Combined)**:
+  - Both 4-frame stacking (112-dim observation) and the linear distance curriculum ($5 \to 20$ cells over 40% of steps).
+- **M4 (Larger Goal Pool)**:
+  - Expands the training goal pool from 30 goals to 150 goals (retaining the 30 existing training goals and adding 120 new disjoint goals sampled under the same rules).
+  - Network input dimension remains 28.
+  - *Hypothesis*: Training over 5x more diverse goal locations prevents overfitting to specific local gradient fields and improves spatial generalization.
+
+### 4. Pair Sets & Leakage Prevention Protocol
+All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., excluding the canonical goal $(47, 47)$. To strictly prevent data leakage:
+- **Pairwise Disjoint Goal Sets**:
+  - `training_pool_30`: 30 existing training goals.
+  - `heldout_set`: 20 existing held-out goals from S5 (used strictly for offline diagnosis, never for model selection or final testing).
+  - `val_set`: NEW validation set composed of 20 new goals $\times$ 5 starts each ($N=100$ pairs, $d_{\text{free}} \ge 20$). Used solely for Stage A model selection.
+  - `test_set`: NEW test set composed of 20 new goals $\times$ 5 starts each ($N=100$ pairs, $d_{\text{free}} \ge 20$). Used ONCE for final guarded evaluation.
+  - `diag_set`: 100 diagnostic pairs constructed from the 30 training goals ($20 \times 5$ pairs, $d_{\text{free}} \ge 20$) to measure training-goal memorization vs. generalization.
+  - `training_pool_150`: The 30 existing training goals plus 120 newly sampled training goals (used only by M4).
+- **Separation Constraint**: Every new goal in `val_set`, `test_set`, and `training_pool_150` must maintain a minimum Euclidean distance of at least 5.0 cells from all goals belonging to other sets.
+
+### 5. Selection Rule (Stage A $\to$ Stage B Gate)
+- After Stage A training (M1, M2, M3, M4 on Seed 0, $\lambda = 2.5$), all 4 variants and the baseline Day-5 models (shaped $\lambda = 2.5$, Seeds 0, 1, 2) are evaluated on the NEW 100 validation pairs under greedy rollout.
+- **Primary Selection Metric**: Highest validation success rate.
+- **Tie-Breaker**: Fewer timeouts.
+- **Usability Gate**:
+  - If the best variant achieves validation success $\ge 10\%$, it is selected as the winning variant for Stage B.
+  - If the best variant achieves validation success $< 10\%$, there is no usable variant. Stage B is skipped entirely, and only the final test evaluation of the baseline and the best variant (Seed 0) is executed to report a definitive negative result.
+
+### 6. Stage B Training (Conditional)
+- If the usability gate passes ($\ge 10\%$ validation success):
+  - Train the selected variant on $\lambda = 2.5$ for Seeds 1 and 2 (reusing Seed 0 from Stage A).
+  - Train the selected variant on $\lambda = 0.0$ for Seeds 0, 1, and 2.
+  - Total runs in Stage B: 5 new training runs (reusing 1).
+
+### 7. Final Test Evaluation Protocol (Guarded, Executed Once)
+- Evaluated on the 100 NEW test pairs (strictly once, guarded by `evaluate_sensor.py` logging to `results/test_usage_log.md`):
+  - Selected variant (6 runs: 3 seeds at $\lambda = 2.5$, 3 seeds at $\lambda = 0.0$; or Seed 0 if negative result path).
+  - Baseline Day-5 models (6 runs: 3 seeds at $\lambda = 2.5$, 3 seeds at $\lambda = 0.0$).
+  - Classical baselines: A* Shortest ($\lambda = 0.0$) and A* Aware ($\lambda = 2.5$).
+- **Reported Metrics**:
+  - Success rate, collision count, timeout count.
+  - Mean steps and mean dose (a.u.) computed strictly over successful trajectories.
+  - Paired comparisons on mutual successes with 95% bootstrap confidence intervals (10,000 resamples, RNG seed 42):
+    1. Selected variant $\lambda = 2.5$ vs. $\lambda = 0.0$ per seed (primary hypothesis test on radiation awareness).
+    2. Selected variant vs. A* Shortest.
+    3. Selected variant vs. A* Aware.
+- All explanatory conclusions are explicitly labeled as hypotheses.
+
+
 
 
