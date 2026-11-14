@@ -38,3 +38,21 @@ jobs:
       - name: Run test_optimality_gap.py
         run: python tests/test_optimality_gap.py
 
+      - name: Run test_dqn_agent.py
+        run: python tests/test_dqn_agent.py
+
+      - name: Run test_nn.py
+        run: python tests/test_nn.py
+
+      - name: Run test_sensors.py
+        run: python tests/test_sensors.py
+
+      - name: Run test_sensor_env.py
+        run: python tests/test_sensor_env.py
+
+      - name: Run test_sensor_pairs.py
+        run: python tests/test_sensor_pairs.py
+
+      - name: Run test_train_sensor.py
+        run: python tests/test_train_sensor.py
+
