@@ -1,0 +1,118 @@
+{
+  "estimator": "kernel",
+  "n": 200,
+  "dwell": 10,
+  "references": {
+    "oracle_dose": 54.42185117759439,
+    "shortest_dose": 119.14780991837388
+  },
+  "seed_metrics": [
+    {
+      "mean_steps": 44.24,
+      "true_dose": 55.86005196933732,
+      "dose_regret_percent": 2.6426899501262096,
+      "dose_reduction_percent": 53.11701322281451,
+      "relative_l2_error": 0.6413006094248428,
+      "bandwidth": 4.0
+    },
+    {
+      "mean_steps": 44.5,
+      "true_dose": 56.39877318887076,
+      "dose_regret_percent": 3.6325886909379435,
+      "dose_reduction_percent": 52.664867925387306,
+      "relative_l2_error": 0.6965613150988658,
+      "bandwidth": 1.0
+    },
+    {
+      "mean_steps": 44.3,
+      "true_dose": 61.52905183068778,
+      "dose_regret_percent": 13.059461409904113,
+      "dose_reduction_percent": 48.35905765045931,
+      "relative_l2_error": 0.6250702671550998,
+      "bandwidth": 1.0
+    },
+    {
+      "mean_steps": 45.16,
+      "true_dose": 55.39338350469925,
+      "dose_regret_percent": 1.78518794580226,
+      "dose_reduction_percent": 53.50868510075988,
+      "relative_l2_error": 0.5028182894611857,
+      "bandwidth": 2.0
+    },
+    {
+      "mean_steps": 44.5,
+      "true_dose": 57.16423943326336,
+      "dose_regret_percent": 5.039130783551917,
+      "dose_reduction_percent": 52.02241696895176,
+      "relative_l2_error": 0.5252455799966508,
+      "bandwidth": 2.0
+    },
+    {
+      "mean_steps": 44.62,
+      "true_dose": 59.7435048563377,
+      "dose_regret_percent": 9.77852381643028,
+      "dose_reduction_percent": 49.85765588367344,
+      "relative_l2_error": 0.4099341618547619,
+      "bandwidth": 1.0
+    },
+    {
+      "mean_steps": 44.36,
+      "true_dose": 56.965383227234796,
+      "dose_regret_percent": 4.673733058693863,
+      "dose_reduction_percent": 52.18931571947415,
+      "relative_l2_error": 0.4773218295748848,
+      "bandwidth": 2.0
+    },
+    {
+      "mean_steps": 44.94,
+      "true_dose": 55.637897861284436,
+      "dose_regret_percent": 2.2344823951719874,
+      "dose_reduction_percent": 53.30346575451029,
+      "relative_l2_error": 0.6599481744688366,
+      "bandwidth": 3.0
+    },
+    {
+      "mean_steps": 44.2,
+      "true_dose": 56.10843608304503,
+      "dose_regret_percent": 3.0990950674331494,
+      "dose_reduction_percent": 52.90854601399392,
+      "relative_l2_error": 0.621097506751463,
+      "bandwidth": 3.0
+    },
+    {
+      "mean_steps": 44.92,
+      "true_dose": 56.13962774057319,
+      "dose_regret_percent": 3.156409651287296,
+      "dose_reduction_percent": 52.88236705396978,
+      "relative_l2_error": 0.5457312705663218,
+      "bandwidth": 2.0
+    }
+  ],
+  "metrics": {
+    "mean_steps": {
+      "mean": 44.574,
+      "ci_low": 44.388,
+      "ci_high": 44.77
+    },
+    "true_dose": {
+      "mean": 57.09403496953337,
+      "ci_low": 56.063706179430255,
+      "ci_high": 58.34897552702915
+    },
+    "dose_regret_percent": {
+      "mean": 4.910130276933902,
+      "ci_low": 3.0169039940923996,
+      "ci_high": 7.216080056923085
+    },
+    "dose_reduction_percent": {
+      "mean": 52.08133912939944,
+      "ci_low": 51.02807549127171,
+      "ci_high": 52.94608753795933
+    },
+    "relative_l2_error": {
+      "mean": 0.5705029004352913,
+      "ci_low": 0.5168371798164415,
+      "ci_high": 0.6235264120402338
+    }
+  }
+}
