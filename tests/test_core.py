@@ -299,7 +299,7 @@ def test_visual_artifacts_integrity() -> None:
         assert size > MIN_SIZE, (
             f"Artifact {name} is suspiciously small: {size} bytes (< {MIN_SIZE})"
         )
-        print(f"  {name}: {size // 1024} KB ✓")
+        print(f"  {name}: {size // 1024} KB OK")
 
     # GIF frame count
     gif_path = artifacts["radiation_navigation.gif"]
@@ -480,7 +480,7 @@ def run_all_tests() -> None:
     ]
 
     print("=" * 65)
-    print("QA & Scientific Invariant Audit — test_core.py")
+    print("QA & Scientific Invariant Audit - test_core.py")
     print("=" * 65)
 
     passed, failed = [], []
@@ -490,7 +490,7 @@ def run_all_tests() -> None:
             passed.append(fn.__name__)
         except Exception as exc:
             failed.append((fn.__name__, exc))
-            print(f"FAIL: {fn.__name__} — {exc}")
+            print(f"FAIL: {fn.__name__} - {exc}")
 
     print()
     print("=" * 65)
