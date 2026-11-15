@@ -250,6 +250,21 @@ All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., 
     3. Selected variant vs. A* Aware.
 - All explanatory conclusions are explicitly labeled as hypotheses.
 
+## S7: measure, estimate, plan (fixed before running)
+- True field I (a.u.) comes from the environment. A reading at a free cell with dwell time t: counts ~ Poisson(t * I(cell)); the estimate of I at that cell is counts / t.
+- Dwell times t in {100, 10, 1, 0.1}. Measurement cells: N distinct free cells chosen uniformly at random with a seed; N in {10, 25, 50, 100, 200}. The travel cost of measuring is not counted (limitation).
+- Estimators (numpy only; they receive ONLY the measurement cells, their estimates and the free mask): "kernel" = Gaussian Nadaraya-Watson regression with the bandwidth chosen by leave-one-out cross-validation on the measurements, from (1, 2, 3, 4, 6, 8, 12) cells; "idw" = inverse-distance weighting, power 2, eps 0.5. Estimates are clipped at 0 and set to 0 on wall cells.
+- Planning: A* aware (step cost L * (1 + 2.5 * I_est)) on the estimated field. References: A* aware on the true field (oracle) and A* shortest. The path is always judged on the TRUE field.
+- Evaluation: the same 50 fixed start cells as the main benchmark; measurement seeds 0 to 9; 2 estimators x 5 values of N x 4 values of t = 40 configurations. Per configuration: mean steps, mean TRUE dose, dose regret vs oracle in percent ((dose - oracle dose) / oracle dose * 100), dose reduction vs A* shortest in percent, and the relative L2 error of the estimated field vs the true field on free cells. Report the mean over seeds with a 95% bootstrap confidence interval over the 10 seed means (10,000 resamples, fixed seed).
+- Explanations of results are hypotheses. No new configurations after seeing results.
+### Code interface notes
+- true field: `RadiationEnv().radiation` (or `compute_radiation_field()`).
+- wall grid: `RadiationEnv().walls` (`True` means wall; free cells are `~env.walls`).
+- A* aware with a custom field: `astar_search(start, goal, mode="aware", env=RadiationEnv(radiation=custom_field), lambda_rad=2.5)`.
+- 50 start cells: `main.generate_evaluation_starts(env, num_starts=50, seed=123)`; free-space distance to the goal is at least 20.
+- bootstrap helper: `src/evaluate_sensor.py`, `compute_bootstrap_ci`.
+- dose of a path: `src/map_error_study.py`, `evaluate_path_on_true_field`.
+
 
 
 
