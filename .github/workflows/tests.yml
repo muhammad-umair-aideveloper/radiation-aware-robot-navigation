@@ -53,6 +53,12 @@ jobs:
       - name: Run test_sensor_pairs.py
         run: python tests/test_sensor_pairs.py
 
+      - name: Run test_geiger_model.py
+        run: python tests/test_geiger_model.py
+
+      - name: Run test_estimators.py
+        run: python tests/test_estimators.py
+
       - name: Run test_train_sensor.py
         run: python tests/test_train_sensor.py
 
