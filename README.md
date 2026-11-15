@@ -454,3 +454,30 @@ MIT License. See [LICENSE](LICENSE) for details.
 ## 12. Development Notes
 
 This project was developed with AI coding assistance (Antigravity / Gemini). The experiment specification, parameter values, and evaluation protocol were provided by the author; code implementation, testing, and result verification were carried out by the AI assistant.
+
+## Measure, estimate, plan
+
+Study S7 evaluates a robot that measures noisy Geiger counts at selected free cells, estimates the unknown radiation field, and plans with A* aware on that estimate. Every planned path is evaluated on the true field.
+
+At a free cell with dwell time \(t\), counts follow \(\mathrm{Poisson}(t I)\), and the measured intensity is counts divided by \(t\). The two NumPy-only estimators are Gaussian Nadaraya-Watson kernel regression with leave-one-out bandwidth selection and inverse-distance weighting (power 2, \(\epsilon=0.5\)).
+
+Assumptions: estimators receive only measurement cells, their estimates, and the free-cell mask; measurement travel cost is not counted; and measurement positions are exact.
+
+| Method / estimator | N=25, t=10 | N=25, t=1 | N=25, t=0.1 | N=50, t=10 | N=50, t=1 | N=50, t=0.1 | N=100, t=10 | N=100, t=1 | N=100, t=0.1 |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Kernel dose regret (%) | 34.639 | 44.287 | 127.141 | 11.306 | 15.171 | 41.388 | 8.274 | 14.440 | 26.130 |
+| IDW dose regret (%) | 33.078 | 47.726 | 151.483 | 17.285 | 21.710 | 61.637 | 16.265 | 22.099 | 43.319 |
+| Oracle A* aware dose (a.u.) | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 |
+| A* shortest dose (a.u.) | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 |
+
+Hypothesis: the best tested configuration in this table is kernel regression at N=50 and t=1, with 15.171% dose regret and 47.395% dose reduction versus A* shortest.
+
+![S7 dose regret](results/estimation_regret.png)
+
+![S7 estimated fields](results/estimation_fields.png)
+
+![S7 planned paths](results/estimation_paths.png)
+
+Hypothesis: dose saving breaks down below half of the oracle saving at N=10 in the tested range; it is also below that threshold for some very short-dwell configurations.
+
+Limitations: the study uses two simple estimators, does not count measurement travel cost, uses an idealised Poisson noise model, and evaluates one layout.
