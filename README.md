@@ -481,3 +481,38 @@ Hypothesis: the best tested configuration in this table is kernel regression at 
 Hypothesis: dose saving breaks down below half of the oracle saving at N=10 in the tested range; it is also below that threshold for some very short-dwell configurations.
 
 Limitations: the study uses two simple estimators, does not count measurement travel cost, uses an idealised Poisson noise model, and evaluates one layout.
+
+## Online measure, estimate, replan
+
+The S8 question is how much of the oracle's dose saving remains when the robot measures only along its own path, re-estimates the field, and replans while walking, compared with offline random measurement cells using the same number of distinct cells.
+
+Assumptions: walls and the goal are known; readings along the robot's own path take no extra time or dose; movement is noise-free; replanning occurs every 3 steps; evaluation uses 25 starts, 5 noise seeds, and one layout.
+
+The 12 configurations are estimators `kernel` and `idw`, patterns `cell` and `3x3`, and dwell values \(t \in \{10, 1, 0.1\}\).
+
+| Estimator / reference | Pattern | Dwell | Online regret % | Offline-matched regret % | Online reduction % | Offline-matched reduction % |
+|---|---|---:|---:|---:|---:|---:|
+| Oracle reference | - | - | 0.0 | - | 48.0 | - |
+| A* shortest reference | - | - | 92.4 | - | 0.0 | - |
+| Kernel | cell | 10 | 86.6 | 25.9 | 3.0 | 30.1 |
+| Kernel | cell | 1 | 99.0 | 32.0 | -3.4 | 25.0 |
+| Kernel | cell | 0.1 | 101.5 | 43.3 | -4.7 | 17.8 |
+| Kernel | 3x3 | 10 | 66.6 | 7.8 | 13.4 | 40.1 |
+| Kernel | 3x3 | 1 | 89.2 | 25.1 | 1.7 | 35.0 |
+| Kernel | 3x3 | 0.1 | 117.8 | 16.2 | -13.2 | 39.9 |
+| IDW | cell | 10 | 81.1 | 23.3 | 5.9 | 32.1 |
+| IDW | cell | 1 | 84.1 | 45.4 | 4.3 | 17.0 |
+| IDW | cell | 0.1 | 92.8 | 50.2 | -0.2 | 12.2 |
+| IDW | 3x3 | 10 | 72.6 | 10.6 | 10.3 | 38.3 |
+| IDW | 3x3 | 1 | 77.5 | 12.5 | 7.8 | 36.5 |
+| IDW | 3x3 | 0.1 | 85.7 | 28.7 | 3.5 | 28.0 |
+
+Reference mean doses are 56.2 a.u. for the oracle and 108.2 a.u. for A* shortest; the oracle saving is 48.0%.
+
+Hypothesis: the online robot loses dose saving in the tested range for kernel `cell` at dwell 1 and 0.1, kernel `3x3` at dwell 0.1, and IDW `cell` at dwell 0.1, where online reduction is negative.
+
+![S8 online versus offline dose regret](results/online_vs_offline.png)
+
+![S8 online episode](results/online_episode.png)
+
+Limitations: the study uses two simple estimators, one layout, readings cost nothing, movement is perfect, and the offline reference is optimistic because random cells can be anywhere.
