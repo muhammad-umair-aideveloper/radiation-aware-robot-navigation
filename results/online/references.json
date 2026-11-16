@@ -1,0 +1,7 @@
+{
+  "oracle_dose_mean": 56.22455018450286,
+  "shortest_dose_mean": 108.18856157371836,
+  "oracle_steps_mean": 42.16,
+  "shortest_steps_mean": 34.48,
+  "n_starts": 25.0
+}
