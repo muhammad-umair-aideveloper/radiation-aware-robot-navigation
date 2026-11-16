@@ -36,10 +36,10 @@ def _ci(item: Dict[str, Any]) -> str:
 def _table(estimator: str, configs: Dict[str, Any]) -> List[str]:
     """Build the table for one estimator."""
     lines = [
-        f"### {estimator}",
-        "",
-        "| Pattern | Dwell | Success rate | Distinct cells | Replans | Online regret % [95% CI] | Offline regret % [95% CI] | Online reduction % [95% CI] |",
-        "|---|---:|---:|---:|---:|---:|---:|---:|",
+        f"### {estimator}\n",
+        "\n",
+        "| Pattern | Dwell | Success rate | Distinct cells | Replans | Online regret % [95% CI] | Offline regret % [95% CI] | Online reduction % [95% CI] |\n",
+        "|---|---:|---:|---:|---:|---:|---:|---:|\n",
     ]
     for pattern in PATTERNS:
         for dwell in DWELLS:
@@ -53,7 +53,7 @@ def _table(estimator: str, configs: Dict[str, Any]) -> List[str]:
                 f"{_one_decimal(online['mean_replans'])} | "
                 f"{_ci(online['dose_regret_percent'])} | "
                 f"{_ci(offline['dose_regret_percent'])} | "
-                f"{_ci(online['dose_reduction_percent'])} |"
+                f"{_ci(online['dose_reduction_percent'])} |\n"
             )
     return lines
 
@@ -87,23 +87,27 @@ def main() -> None:
     SUMMARY_JSON.write_text(json.dumps(summary, indent=2))
 
     lines = [
-        "# S8 online measure-estimate-replan summary",
-        "",
-        "## References",
-        "",
-        "| Reference | Mean dose (a.u.) | Mean steps |",
-        "|---|---:|---:|",
-        f"| Oracle | {_one_decimal(references['oracle_dose_mean'])} | {_one_decimal(references['oracle_steps_mean'])} |",
-        f"| A* shortest | {_one_decimal(references['shortest_dose_mean'])} | {_one_decimal(references['shortest_steps_mean'])} |",
-        "",
-        f"Oracle saving versus A* shortest: **{_one_decimal(oracle_saving)}%**.",
-        "",
+        "# S8 online measure-estimate-replan summary\n",
+        "\n",
+        "## References\n",
+        "\n",
+        "| Reference | Mean dose (a.u.) | Mean steps |\n",
+        "|---|---:|---:|\n",
+        f"| Oracle | {_one_decimal(references['oracle_dose_mean'])} | {_one_decimal(references['oracle_steps_mean'])} |\n",
+        f"| A* shortest | {_one_decimal(references['shortest_dose_mean'])} | {_one_decimal(references['shortest_steps_mean'])} |\n",
+        "\n",
+        f"Oracle saving versus A* shortest: **{_one_decimal(oracle_saving)}%**.\n",
     ]
     for estimator in ESTIMATORS:
+        lines.append("\n")
         lines.extend(_table(estimator, configs))
-        lines.append("")
-    lines.extend(["## Missing configurations", "", "- none" if not missing else "\n".join(f"- {name}" for name in missing), ""])
-    SUMMARY_MD.write_text("\n".join(lines))
+    lines.append("\n")
+    lines.extend(["## Missing configurations\n", "\n"])
+    if missing:
+        lines.extend(f"- {name}\n" for name in missing)
+    else:
+        lines.append("- none\n")
+    SUMMARY_MD.write_text("".join(lines))
 
 
 if __name__ == "__main__":
