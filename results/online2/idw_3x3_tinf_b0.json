@@ -1,0 +1,34 @@
+{
+  "estimator": "idw",
+  "pattern": "3x3",
+  "dwell": 1.0,
+  "seeds": [
+    0
+  ],
+  "n_starts": 25,
+  "per_seed": [
+    {
+      "seed": 0.0,
+      "mean_readings": 313.52,
+      "mean_distinct_cells": 135.84,
+      "mean_replans": 11.88,
+      "success_rate": 1.0,
+      "mean_steps": 34.48,
+      "mean_true_dose": 97.6430102883103,
+      "dose_regret_percent": 73.66614755990271,
+      "dose_reduction_percent": 9.747380991124887
+    }
+  ],
+  "online": {
+    "dose_regret_percent": 73.66614755990271,
+    "dose_reduction_percent": 9.747380991124887,
+    "success_rate_mean": 1.0,
+    "mean_distinct_cells": 135.84,
+    "mean_readings": 313.52,
+    "mean_replans": 11.88,
+    "mean_steps": 34.48
+  },
+  "beta": 0.0,
+  "noise_free": true,
+  "elapsed_seconds": 7.8199700999539346
+}

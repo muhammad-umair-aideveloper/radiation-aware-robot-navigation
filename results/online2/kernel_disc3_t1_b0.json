@@ -1,0 +1,90 @@
+{
+  "estimator": "kernel",
+  "pattern": "disc3",
+  "dwell": 1.0,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "n_starts": 25,
+  "per_seed": [
+    {
+      "seed": 0.0,
+      "mean_readings": 1076.48,
+      "mean_distinct_cells": 280.16,
+      "mean_replans": 13.48,
+      "success_rate": 1.0,
+      "mean_steps": 39.36,
+      "mean_true_dose": 88.70693172707965,
+      "dose_regret_percent": 57.77259477574245,
+      "dose_reduction_percent": 18.007106817261977
+    },
+    {
+      "seed": 1.0,
+      "mean_readings": 1063.56,
+      "mean_distinct_cells": 271.32,
+      "mean_replans": 13.36,
+      "success_rate": 1.0,
+      "mean_steps": 38.76,
+      "mean_true_dose": 94.73524238313387,
+      "dose_regret_percent": 68.49444250288673,
+      "dose_reduction_percent": 12.435066142752593
+    },
+    {
+      "seed": 2.0,
+      "mean_readings": 1091.4,
+      "mean_distinct_cells": 281.8,
+      "mean_replans": 13.48,
+      "success_rate": 1.0,
+      "mean_steps": 39.2,
+      "mean_true_dose": 82.59280164658816,
+      "dose_regret_percent": 46.898110123703866,
+      "dose_reduction_percent": 23.65847142693506
+    },
+    {
+      "seed": 3.0,
+      "mean_readings": 1049.84,
+      "mean_distinct_cells": 275.72,
+      "mean_replans": 12.96,
+      "success_rate": 1.0,
+      "mean_steps": 37.96,
+      "mean_true_dose": 88.17131652306165,
+      "dose_regret_percent": 56.81995895694023,
+      "dose_reduction_percent": 18.502182448388695
+    },
+    {
+      "seed": 4.0,
+      "mean_readings": 1102.88,
+      "mean_distinct_cells": 281.72,
+      "mean_replans": 13.52,
+      "success_rate": 1.0,
+      "mean_steps": 39.52,
+      "mean_true_dose": 86.79322780299378,
+      "dose_regret_percent": 54.36891450118983,
+      "dose_reduction_percent": 19.775966571240584
+    }
+  ],
+  "online": {
+    "dose_regret_percent": {
+      "mean": 56.87080417209262,
+      "ci_low": 50.86684965699841,
+      "ci_high": 63.524967357118484
+    },
+    "dose_reduction_percent": {
+      "mean": 18.47575868131578,
+      "ci_low": 15.017654363352069,
+      "ci_high": 21.595955835516513
+    },
+    "success_rate_mean": 1.0,
+    "mean_distinct_cells": 278.144,
+    "mean_readings": 1076.8319999999999,
+    "mean_replans": 13.36,
+    "mean_steps": 38.96
+  },
+  "beta": 0.0,
+  "noise_free": false,
+  "elapsed_seconds": 97.79990799992811
+}
