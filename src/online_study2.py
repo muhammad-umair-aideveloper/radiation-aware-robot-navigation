@@ -124,11 +124,9 @@ def _run_one(reference: Dict[str, float]) -> None:
     print(f"projected_total_minutes: {projected} = "
           "elapsed_seconds * (20 * 5 + 8) / 60")
 def main() -> None:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--one", action="store_true")
+    parser = argparse.ArgumentParser(); parser.add_argument("--one", action="store_true")
     args = parser.parse_args()
-    if not _controls_pass():
-        raise SystemExit(1)
+    if not _controls_pass(): raise SystemExit(1)
     reference = reference_doses(list(STARTS))
     if args.one:
         _run_one(reference)
