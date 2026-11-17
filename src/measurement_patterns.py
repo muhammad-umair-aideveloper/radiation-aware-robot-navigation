@@ -20,6 +20,14 @@ def pattern_cells(
             for dr in (-1, 0, 1)
             for dc in (-1, 0, 1)
         ]
+    elif pattern.startswith("disc") and pattern[4:].isdigit():
+        radius = int(pattern[4:])
+        offsets = [
+            (dr, dc)
+            for dr in range(-radius, radius + 1)
+            for dc in range(-radius, radius + 1)
+            if dr * dr + dc * dc <= radius * radius
+        ]
     else:
         raise ValueError(f"Unknown measurement pattern: {pattern}")
 
