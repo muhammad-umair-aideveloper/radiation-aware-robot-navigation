@@ -7,7 +7,7 @@ import numpy as np
 sys.path.insert(0, "src")
 
 from map_error_study import evaluate_path_on_true_field
-from online_sim import estimate_field, run_online_episode
+from online_sim import estimate_field, inflate_unknown, run_online_episode
 
 
 def make_case() -> tuple[np.ndarray, np.ndarray]:
@@ -65,8 +65,71 @@ def test_few_readings_are_constant_and_walls_are_zero() -> None:
     assert np.all(estimated >= 0.0)
 
 
+def test_zero_control_uses_shortest_path() -> None:
+    field = np.ones((12, 12), dtype=float)
+    free_mask = np.ones((12, 12), dtype=bool)
+    result = run_online_episode(
+        field, free_mask, (0, 0), (11, 11), "idw", "cell", 1.0, 0, control="zero"
+    )
+    assert result["steps"] == 11
+
+
+def test_noise_free_readings_match_true_field() -> None:
+    field, free_mask = make_case()
+    result = run_online_episode(
+        field,
+        free_mask,
+        (0, 0),
+        (11, 11),
+        "idw",
+        "cell",
+        1.0,
+        0,
+        noise_free=True,
+    )
+    for (row, column), values in result["readings"].items():
+        assert all(abs(value - field[row, column]) <= 1e-9 for value in values)
+
+
+def test_unknown_cell_inflation_and_zero_beta() -> None:
+    field, free_mask = make_case()
+    readings = {(0, 0): [2.0, 4.0]}
+    estimated = np.zeros_like(field)
+    inflated = inflate_unknown(estimated, readings, free_mask, 2.0)
+    assert inflated[11, 11] >= 6.0
+    assert inflated[0, 0] == estimated[0, 0]
+    default = run_online_episode(
+        field, free_mask, (0, 0), (11, 11), "idw", "cell", 1.0, 4
+    )
+    no_inflation = run_online_episode(
+        field,
+        free_mask,
+        (0, 0),
+        (11, 11),
+        "idw",
+        "cell",
+        1.0,
+        4,
+        inflate_beta=0.0,
+    )
+    assert no_inflation["path"] == default["path"]
+
+
+def test_true_control_reaches_goal() -> None:
+    field, free_mask = make_case()
+    result = run_online_episode(
+        field, free_mask, (0, 0), (11, 11), "idw", "cell", 1.0, 0, control="true"
+    )
+    assert result["path"][0] == (0, 0)
+    assert result["path"][-1] == (11, 11)
+
+
 if __name__ == "__main__":
     test_episode_invariants()
     test_seed_reproducibility_and_low_dwell_validity()
     test_few_readings_are_constant_and_walls_are_zero()
+    test_zero_control_uses_shortest_path()
+    test_noise_free_readings_match_true_field()
+    test_unknown_cell_inflation_and_zero_beta()
+    test_true_control_reaches_goal()
     print("online simulation tests passed")
