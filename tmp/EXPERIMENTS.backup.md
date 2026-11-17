@@ -250,6 +250,40 @@ All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., 
     3. Selected variant vs. A* Aware.
 - All explanatory conclusions are explicitly labeled as hypotheses.
 
+## S7: measure, estimate, plan (fixed before running)
+- True field I (a.u.) comes from the environment. A reading at a free cell with dwell time t: counts ~ Poisson(t * I(cell)); the estimate of I at that cell is counts / t.
+- Dwell times t in {100, 10, 1, 0.1}. Measurement cells: N distinct free cells chosen uniformly at random with a seed; N in {10, 25, 50, 100, 200}. The travel cost of measuring is not counted (limitation).
+- Estimators (numpy only; they receive ONLY the measurement cells, their estimates and the free mask): "kernel" = Gaussian Nadaraya-Watson regression with the bandwidth chosen by leave-one-out cross-validation on the measurements, from (1, 2, 3, 4, 6, 8, 12) cells; "idw" = inverse-distance weighting, power 2, eps 0.5. Estimates are clipped at 0 and set to 0 on wall cells.
+- Planning: A* aware (step cost L * (1 + 2.5 * I_est)) on the estimated field. References: A* aware on the true field (oracle) and A* shortest. The path is always judged on the TRUE field.
+- Evaluation: the same 50 fixed start cells as the main benchmark; measurement seeds 0 to 9; 2 estimators x 5 values of N x 4 values of t = 40 configurations. Per configuration: mean steps, mean TRUE dose, dose regret vs oracle in percent ((dose - oracle dose) / oracle dose * 100), dose reduction vs A* shortest in percent, and the relative L2 error of the estimated field vs the true field on free cells. Report the mean over seeds with a 95% bootstrap confidence interval over the 10 seed means (10,000 resamples, fixed seed).
+- Explanations of results are hypotheses. No new configurations after seeing results.
+### Code interface notes
+- true field: `RadiationEnv().radiation` (or `compute_radiation_field()`).
+- wall grid: `RadiationEnv().walls` (`True` means wall; free cells are `~env.walls`).
+- A* aware with a custom field: `astar_search(start, goal, mode="aware", env=RadiationEnv(radiation=custom_field), lambda_rad=2.5)`.
+- 50 start cells: `main.generate_evaluation_starts(env, num_starts=50, seed=123)`; free-space distance to the goal is at least 20.
+- bootstrap helper: `src/evaluate_sensor.py`, `compute_bootstrap_ci`.
+- dose of a path: `src/map_error_study.py`, `evaluate_path_on_true_field`.
+
+## S8: online measure, estimate, replan (fixed before running)
+- Question: if the robot measures only along its own path and replans while walking, how much of the dose saving of the oracle (A* aware on the true field) is kept, compared with offline random measurement cells with the same number of distinct cells?
+- Assumptions: walls and the goal are known; the radiation field is unknown; movement is noise-free; a reading takes no extra time and no extra dose (the dwell value t is the counter sensitivity: counts ~ Poisson(t * I(cell)), intensity estimate = counts / t); the robot reads at the start cell before the first plan.
+- Measurement patterns: "cell" = the robot's current cell; "3x3" = the free cells of the 3 x 3 neighbourhood of the robot's cell (the same sensor idea as the Day-5 Geiger array). A reading is taken at every visited cell.
+- Estimators (from S7, unchanged): "kernel" (Gaussian, leave-one-out bandwidth) and "idw". Readings at the same cell are pooled by averaging their intensity estimates. With fewer than 3 distinct measured cells the estimate is a constant field equal to the mean of the readings on free cells (0 on walls); this is a fixed rule.
+- Replanning: A* aware (step cost L * (1 + 2.5 * I_est)) from the current cell on the current estimate, every 3 steps (and at the start); the maximum is 300 steps.
+- Dwell values t in {10, 1, 0.1}; patterns {cell, 3x3}; estimators {kernel, idw}: 12 configurations. Starts: every second one of the 50 fixed start cells (25 starts); noise seeds 0 to 4.
+- References on the same 25 starts: oracle (A* aware on the true field), A* shortest, and "offline matched": the S7 offline procedure with N = the rounded mean number of distinct cells that the online robot measured in that configuration, same estimator, same dwell, seeds 0 to 4.
+- Metrics: success rate (reaching the goal within 300 steps); mean steps, mean TRUE dose of successful episodes (if the success rate is below 100% say so next to the dose); dose regret vs oracle and dose reduction vs A* shortest in percent (same formulas as S7); mean readings, mean distinct cells, mean replans. Seed means with a 95% bootstrap confidence interval (10,000 resamples, fixed seed) over the 5 seed means.
+- Explanations are hypotheses. No new configurations after seeing results.
+### Code interface notes
+- plan A* aware on a field: `src/planners.py`, `astar_search(start, goal, mode="aware", env=RadiationEnv(radiation=field), lambda_rad=2.5)` returns `(path, total_dose, total_steps, nodes_expanded)`, where `path` is a list of `(row, col)` cells or `None`.
+- dose of a path: `src/map_error_study.py`, `evaluate_path_on_true_field(path, true_field)` returns `(dose, path_length)`.
+- offline configuration runner: `src/estimation_study.py`, `run_configuration(estimator, n, dwell, env, starts)` runs each seed and collects per-start true doses before aggregating seed metrics.
+- regret / reduction formula: `run_configuration` uses `(dose - oracle_dose) / oracle_dose * 100` and `(shortest_dose - dose) / shortest_dose * 100`.
+- bootstrap helper: `src/estimation_study.py`, `bootstrap(values)`, using 10,000 resamples with fixed seed 42.
+- true field, wall grid, goal, starts, free_mask: `env.radiation`, `env.walls` (`True` means wall), `env.goal`, and `main.generate_evaluation_starts(env, num_starts=50, seed=123)`; `free_mask = ~env.walls`.
+- oracle / shortest references: `src/estimation_study.py`, `references(env, starts)` calls `astar_search` on each start with `mode="aware"` on the true environment and `mode="shortest"`, returning mean doses.
+
 
 
 

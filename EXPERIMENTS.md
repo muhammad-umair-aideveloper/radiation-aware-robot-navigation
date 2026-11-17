@@ -284,6 +284,16 @@ All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., 
 - true field, wall grid, goal, starts, free_mask: `env.radiation`, `env.walls` (`True` means wall), `env.goal`, and `main.generate_evaluation_starts(env, num_starts=50, seed=123)`; `free_mask = ~env.walls`.
 - oracle / shortest references: `src/estimation_study.py`, `references(env, starts)` calls `astar_search` on each start with `mode="aware"` on the true environment and `mode="shortest"`, returning mean doses.
 
+## S9: controls, sensor range and unexplored cells (fixed before running)
+- Controls (must pass before any study run). On the 25 S8 starts, run_online_episode with a bypass of the estimator: C1 "true": every replan uses the TRUE field; the cost of the executed path under the objective sum of L * (1 + 2.5 * I(new cell)) must equal the cost of the oracle's A* aware path from the same start within a relative difference of 1e-9, and must never be lower than it by more than 1e-9. C2 "zero": every replan uses a field of zeros; the executed path length (sum of step lengths L) must equal the A* shortest path length within 1e-9. If C1 or C2 fails, the simulator has a bug: stop, report, run no study.
+- Diagnostic "noise-free": the robot's readings equal the true intensity at the measured cells (no Poisson noise). It separates the effect of noise from the effect of seeing only part of the map.
+- Sensor range: patterns "disc3" and "disc6" = the free cells whose Euclidean distance from the robot's cell is at most 3 or 6 cells (29 and 113 cells in open space), added to the S8 patterns "cell" and "3x3".
+- Unexplored-cell inflation: when planning, every free cell whose distance to the nearest measured cell is larger than 4 cells gets the planning value max(estimate, beta * m), where m is the mean over measured cells of their averaged intensity estimates. beta = 0 means no inflation (the S8 behaviour); beta = 2 is the pessimistic setting. The executed path is always judged on the TRUE field.
+- Study grid: (a) noise-free: estimators {kernel, idw} x patterns {cell, 3x3, disc3, disc6}, beta 0, one deterministic run (8 configurations, no confidence interval); (b) noisy: estimators {kernel, idw} x patterns {3x3, disc3, disc6} x dwell {10, 1} x beta {0, 2}, except 3x3 with beta 0 which already exists from S8 (20 new configurations), seeds 0 to 4. The same 25 starts, replan every 3 steps, 300 steps maximum, lambda 2.5 as in S8.
+- Metrics as in S8 (success, mean steps, mean TRUE dose of successful episodes, dose regret vs oracle %, dose reduction vs A* shortest %, mean readings, distinct cells, replans); noisy configurations: mean over seeds with a 95% bootstrap confidence interval over the 5 seed means (10,000 resamples, fixed seed).
+- Runtime rule: if the projected total runtime of the study is above 90 minutes, use seeds 0 to 2 for all noisy configurations (decided now, not after seeing results).
+- Explanations of results are hypotheses. No new configurations after seeing results.
+
 
 
 
