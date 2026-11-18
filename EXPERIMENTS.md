@@ -254,6 +254,24 @@ All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., 
 - True field I (a.u.) comes from the environment. A reading at a free cell with dwell time t: counts ~ Poisson(t * I(cell)); the estimate of I at that cell is counts / t.
 - Dwell times t in {100, 10, 1, 0.1}. Measurement cells: N distinct free cells chosen uniformly at random with a seed; N in {10, 25, 50, 100, 200}. The travel cost of measuring is not counted (limitation).
 - Estimators (numpy only; they receive ONLY the measurement cells, their estimates and the free mask): "kernel" = Gaussian Nadaraya-Watson regression with the bandwidth chosen by leave-one-out cross-validation on the measurements, from (1, 2, 3, 4, 6, 8, 12) cells; "idw" = inverse-distance weighting, power 2, eps 0.5. Estimates are clipped at 0 and set to 0 on wall cells.
+
+## S10: physics-informed field estimator (fixed before running)
+- Motivation: S8 and S9 showed that kernel and idw cannot extrapolate to hotspots the robot has not yet seen.
+- Estimator "omp<K>" (parametric): model I(c) = sum over s = 1..K of w_s / (d(c, p_s)^2 + 2.0), with w_s >= 0 and p_s any grid cell. The inverse-square form, the softening 2.0 and the number of sources K are ASSUMED KNOWN (K = 3 is the true number in this layout; this is a strong assumption and will be stated in the README). Fit: greedy orthogonal matching pursuit over all grid cells as candidate positions, then up to 5 exchange passes that re-pick each source over all cells; weights by least squares clipped at 0; the estimate is clipped at 0 and set to 0 on wall cells. The estimator receives only the measured cells, the intensity estimates and the free mask (never the true field).
+- Offline study: estimators {kernel, idw, omp3} x N distinct random free cells {25, 50, 100} x dwell {10, 1, 0.1} (27 configurations), seeds 0 to 4, the 25 S8 starts; within a seed all three estimators get the same cells and the same counts. Metrics: mean TRUE dose of the planned paths, dose regret vs oracle %, dose reduction vs A* shortest %, success, and the relative L2 error of the estimated field against the true field on free cells; bootstrap mean and 95% CI over the 5 seed means (10,000 resamples, fixed seed).
+- Online study: omp3 x patterns {cell, 3x3} x dwell {10, 1, 0.1} (6 configurations), seeds 0 to 4, the 25 S8 starts, replan every 3 steps, 300 steps maximum, lambda 2.5, no inflation; the same noise seeds as S8 so that the results can be compared with the S8 files of kernel and idw in results/online/.
+- Misspecification: omp2 and omp4 at offline N = 50, dwell 1 and online 3x3, dwell 1 (4 configurations), compared with omp3.
+- Hypotheses to test (not claims): H1 omp3 has a lower dose regret than kernel and idw where extrapolation matters (online, small N); H2 a wrong K degrades the result; H3 the field error and the dose regret can disagree (planning needs the hotspot positions, not the whole field).
+- Runtime rule: if the projected total runtime is above 90 minutes, use seeds 0 to 2 for all configurations (decided now, not after seeing results).
+- Limitations to state: the parametric estimator uses physics knowledge (form and K) that kernel and idw do not use, so the comparison is not like for like; one layout; readings cost nothing.
+- Explanations of results are hypotheses. No new configurations after seeing results.
+### Code interface notes
+- estimator dispatch: if/elif by estimator name in estimate_field; fewer than 3 distinct cells is handled before dispatch
+- A* aware planner: astar_search(start, goal=GOAL_CELL, mode="shortest", env=None, lambda_rad=2.5)
+- dose of a path: evaluate_path_on_true_field(path, true_field)
+- reference_doses: reference_doses(starts: Iterable[Tuple[int, int]]) -> Dict[str, float]
+- true field / free mask / goal / starts: TRUE_FIELD / FREE_MASK / GOAL / STARTS
+- bootstrap helper: bootstrap(values: Iterable[float]) -> Dict[str, float]
 - Planning: A* aware (step cost L * (1 + 2.5 * I_est)) on the estimated field. References: A* aware on the true field (oracle) and A* shortest. The path is always judged on the TRUE field.
 - Evaluation: the same 50 fixed start cells as the main benchmark; measurement seeds 0 to 9; 2 estimators x 5 values of N x 4 values of t = 40 configurations. Per configuration: mean steps, mean TRUE dose, dose regret vs oracle in percent ((dose - oracle dose) / oracle dose * 100), dose reduction vs A* shortest in percent, and the relative L2 error of the estimated field vs the true field on free cells. Report the mean over seeds with a 95% bootstrap confidence interval over the 10 seed means (10,000 resamples, fixed seed).
 - Explanations of results are hypotheses. No new configurations after seeing results.
