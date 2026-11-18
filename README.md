@@ -600,3 +600,72 @@ Hypothesis: At `disc6`, dwell 10, beta 0, kernel has 12.3 [10.3, 15.6]% regret v
 ### Limitations
 
 One layout, two simple estimators, readings cost nothing, and movement is perfect. S9 uses 25 starts. S9 and S7 are not directly comparable because the start sets differ.
+
+## Physics-informed field estimator
+
+Kernel and idw estimate the field from nearby measurements, so they cannot reliably extrapolate to hotspots that have not yet been observed. S10 adds a parametric estimator, `omp<K>`, whose field is a sum of softened inverse-square point sources with nonnegative weights. It uses greedy orthogonal matching pursuit over all grid cells, followed by exchange refinement, with clipped least-squares weights.
+
+The inverse-square form, the softening, and the number of sources K = 3 are assumed known. This is strong physics knowledge, so the comparison with kernel and idw is not like for like. The estimator receives only measured cells, measured intensities, and the free-cell mask.
+
+### S10 reference paths
+
+| metric | mean |
+|---|---:|
+| oracle dose | 56.2 |
+| A* shortest dose | 108.2 |
+| oracle steps | 42.2 |
+| A* shortest steps | 34.5 |
+| oracle saving percent | 48.0 |
+
+### S10 offline results
+
+| N | dwell | kernel regret [95% CI] / L2 | idw regret [95% CI] / L2 | omp3 regret [95% CI] / L2 |
+|---:|---:|---:|---:|---:|
+| 25 | 10 | 16.6 [10.8, 23.1] / 0.80 | 30.6 [15.6, 49.6] / 0.81 | 10.1 [5.0, 15.2] / 0.87 |
+| 25 | 1 | 26.8 [14.3, 40.3] / 0.81 | 43.5 [15.9, 87.6] / 0.81 | 19.2 [10.9, 26.6] / 1.14 |
+| 25 | 0.1 | 68.7 [51.7, 86.3] / 0.88 | 70.2 [46.1, 103.0] / 0.89 | 67.1 [46.3, 87.1] / 1.17 |
+| 50 | 10 | 8.5 [5.2, 13.7] / 0.77 | 14.9 [12.8, 17.0] / 0.72 | 3.0 [0.3, 6.8] / 0.53 |
+| 50 | 1 | 10.7 [7.8, 13.2] / 0.76 | 18.2 [14.2, 22.2] / 0.72 | 4.8 [0.2, 12.2] / 0.56 |
+| 50 | 0.1 | 54.0 [36.0, 76.3] / 0.86 | 65.6 [47.9, 84.3] / 0.82 | 32.6 [12.7, 52.5] / 1.11 |
+| 100 | 10 | 6.9 [4.2, 10.1] / 0.66 | 13.6 [10.7, 16.6] / 0.63 | 1.5 [0.0, 4.3] / 0.49 |
+| 100 | 1 | 11.3 [7.7, 14.1] / 0.67 | 18.5 [14.3, 23.4] / 0.63 | 3.4 [0.5, 7.4] / 0.78 |
+| 100 | 0.1 | 26.7 [16.3, 37.1] / 0.75 | 32.5 [21.1, 46.3] / 0.71 | 18.8 [6.0, 32.7] / 0.80 |
+
+### S10 online results
+
+| pattern | dwell | omp3 regret [95% CI] | omp3 success | omp3 distinct cells | S8 kernel regret [95% CI] | S8 idw regret [95% CI] |
+|---|---:|---:|---:|---:|---:|---:|
+| cell | 10 | 49.5 [40.0, 59.0] | 1.0 | 42.8 | 86.6 [82.5, 90.7] | 81.1 [78.8, 83.3] |
+| cell | 1 | 99.7 [85.5, 120.5] | 1.0 | 41.6 | 99.0 [87.3, 111.2] | 84.1 [81.2, 87.9] |
+| cell | 0.1 | 132.8 [119.2, 143.8] | 1.0 | 41.3 | 101.5 [93.1, 112.1] | 92.8 [90.7, 94.9] |
+| 3x3 | 10 | 12.6 [10.9, 14.2] | 1.0 | 140.2 | 66.6 [62.6, 71.2] | 72.6 [69.6, 75.5] |
+| 3x3 | 1 | 30.8 [26.5, 35.3] | 1.0 | 149.3 | 89.2 [80.8, 97.6] | 77.5 [74.5, 81.0] |
+| 3x3 | 0.1 | 84.6 [74.5, 94.6] | 1.0 | 162.8 | 117.8 [96.9, 138.7] | 85.7 [81.8, 89.6] |
+
+### Misspecification
+
+| estimator | offline regret [95% CI] | offline L2 error | online regret [95% CI] |
+|---|---:|---:|---:|
+| omp2 | 8.7 [4.0, 15.8] | 0.69 | 29.2 [27.1, 31.9] |
+| omp3 | 4.8 [0.2, 12.2] | 0.56 | 30.8 [26.5, 35.3] |
+| omp4 | 5.0 [0.4, 12.1] | 0.54 | 36.3 [30.5, 42.6] |
+
+### S10 figures
+
+![S10 offline dose regret](results/param_offline.png)
+
+![S10 online dose regret](results/param_online.png)
+
+### What the numbers show
+
+Hypothesis: H1 is supported for online extrapolation cases: omp3 has lower regret than both S8 baselines at cell dwell 10 and 3x3 dwell 10, with non-overlapping intervals. Comparisons whose intervals overlap are not distinguishable with 5 seeds.
+
+Hypothesis: H2 is unclear. The omp2, omp3, and omp4 offline and online confidence intervals overlap, so the effect of using the wrong source count is not distinguishable with 5 seeds.
+
+Hypothesis: H3 is supported. At N = 100 and dwell 1, omp3 has lower regret than kernel despite a higher field L2 error, showing that field error and dose regret can disagree.
+
+The estimator does not always recover the true sources: the noise-free N = 200 test recovered them in 19 of 20 trials.
+
+### Limitations
+
+One layout, a strong physics assumption, readings cost nothing, movement is perfect, and the evaluation uses the fixed S10 start set. S10 online numbers use the same noise seeds as S8. The completed study used seeds 0 to 4, so the fallback rule was not applied.
