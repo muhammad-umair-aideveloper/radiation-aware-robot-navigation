@@ -7,6 +7,7 @@ import numpy as np
 sys.path.insert(0, "src")
 
 from map_error_study import evaluate_path_on_true_field
+from estimators import idw, kernel_regression
 from online_sim import estimate_field, inflate_unknown, run_online_episode
 
 
@@ -124,6 +125,52 @@ def test_true_control_reaches_goal() -> None:
     assert result["path"][-1] == (11, 11)
 
 
+def test_omp_estimate_has_valid_field() -> None:
+    """OMP estimation returns a valid masked field."""
+    field, free_mask = make_case()
+    readings = {
+        (row, column): [float(field[row, column])]
+        for row, column in zip(range(12), range(12))
+    }
+    estimated = estimate_field(readings, free_mask, "omp3")
+    assert estimated.shape == field.shape
+    assert np.all(np.isfinite(estimated))
+    assert np.all(estimated >= 0.0)
+    assert np.all(estimated[~free_mask] == 0.0)
+
+
+def test_unknown_estimator_raises() -> None:
+    """Unknown estimator names are rejected."""
+    _, free_mask = make_case()
+    try:
+        estimate_field({(0, 0): [1.0], (0, 1): [1.0], (0, 2): [1.0]}, free_mask, "foo")
+    except ValueError:
+        pass
+    else:
+        raise AssertionError("unknown estimator did not raise ValueError")
+
+
+def test_existing_estimators_are_unchanged() -> None:
+    """Kernel and IDW dispatch match their direct implementations."""
+    field, free_mask = make_case()
+    readings = {
+        (0, 0): [float(field[0, 0])],
+        (1, 2): [float(field[1, 2])],
+        (6, 6): [float(field[6, 6])],
+        (10, 9): [float(field[10, 9])],
+    }
+    cells = np.array(list(readings), dtype=int)
+    values = np.array([np.mean(values) for values in readings.values()])
+    expected_kernel, _ = kernel_regression(cells, values, free_mask)
+    expected_idw = idw(cells, values, free_mask)
+    assert np.allclose(
+        estimate_field(readings, free_mask, "kernel"), expected_kernel, atol=1e-12
+    )
+    assert np.allclose(
+        estimate_field(readings, free_mask, "idw"), expected_idw, atol=1e-12
+    )
+
+
 if __name__ == "__main__":
     test_episode_invariants()
     test_seed_reproducibility_and_low_dwell_validity()
@@ -132,4 +179,7 @@ if __name__ == "__main__":
     test_noise_free_readings_match_true_field()
     test_unknown_cell_inflation_and_zero_beta()
     test_true_control_reaches_goal()
+    test_omp_estimate_has_valid_field()
+    test_unknown_estimator_raises()
+    test_existing_estimators_are_unchanged()
     print("online simulation tests passed")

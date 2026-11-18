@@ -8,7 +8,7 @@ from typing import Dict, List, Tuple
 import numpy as np
 
 from src.environment import RadiationEnv
-from src.estimators import idw, kernel_regression
+from src.estimators import idw, kernel_regression, parametric_sources
 from src.geiger_model import counts_to_intensity, simulate_counts
 from src.measurement_patterns import pattern_cells
 from src.planners import astar_search
@@ -31,6 +31,9 @@ def estimate_field(
         field, _ = kernel_regression(cells, values, mask)
     elif estimator == "idw":
         field = idw(cells, values, mask)
+    elif estimator.startswith("omp"):
+        k = int(estimator[3:])
+        field, _ = parametric_sources(cells, values, mask, k=k)
     else:
         raise ValueError(f"Unknown estimator: {estimator}")
     return np.maximum(field, 0.0)
