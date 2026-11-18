@@ -99,3 +99,69 @@ def idw(
     weights = 1.0 / (squared + eps) ** (power / 2.0)
     field = ((weights @ measurements) / np.sum(weights, axis=1)).reshape(mask.shape)
     return np.where(mask, np.maximum(field, 0.0), 0.0)
+
+
+def parametric_sources(cells, values, free_mask, k=3, softening=2.0, refine_passes=5):
+    """Fit k inverse-square point sources to measured intensities.
+
+    Model: I(c) = sum_s w_s / (d(c, p_s)**2 + softening), w_s >= 0, p_s any grid cell.
+    The functional form, the softening and the number of sources k are ASSUMED KNOWN.
+    Only the measurements and the free mask are used (never the true field).
+    Returns (field, sources) with sources = [(row, col, weight), ...].
+    """
+    cells = np.asarray(cells, dtype=int).reshape(-1, 2)
+    y = np.asarray(values, dtype=float)
+    h, w = free_mask.shape
+    cand = np.argwhere(np.ones((h, w), dtype=bool))  # candidate index = row * w + col
+    d2 = ((cells[:, None, :] - cand[None, :, :]) ** 2).sum(axis=2)
+    phi = 1.0 / (d2 + softening)
+    norms = np.linalg.norm(phi, axis=0)
+
+    def solve(idx):
+        a = phi[:, idx]
+        wt, *_ = np.linalg.lstsq(a, y, rcond=None)
+        wt = np.clip(wt, 0.0, None)
+        return wt, float(((y - a @ wt) ** 2).sum())
+
+    chosen = []
+    resid = y.copy()
+    for _ in range(k):
+        corr = np.abs(phi.T @ resid) / np.maximum(norms, 1e-12)
+        if chosen:
+            corr[chosen] = -1.0
+        chosen.append(int(np.argmax(corr)))
+        wt, _ = solve(chosen)
+        resid = y - phi[:, chosen] @ wt
+    wt, best = solve(chosen)
+    for _ in range(refine_passes):  # exchange refinement: re-pick each source over ALL cells
+        improved = False
+        for j in range(len(chosen)):
+            others = [c for i, c in enumerate(chosen) if i != j]
+            if others:
+                q, _ = np.linalg.qr(phi[:, others])
+                y_perp = y - q @ (q.T @ y)
+                phi_perp = phi - q @ (q.T @ phi)
+            else:
+                y_perp, phi_perp = y, phi
+            score = (phi_perp.T @ y_perp) ** 2 / np.maximum((phi_perp ** 2).sum(axis=0), 1e-12)
+            score[others] = -1.0
+            new_id = int(np.argmax(score))
+            if new_id == chosen[j]:
+                continue
+            trial = chosen.copy()
+            trial[j] = new_id
+            wt2, err2 = solve(trial)
+            if err2 < best - 1e-12:
+                chosen, wt, best, improved = trial, wt2, err2, True
+        if not improved:
+            break
+    rows, cols = np.indices((h, w))
+    field = np.zeros((h, w), dtype=float)
+    sources = []
+    for pid, weight in zip(chosen, wt):
+        sr, sc = divmod(pid, w)
+        field += weight / ((rows - sr) ** 2 + (cols - sc) ** 2 + softening)
+        sources.append((int(sr), int(sc), float(weight)))
+    field = np.clip(field, 0.0, None)
+    field[~free_mask] = 0.0
+    return field, sources

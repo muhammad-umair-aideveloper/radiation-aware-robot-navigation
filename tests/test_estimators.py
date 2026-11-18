@@ -13,6 +13,7 @@ if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
 import estimators
+from estimators import parametric_sources
 
 
 def synthetic_field() -> np.ndarray:
@@ -81,9 +82,83 @@ def test_signatures_do_not_take_field() -> None:
         assert "field" not in inspect.signature(function).parameters
 
 
+def test_parametric_source_shape_and_mask() -> None:
+    """Parametric estimates are finite, nonnegative, masked, and k-sized."""
+    rows, columns = np.indices((50, 50))
+    actual = 150.0 / ((rows - 18) ** 2 + (columns - 20) ** 2 + 2.0)
+    mask = np.ones(actual.shape, dtype=bool)
+    mask[22:28, 18:35] = False
+    mask[34:44, 36:39] = False
+    mask[8:15, 26:29] = False
+    free = np.argwhere(mask)
+    cells = free[np.random.default_rng(0).choice(len(free), 60, replace=False)]
+    values = actual[tuple(cells.T)]
+    for k in (2, 3, 4):
+        field, sources = parametric_sources(cells, values, mask, k=k)
+        assert field.shape == (50, 50)
+        assert np.all(np.isfinite(field))
+        assert np.all(field >= 0.0)
+        assert np.all(field[~mask] == 0.0)
+        assert len(sources) == k
+
+
+def test_parametric_source_noise_free_recovery() -> None:
+    """Parametric sources recover the declared three-source field."""
+    rows, columns = np.indices((50, 50))
+    actual = (
+        150.0 / ((rows - 18) ** 2 + (columns - 20) ** 2 + 2.0)
+        + 200.0 / ((rows - 32) ** 2 + (columns - 30) ** 2 + 2.0)
+        + 120.0 / ((rows - 25) ** 2 + (columns - 12) ** 2 + 2.0)
+    )
+    mask = np.ones(actual.shape, dtype=bool)
+    mask[22:28, 18:35] = False
+    mask[34:44, 36:39] = False
+    mask[8:15, 26:29] = False
+    free = np.argwhere(mask)
+    recovered = 0
+    for seed in range(20):
+        cells = free[np.random.default_rng(seed).choice(len(free), 200, replace=False)]
+        values = actual[tuple(cells.T)]
+        estimated, _ = parametric_sources(cells, values, mask, k=3)
+        error = np.linalg.norm((actual - estimated)[mask]) / np.linalg.norm(actual[mask])
+        recovered += error < 1e-3
+    assert recovered >= 17
+
+
+def test_parametric_source_two_readings() -> None:
+    """Parametric estimation accepts two readings."""
+    mask = np.ones((5, 5), dtype=bool)
+    field, _ = parametric_sources(
+        np.array([[0, 0], [4, 4]]), np.array([1.0, 2.0]), mask
+    )
+    assert field.shape == mask.shape
+
+
+def test_parametric_source_is_deterministic() -> None:
+    """Repeated parametric estimation returns identical fields."""
+    mask = np.ones((5, 5), dtype=bool)
+    cells = np.array([[0, 0], [2, 2], [4, 4]])
+    values = np.array([1.0, 2.0, 1.0])
+    first, _ = parametric_sources(cells, values, mask)
+    second, _ = parametric_sources(cells, values, mask)
+    assert np.array_equal(first, second)
+
+
+def test_parametric_source_signature() -> None:
+    """Parametric estimation cannot receive a true field."""
+    assert list(inspect.signature(parametric_sources).parameters) == [
+        "cells", "values", "free_mask", "k", "softening", "refine_passes"
+    ]
+
+
 if __name__ == "__main__":
     test_output_shape_and_mask()
     test_kernel_measured_values()
     test_more_cells_reduce_error()
     test_signatures_do_not_take_field()
+    test_parametric_source_shape_and_mask()
+    test_parametric_source_noise_free_recovery()
+    test_parametric_source_two_readings()
+    test_parametric_source_is_deterministic()
+    test_parametric_source_signature()
     print("PASS: estimator tests")
