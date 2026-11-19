@@ -468,6 +468,54 @@ Assumptions: estimators receive only measurement cells, their estimates, and the
 | Kernel dose regret (%) | 34.639 | 44.287 | 127.141 | 11.306 | 15.171 | 41.388 | 8.274 | 14.440 | 26.130 |
 | IDW dose regret (%) | 33.078 | 47.726 | 151.483 | 17.285 | 21.710 | 61.637 | 16.265 | 22.099 | 43.319 |
 | Oracle A* aware dose (a.u.) | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 | 54.422 |
+
+## Wall shielding
+
+Question: if walls attenuate radiation, how much do the dose savings of the estimators change, and does a physics model that knows about the shielding help?
+
+The shielded field is
+\[
+I_{\mathrm{sh}}(c)=\sum_s \frac{I0_s}{d(c,p_s)^2+2.0}
+\exp(-\mu L_{\mathrm{wall}}(p_s\rightarrow c)),
+\]
+where \(L_{\mathrm{wall}}\) is the wall length in the straight segment sampled at wall cells. Mu is tested at \(0.5\) and \(2.0\). The control with no attenuation equals the project's free-space field.
+
+| mu | oracle mean dose (a.u.) | oracle mean steps | A* shortest mean dose (a.u.) | A* shortest mean steps | oracle saving (%) | wall-blind mean dose (a.u.) | wall-blind mean steps | wall-blind regret (%) |
+|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 0.5 | 40.9 | 41.3 | 86.2 | 34.5 | 52.6 | 41.5 | 42.2 | 1.5 |
+| 2.0 | 37.9 | 41.6 | 82.6 | 34.5 | 54.1 | 39.2 | 42.2 | 3.4 |
+
+### mu = 0.5
+
+| N | dwell | kernel regret [95% CI] / L2 | idw regret [95% CI] / L2 | omp3 regret [95% CI] / L2 | omp3s regret [95% CI] / L2 |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 50 | 10 | 15.6 [10.9, 20.8] / 0.80 | 24.3 [13.9, 39.4] / 0.73 | 13.7 [0.5, 37.8] / 0.51 | 3.3 [0.2, 6.4] / 0.40 |
+| 50 | 1 | 30.9 [21.8, 42.1] / 0.82 | 28.9 [15.9, 44.1] / 0.75 | 16.4 [2.1, 38.6] / 0.53 | 5.3 [0.7, 10.9] / 0.52 |
+| 100 | 10 | 9.7 [5.0, 14.9] / 0.68 | 14.9 [11.4, 19.2] / 0.64 | 3.5 [0.2, 9.3] / 0.37 | 0.8 [-0.1, 2.5] / 0.18 |
+| 100 | 1 | 17.8 [11.0, 29.1] / 0.72 | 15.4 [13.6, 17.1] / 0.65 | 4.2 [1.8, 6.7] / 0.41 | 5.1 [1.5, 10.4] / 0.62 |
+
+### mu = 2.0
+
+| N | dwell | kernel regret [95% CI] / L2 | idw regret [95% CI] / L2 | omp3 regret [95% CI] / L2 | omp3s regret [95% CI] / L2 |
+|---:|---:|---:|---:|---:|---:|---:|---:|
+| 50 | 10 | 22.5 [14.2, 32.3] / 0.79 | 26.0 [15.5, 41.6] / 0.74 | 19.6 [5.0, 43.9] / 0.69 | 1.5 [0.2, 3.1] / 0.29 |
+| 50 | 1 | 28.5 [19.6, 41.4] / 0.83 | 30.2 [15.2, 48.1] / 0.75 | 19.2 [6.5, 34.1] / 0.61 | 8.4 [0.9, 16.2] / 0.53 |
+| 100 | 10 | 11.9 [8.4, 15.6] / 0.68 | 15.2 [11.5, 19.6] / 0.65 | 4.3 [2.1, 7.0] / 0.34 | 1.2 [0.1, 2.7] / 0.24 |
+| 100 | 1 | 23.1 [14.8, 35.9] / 0.72 | 19.3 [15.5, 22.6] / 0.64 | 6.8 [3.0, 12.6] / 0.43 | 3.3 [1.9, 5.0] / 0.46 |
+
+![Wall-shielding dose regret](results/shield_regret.png)
+
+![Wall-shielding fields](results/shield_fields.png)
+
+What the numbers show
+
+Hypothesis: H1 is unclear for this shielding comparison. At mu = 2.0 and N = 50 dwell 1, the omp3 interval is 19.2% [6.5, 34.1] and overlaps the 8.4% [0.9, 16.2] omp3s interval; there is no direct same-study interval separating shielding effects from the S10 baseline.
+
+Hypothesis: H2 is supported. At mu = 2.0 and N = 50 dwell 10, omp3s has 1.5% [0.2, 3.1] regret versus 19.6% [5.0, 43.9] for omp3; the intervals do not overlap.
+
+Hypothesis: H3 is supported by the layout-dependent wall-blind regret numbers: 1.5% at mu = 0.5 and 3.4% at mu = 2.0.
+
+Limitations: shielding is straight-line attenuation only with no scattering; walls and mu are known to the shield-aware estimator; the study uses one layout, one offline model, and 25 starts. The seed fallback was not applied.
 | A* shortest dose (a.u.) | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 | 119.148 |
 
 Hypothesis: the best tested configuration in this table is kernel regression at N=50 and t=1, with 15.171% dose regret and 47.395% dose reduction versus A* shortest.
