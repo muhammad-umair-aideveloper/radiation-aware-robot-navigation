@@ -312,6 +312,16 @@ All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., 
 - Runtime rule: if the projected total runtime of the study is above 90 minutes, use seeds 0 to 2 for all noisy configurations (decided now, not after seeing results).
 - Explanations of results are hypotheses. No new configurations after seeing results.
 
+## S11: wall shielding (fixed before running)
+- Question: if walls attenuate radiation, how much do the dose savings of the estimators change, and does a physics model that knows about the shielding help?
+- Shielded true field: I_sh(c) = sum over the 3 sources s of I0_s / (d(c, p_s)^2 + 2.0) * exp(-mu * L_wall(p_s -> c)), where L_wall is the length of the straight segment from the source cell to the cell c that lies inside wall cells (the segment is sampled at 120 points). mu in {0.5, 2.0} (attenuation per wall cell: 0.61 and 0.14). Sources, intensities and walls are those of the main layout. mu = 0 gives the existing free-space field (used as a control).
+- References on the shielded field, on the 25 S8 starts: oracle (A* aware planned on the shielded field), A* shortest, and the "wall-blind oracle" (A* aware planned on the free-space field with the true sources, so it knows the sources but ignores shielding). All are judged on the shielded field.
+- Offline estimation: estimators {kernel, idw, omp3 (free-space model), omp3s (shield-aware: the parametric model multiplies every source by the known wall attenuation; the walls and mu are assumed known)} x N {50, 100} x dwell {10, 1} x mu {0.5, 2.0} (32 configurations), seeds 0 to 4, the 25 S8 starts; within a seed all estimators get the same cells and the same counts; the counts come from the SHIELDED field. Metrics: success, mean steps, mean TRUE (shielded) dose, dose regret vs the shielded oracle %, dose reduction vs A* shortest %, relative L2 error of the estimate vs the shielded true field on free cells; bootstrap mean and 95% CI over the 5 seed means (10,000 resamples, fixed seed).
+- The online study is NOT part of S11 (future work).
+- Hypotheses to test (not claims): H1 shielding makes the free-space omp3 worse than in S10; H2 the shield-aware omp3s recovers part of that loss; H3 how much the wall-blind oracle loses depends on the layout (report the number).
+- Runtime rule: if the projected total runtime is above 90 minutes, use seeds 0 to 2 for all configurations (decided now).
+- Limitations to state: straight-line attenuation only (no scattering), walls and mu are known to the robot for omp3s (strong assumption), one layout, offline only.
+- Explanations of results are hypotheses. No new configurations after seeing results.
 
 
 
