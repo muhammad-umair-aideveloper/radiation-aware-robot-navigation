@@ -1,0 +1,94 @@
+{
+  "estimator": "omp3s",
+  "n": 100,
+  "dwell": 10,
+  "mu": 0.5,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "n_starts": 25,
+  "per_seed": [
+    {
+      "seed": 0.0,
+      "success_rate": 1.0,
+      "mean_steps": 40.92,
+      "mean_true_dose": 42.59266594999204,
+      "dose_regret_percent": 4.264191703047112,
+      "dose_reduction_percent": 50.5887416283867,
+      "l2_error": 0.7304552241623193
+    },
+    {
+      "seed": 1.0,
+      "success_rate": 1.0,
+      "mean_steps": 41.32,
+      "mean_true_dose": 40.85071322597447,
+      "dose_regret_percent": 0.0,
+      "dose_reduction_percent": 52.60956080459476,
+      "l2_error": 0.04347775425949365
+    },
+    {
+      "seed": 2.0,
+      "success_rate": 1.0,
+      "mean_steps": 41.32,
+      "mean_true_dose": 40.85071322597447,
+      "dose_regret_percent": 0.0,
+      "dose_reduction_percent": 52.60956080459476,
+      "l2_error": 0.009873301452481222
+    },
+    {
+      "seed": 3.0,
+      "success_rate": 1.0,
+      "mean_steps": 41.44,
+      "mean_true_dose": 40.810480609669,
+      "dose_regret_percent": -0.09848693726082915,
+      "dose_reduction_percent": 52.656234196712774,
+      "l2_error": 0.07449835317444008
+    },
+    {
+      "seed": 4.0,
+      "success_rate": 1.0,
+      "mean_steps": 41.44,
+      "mean_true_dose": 40.79672928100947,
+      "dose_regret_percent": -0.13214933278245042,
+      "dose_reduction_percent": 52.67218695379417,
+      "l2_error": 0.03413441162307392
+    }
+  ],
+  "summary": {
+    "success_rate": {
+      "mean": 1.0,
+      "ci_low": 1.0,
+      "ci_high": 1.0
+    },
+    "mean_steps": {
+      "mean": 41.288,
+      "ci_low": 41.104,
+      "ci_high": 41.416
+    },
+    "mean_true_dose": {
+      "mean": 41.18026045852388,
+      "ci_low": 40.81027633573438,
+      "ci_high": 41.88783833712392
+    },
+    "dose_regret_percent": {
+      "mean": 0.8067110866007665,
+      "ci_low": -0.09898698712163607,
+      "ci_high": 2.5388176343761013
+    },
+    "dose_reduction_percent": {
+      "mean": 52.227256877616625,
+      "ci_low": 51.40640397729353,
+      "ci_high": 52.656471172538
+    },
+    "l2_error": {
+      "mean": 0.17848780893436164,
+      "ci_low": 0.026298636082120786,
+      "ci_high": 0.4551474654227759
+    }
+  },
+  "elapsed_seconds": 2.3585704000433907
+}

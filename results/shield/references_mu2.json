@@ -1,0 +1,10 @@
+{
+  "oracle_dose_mean": 37.90915308019924,
+  "oracle_steps_mean": 41.56,
+  "shortest_dose_mean": 82.56018937977022,
+  "shortest_steps_mean": 34.48,
+  "wall_blind_dose_mean": 39.21681092685002,
+  "wall_blind_steps_mean": 42.16,
+  "wall_blind_regret_percent": 3.4494514923199424,
+  "n_starts": 25
+}
