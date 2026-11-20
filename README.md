@@ -1,5 +1,7 @@
 # Radiation-Aware Robot Navigation: Path Planning & Reinforcement Learning
 
+[![Tests](https://github.com/muhammad-umair-aideveloper/radiation-aware-robot-navigation/actions/workflows/tests.yml/badge.svg)](https://github.com/muhammad-umair-aideveloper/radiation-aware-robot-navigation/actions/workflows/tests.yml)
+
 ![Online field estimation and replanning](results/online_estimation.gif): Path Planning & Reinforcement Learning
 
 [![Python](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/)

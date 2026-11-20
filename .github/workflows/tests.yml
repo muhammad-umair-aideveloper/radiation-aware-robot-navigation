@@ -9,62 +9,26 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up Python 3.11
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+          cache-dependency-path: requirements.txt
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install numpy matplotlib pillow
+          pip install numpy matplotlib pillow pytest
 
-      - name: Run test_core.py
-        run: python tests/test_core.py
-
-      - name: Run test_dp.py
-        run: python tests/test_dp.py
-
-      - name: Run test_layouts.py
-        run: python tests/test_layouts.py
-
-      - name: Run test_sweep.py
-        run: python tests/test_sweep.py
-
-      - name: Run test_optimality_gap.py
-        run: python tests/test_optimality_gap.py
-
-      - name: Run test_dqn_agent.py
-        run: python tests/test_dqn_agent.py
-
-      - name: Run test_nn.py
-        run: python tests/test_nn.py
-
-      - name: Run test_sensors.py
-        run: python tests/test_sensors.py
-
-      - name: Run test_sensor_env.py
-        run: python tests/test_sensor_env.py
-
-      - name: Run test_sensor_pairs.py
-        run: python tests/test_sensor_pairs.py
-
-      - name: Run test_geiger_model.py
-        run: python tests/test_geiger_model.py
-
-      - name: Run test_estimators.py
-        run: python tests/test_estimators.py
-
-      - name: Run test_measurement_patterns.py
-        run: python tests/test_measurement_patterns.py
-
-      - name: Run test_online_sim.py
-        run: python tests/test_online_sim.py
-
-      - name: Run test_train_sensor.py
-        run: python tests/test_train_sensor.py
+      - name: Run all test files
+        run: python -m pytest -q
 
