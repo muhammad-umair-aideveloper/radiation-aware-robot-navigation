@@ -264,3 +264,44 @@ The estimator does not always recover the true sources: the noise-free N = 200 t
 ### Limitations
 
 One layout, a strong physics assumption, readings cost nothing, movement is perfect, and the evaluation uses the fixed S10 start set. S10 online numbers use the same noise seeds as S8. The completed study used seeds 0 to 4, so the fallback rule was not applied.
+
+## S12: is a survey worth its dose?
+
+The robot first visits the free coarse-grid waypoints at rows and columns 6, 18, 30 and 42 in nearest-neighbour order, skipping walls and unreachable cells. It uses the S8 3x3 measure-estimate-replan loop for at most B in {30, 60} survey steps, then goes to the goal with the usual loop. B=0 uses the existing S8 kernel and S10 omp3 online behaviour. Every survey step counts toward the 300+B step limit and total true dose.
+
+The executed B=0 control passed for kernel and omp3 at dwell 1 for seeds 0 and 1; each of the four per-seed mean dose, mean-step, and success checks had maximum absolute difference 0.0.
+
+### S12 summary
+
+| Estimator | Dwell | B | Success | Total steps | Total true dose (a.u.) | Survey steps | Survey dose share | Distinct cells | Dose regret % [95% CI] | Dose reduction % [95% CI] |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| kernel | 10 | 0 | 1.000 | 36.1 | 93.7 | 0.0 | 0.000 | 142.5 | 66.6 [62.6, 71.2] | 13.4 [11.0, 15.5] |
+| kernel | 10 | 30 | 1.000 | 84.7 | 242.6 | 30.0 | 0.475 | 284.9 | 331.5 [320.1, 342.1] | -124.2 [-129.8, -118.3] |
+| kernel | 10 | 60 | 1.000 | 112.3 | 260.5 | 60.0 | 0.654 | 377.1 | 363.4 [359.1, 367.6] | -140.8 [-143.0, -138.6] |
+| kernel | 1 | 0 | 1.000 | 37.9 | 106.4 | 0.0 | 0.000 | 149.7 | 89.2 [80.8, 97.6] | 1.7 [-2.7, 6.0] |
+| kernel | 1 | 30 | 1.000 | 87.0 | 257.0 | 30.0 | 0.459 | 299.0 | 357.1 [345.8, 368.1] | -137.5 [-143.3, -131.7] |
+| kernel | 1 | 60 | 1.000 | 115.9 | 292.4 | 60.0 | 0.610 | 403.6 | 420.0 [412.7, 427.9] | -170.2 [-174.4, -166.4] |
+| omp3 | 10 | 0 | 1.000 | 41.7 | 63.3 | 0.0 | 0.000 | 140.2 | 12.6 [10.9, 14.2] | 41.5 [40.6, 42.4] |
+| omp3 | 10 | 30 | 1.000 | 92.0 | 179.1 | 30.0 | 0.589 | 286.3 | 218.5 [216.4, 221.4] | -65.5 [-67.0, -64.4] |
+| omp3 | 10 | 60 | 1.000 | 120.7 | 235.6 | 60.0 | 0.708 | 374.1 | 319.0 [315.9, 322.2] | -117.8 [-119.4, -116.1] |
+| omp3 | 1 | 0 | 1.000 | 42.6 | 73.5 | 0.0 | 0.000 | 149.3 | 30.8 [26.5, 35.3] | 32.0 [29.7, 34.3] |
+| omp3 | 1 | 30 | 1.000 | 91.2 | 182.2 | 30.0 | 0.569 | 287.0 | 224.0 [218.3, 231.4] | -68.4 [-72.2, -65.4] |
+| omp3 | 1 | 60 | 1.000 | 121.8 | 248.6 | 60.0 | 0.702 | 382.8 | 342.2 [336.6, 347.7] | -129.8 [-132.7, -126.9] |
+
+![S12 survey dose-step trade-off](../results/s12_tradeoff.png)
+
+![S12 dose regret by survey budget](../results/s12_regret.png)
+
+### What the numbers show
+
+At dwell 1, kernel increases from 106.4 a.u. at B=0 to 257.0 a.u. at B=30 and 292.4 a.u. at B=60, while omp3 increases from 73.5 a.u. to 182.2 a.u. and 248.6 a.u. At dwell 1, the kernel and omp3 B=30 intervals are non-overlapping with their respective B=0 intervals, and both B=60 intervals are non-overlapping with B=30; this study does not distinguish a survey benefit.
+
+H1: **not supported**. The tested survey lowers neither the kernel total dose nor the kernel dose regret; it increases both while increasing total steps.
+
+H2: **unclear**. The survey also increases omp3 dose and regret, but the requested between-estimator benefit comparison is not distinguishable from a control difference in this fixed-tour study.
+
+H3: **not supported**. In the reported dwell 1 and dwell 10 results, total dose increases for B=30 then increases again for B=60 rather than showing a non-monotonic minimum.
+
+### Limitations
+
+The tour is fixed and ignores information gain; the study uses one layout, perfect movement, readings that cost no time, and no shielding.
