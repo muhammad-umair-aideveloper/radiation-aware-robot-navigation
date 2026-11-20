@@ -1,0 +1,97 @@
+{
+  "estimator": "omp3",
+  "dwell": 1,
+  "survey_budget": 60,
+  "pattern": "3x3",
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "n_starts": 25,
+  "per_seed": [
+    {
+      "seed": 0.0,
+      "success_rate": 1.0,
+      "mean_steps": 121.0,
+      "mean_true_dose": 253.25101565897887,
+      "survey_steps": 60.0,
+      "survey_dose_share": 0.7036255719750776,
+      "mean_distinct_cells": 378.16,
+      "dose_regret_percent": 350.42781992550704,
+      "dose_reduction_percent": -134.08298620036348
+    },
+    {
+      "seed": 1.0,
+      "success_rate": 1.0,
+      "mean_steps": 123.68,
+      "mean_true_dose": 246.66554515324773,
+      "survey_steps": 60.0,
+      "survey_dose_share": 0.6999765535926871,
+      "mean_distinct_cells": 386.44,
+      "dose_regret_percent": 338.715017450217,
+      "dose_reduction_percent": -127.99595591736642
+    },
+    {
+      "seed": 2.0,
+      "success_rate": 1.0,
+      "mean_steps": 120.52,
+      "mean_true_dose": 246.18704344467304,
+      "survey_steps": 60.0,
+      "survey_dose_share": 0.7074346214315314,
+      "mean_distinct_cells": 377.52,
+      "dose_regret_percent": 337.8639626938793,
+      "dose_reduction_percent": -127.55367098297559
+    },
+    {
+      "seed": 3.0,
+      "success_rate": 1.0,
+      "mean_steps": 122.28,
+      "mean_true_dose": 252.71676850200535,
+      "survey_steps": 60.0,
+      "survey_dose_share": 0.6979887888474362,
+      "mean_distinct_cells": 385.44,
+      "dose_regret_percent": 349.47761729121225,
+      "dose_reduction_percent": -133.58917507171702
+    },
+    {
+      "seed": 4.0,
+      "success_rate": 1.0,
+      "mean_steps": 121.6,
+      "mean_true_dose": 244.2130214734937,
+      "survey_steps": 60.0,
+      "survey_dose_share": 0.6998906395018826,
+      "mean_distinct_cells": 386.52,
+      "dose_regret_percent": 334.35300179743547,
+      "dose_reduction_percent": -125.72905852629344
+    }
+  ],
+  "metrics": {
+    "success_rate_mean": 1.0,
+    "mean_steps": 121.816,
+    "mean_true_dose": 248.60667884647972,
+    "survey_steps": 60.0,
+    "survey_dose_share": 0.701783235069723,
+    "mean_distinct_cells": 382.816,
+    "dose_regret_percent": {
+      "mean": 342.1674838316502,
+      "ci_low": 336.6297892865693,
+      "ci_high": 347.7250079523225
+    },
+    "dose_reduction_percent": {
+      "mean": -129.7901693397432,
+      "ci_low": -132.67836093115662,
+      "ci_high": -126.9122829871809
+    }
+  },
+  "references": {
+    "oracle_dose_mean": 56.22455018450286,
+    "shortest_dose_mean": 108.18856157371836,
+    "oracle_steps_mean": 42.16,
+    "shortest_steps_mean": 34.48,
+    "n_starts": 25.0
+  },
+  "elapsed_seconds": 1051.8975322999759
+}
