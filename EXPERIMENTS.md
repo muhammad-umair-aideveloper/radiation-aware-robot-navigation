@@ -323,5 +323,18 @@ All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., 
 - Limitations to state: straight-line attenuation only (no scattering), walls and mu are known to the robot for omp3s (strong assumption), one layout, offline only.
 - Explanations of results are hypotheses. No new configurations after seeing results.
 
+## S12: is a survey worth its dose? (fixed before running)
+- Question: so far the robot measures only along its own path (S8, S10). Does spending a limited number of extra steps on a survey tour before heading to the goal reduce the TOTAL dose (survey dose plus trip dose), and at what cost in steps?
+- Survey waypoints: the free cells on a coarse grid with spacing 12 cells (rows and columns 6, 18, 30 and 42), visited in nearest-neighbour order starting from the start cell, skipping walls and unreachable cells. The same survey order is fixed for a start after waypoint selection.
+- Survey procedure: walk to the next waypoint with the same measure-estimate-replan loop as S8 (3x3 readings at every visited cell, replanning every 3 steps with A* aware, lambda 2.5, planning on the current estimate), until the survey budget B in steps is used up or all waypoints are visited. Then go to the goal with the usual online loop. The maximum number of steps is 300 plus B.
+- Budgets B in {0, 30, 60}; B = 0 is the existing online behaviour.
+- Estimators: kernel and omp3 (the physics-informed one). Dwell values: 10 and 1. Pattern: 3x3. Seeds: 0 to 4. The same 25 start cells and the same noise-seed scheme as S8 and S10.
+- New configurations: 2 estimators x 2 dwell values x B in {30, 60} = 8, plus a control run. B = 0 values are taken from earlier S8 and S10 result files.
+- Metrics: success rate, total steps, total TRUE dose of successful episodes including every step from the start, survey steps, share of dose spent during the survey, mean distinct measured cells, dose regret versus the oracle (A* aware on the true field from the start straight to the goal) in percent, and dose reduction versus A* shortest in percent. Bootstrap mean and 95% confidence interval over the 5 seed means (10,000 resamples, fixed seed 42).
+- Control (must pass before the study runs): with B = 0 the new code must reproduce the earlier S8 result for kernel and the S10 result for omp3 (same seeds, pattern 3x3, dwell 1, seeds 0 and 1 only) with per-seed values equal within 1e-9. If the control fails, stop and report; do not run the study.
+- Hypotheses to test (not claims): H1 a survey lowers the total dose for kernel, which extrapolates badly, at the price of more steps; H2 the benefit is smaller for omp3; H3 total dose is not monotonic in B, so a longer survey can cost more than it saves.
+- Runtime rule: if the projected total runtime is above 90 minutes, use seeds 0 to 2 for all configurations (decided now).
+- Limitations: fixed tour ignores information gain, one layout, perfect movement, readings cost no time, no shielding.
+
 
 
