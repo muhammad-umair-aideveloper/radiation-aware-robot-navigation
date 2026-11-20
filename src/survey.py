@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 from collections import deque
-from typing import Iterable, Sequence, Tuple
+from typing import Tuple
 
 import numpy as np
 
@@ -16,7 +16,7 @@ def reachable_free_cells(
 ) -> set[GridCell]:
     """Return free cells reachable from start using 8-connected movement."""
     mask = np.asarray(free_mask, dtype=bool)
-    if not mask[ start ]:
+    if not mask[start]:
         return set()
 
     reached = {start}

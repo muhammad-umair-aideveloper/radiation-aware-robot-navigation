@@ -66,9 +66,6 @@ def run_configuration(
         mean_dose = float(
             np.mean([episode["dose"] for episode in successful])
         ) if successful else float("inf")
-        mean_survey_dose = float(
-            np.mean([episode["survey_dose"] for episode in successful])
-        ) if successful else float("inf")
         mean_dose_share = float(
             np.mean([episode["survey_dose_share"] for episode in successful])
         ) if successful else float("inf")

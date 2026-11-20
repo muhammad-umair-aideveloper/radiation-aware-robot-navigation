@@ -101,7 +101,14 @@ def idw(
     return np.where(mask, np.maximum(field, 0.0), 0.0)
 
 
-def parametric_sources(cells, values, free_mask, k=3, softening=2.0, refine_passes=5):
+def parametric_sources(
+    cells: np.ndarray,
+    values: np.ndarray,
+    free_mask: np.ndarray,
+    k: int = 3,
+    softening: float = 2.0,
+    refine_passes: int = 5,
+) -> Tuple[np.ndarray, list[Tuple[int, int, float]]]:
     """Fit k inverse-square point sources to measured intensities.
 
     Model: I(c) = sum_s w_s / (d(c, p_s)**2 + softening), w_s >= 0, p_s any grid cell.
@@ -167,7 +174,15 @@ def parametric_sources(cells, values, free_mask, k=3, softening=2.0, refine_pass
     return field, sources
 
 
-def parametric_sources_shielded(cells, values, free_mask, atten, k=3, softening=2.0, refine_passes=5):
+def parametric_sources_shielded(
+    cells: np.ndarray,
+    values: np.ndarray,
+    free_mask: np.ndarray,
+    atten: np.ndarray,
+    k: int = 3,
+    softening: float = 2.0,
+    refine_passes: int = 5,
+) -> Tuple[np.ndarray, list[Tuple[int, int, float]]]:
     """Like parametric_sources, but every source is attenuated by the known walls (atten matrix).
 
     Model: I(c) = sum_s w_s * atten[p_s, c] / (d(c, p_s)**2 + softening), w_s >= 0.
