@@ -171,6 +171,49 @@ def test_existing_estimators_are_unchanged() -> None:
     )
 
 
+def test_survey_budget_zero_matches_old_episode() -> None:
+    field, free_mask = make_case()
+    default = run_online_episode(
+        field, free_mask, (0, 0), (11, 11), "kernel", "3x3", 1.0, 11
+    )
+    explicit = run_online_episode(
+        field,
+        free_mask,
+        (0, 0),
+        (11, 11),
+        "kernel",
+        "3x3",
+        1.0,
+        11,
+        survey_budget=0,
+    )
+    assert explicit["path"] == default["path"]
+    assert abs(explicit["dose"] - default["dose"]) <= 1e-12
+    assert explicit["steps"] == default["steps"]
+    assert explicit["survey_steps"] == 0
+
+
+def test_survey_budget_and_step_limit() -> None:
+    field, free_mask = make_case()
+    result = run_online_episode(
+        field,
+        free_mask,
+        (0, 0),
+        (11, 11),
+        "kernel",
+        "3x3",
+        1.0,
+        3,
+        max_steps=360,
+        survey_budget=30,
+    )
+    assert result["survey_steps"] <= 30
+    assert result["steps"] <= 360
+    expected_dose, _ = evaluate_path_on_true_field(result["path"], field)
+    assert abs(result["dose"] - expected_dose) <= 1e-9
+    assert result["survey_dose_share"] >= 0.0
+
+
 if __name__ == "__main__":
     test_episode_invariants()
     test_seed_reproducibility_and_low_dwell_validity()
@@ -182,4 +225,6 @@ if __name__ == "__main__":
     test_omp_estimate_has_valid_field()
     test_unknown_estimator_raises()
     test_existing_estimators_are_unchanged()
+    test_survey_budget_zero_matches_old_episode()
+    test_survey_budget_and_step_limit()
     print("online simulation tests passed")

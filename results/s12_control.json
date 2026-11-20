@@ -1,0 +1,69 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "estimator": "kernel",
+      "seed": 0,
+      "actual": {
+        "mean_true_dose": 112.06198093353125,
+        "mean_steps": 38.48,
+        "success_rate": 1.0
+      },
+      "reference": {
+        "mean_true_dose": 112.06198093353125,
+        "mean_steps": 38.48,
+        "success_rate": 1.0
+      },
+      "max_abs_difference": 0.0,
+      "passed": true
+    },
+    {
+      "estimator": "kernel",
+      "seed": 1,
+      "actual": {
+        "mean_true_dose": 113.95906110531689,
+        "mean_steps": 37.6,
+        "success_rate": 1.0
+      },
+      "reference": {
+        "mean_true_dose": 113.95906110531689,
+        "mean_steps": 37.6,
+        "success_rate": 1.0
+      },
+      "max_abs_difference": 0.0,
+      "passed": true
+    },
+    {
+      "estimator": "omp3",
+      "seed": 0,
+      "actual": {
+        "mean_true_dose": 77.96391015011436,
+        "mean_steps": 42.88,
+        "success_rate": 1.0
+      },
+      "reference": {
+        "mean_true_dose": 77.96391015011436,
+        "mean_steps": 42.88,
+        "success_rate": 1.0
+      },
+      "max_abs_difference": 0.0,
+      "passed": true
+    },
+    {
+      "estimator": "omp3",
+      "seed": 1,
+      "actual": {
+        "mean_true_dose": 74.7899578073379,
+        "mean_steps": 42.36,
+        "success_rate": 1.0
+      },
+      "reference": {
+        "mean_true_dose": 74.7899578073379,
+        "mean_steps": 42.36,
+        "success_rate": 1.0
+      },
+      "max_abs_difference": 0.0,
+      "passed": true
+    }
+  ]
+}
