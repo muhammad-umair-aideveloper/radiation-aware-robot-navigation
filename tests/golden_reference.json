@@ -1,0 +1,12 @@
+{
+  "oracle_dose_mean": 56.22455018450286,
+  "oracle_steps_mean": 42.16,
+  "shortest_dose_mean": 108.18856157371836,
+  "shortest_steps_mean": 34.48,
+  "canonical_aware_dose": 58.151241281774865,
+  "canonical_aware_steps": 80.0,
+  "canonical_shortest_dose": 281.8799973864778,
+  "canonical_shortest_steps": 56.0,
+  "canonical_aware_path_len": 80,
+  "canonical_shortest_path_len": 56
+}
