@@ -14,6 +14,16 @@ A simulation study comparing classical graph search (shortest vs. radiation-awar
 
 ---
 
+## Project quality checks
+
+On Windows, run the complete local quality gate from the repository root:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File ./scripts/quality_gate.ps1
+```
+
+The gate runs Ruff, all pytest tests with timings, the golden regression test, the number audit, and the relative documentation-link check.
+
 ## Results at a Glance
 
 Benchmark summary on 50 fixed evaluation starts ($\ge 20$ cells to goal $(47, 47)$, $\lambda = 2.5$):
