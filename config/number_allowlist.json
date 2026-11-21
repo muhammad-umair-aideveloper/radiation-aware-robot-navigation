@@ -59,6 +59,86 @@
     {
       "value": "-53.80",
       "justification": "Derived seed-0 paired mean dose difference: 65.347326 - 119.147810 a.u., displayed to two decimals."
+    },
+    {
+      "value": "25",
+      "justification": "Fixed 25-start online and S7-S12 evaluation subset."
+    },
+    {
+      "value": "400000",
+      "justification": "Sensor-DQN total environment-step budget."
+    },
+    {
+      "value": "28",
+      "justification": "Sensor-DQN observation feature count."
+    },
+    {
+      "value": "64",
+      "justification": "Sensor-DQN hidden MLP width and replay minibatch parameter."
+    },
+    {
+      "value": "50000",
+      "justification": "Replay-buffer or training-episode count where declared."
+    },
+    {
+      "value": "7",
+      "justification": "S5 sensor-agent experimental run count."
+    },
+    {
+      "value": "4",
+      "justification": "Four S6 improvement variants and frame stacking history."
+    },
+    {
+      "value": "30",
+      "justification": "Survey coarse-grid spacing and training/goal pool size where declared."
+    },
+    {
+      "value": "60",
+      "justification": "S12 survey budget and epsilon-decay context where declared."
+    },
+    {
+      "value": "8",
+      "justification": "New S12 configurations or 8-connected action set."
+    },
+    {
+      "value": "10",
+      "justification": "Ten perturbations, dwell value, or fixed protocol threshold."
+    },
+    {
+      "value": "27",
+      "justification": "S10 offline estimator/sample/dwell configuration count."
+    },
+    {
+      "value": "15",
+      "justification": "Technical report reading-time upper bound."
+    },
+    {
+      "value": "6",
+      "justification": "Six radiation weights or S6 variant/report page context."
+    },
+    {
+      "value": "3",
+      "justification": "Three point radiation sources and independent RL comparison seeds."
+    },
+    {
+      "value": "5",
+      "justification": "Five noise seeds in online estimation studies."
+    },
+    {
+      "value": "20",
+      "justification": "Held-out sensor goals or bootstrap/uncertainty context."
+    },
+    {
+      "value": "24",
+      "justification": "Not a derived result; fixed 24-item protocol context."
+    },
+    {
+      "value": "12",
+      "justification": "S12 coarse-grid spacing."
+    },
+    {
+      "value": "120",
+      "justification": "Straight-segment shielding samples."
     }
   ]
 }
