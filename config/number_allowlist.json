@@ -1,0 +1,32 @@
+{
+  "entries": [
+    {
+      "value": "50",
+      "justification": "Grid width and height are a fixed project constant."
+    },
+    {
+      "value": "2.0",
+      "justification": "Radiation-model softening parameter epsilon is documented in EXPERIMENTS.md."
+    },
+    {
+      "value": "2.5",
+      "justification": "Default radiation-aware cost weight lambda is a documented experiment constant."
+    },
+    {
+      "value": "100",
+      "justification": "Fixed 100-pair sensor benchmark size."
+    },
+    {
+      "value": "300",
+      "justification": "Maximum online episode and replanning step guard."
+    },
+    {
+      "value": "95",
+      "justification": "Bootstrap confidence level in per-study protocols."
+    },
+    {
+      "value": "10000",
+      "justification": "Fixed bootstrap resample count declared in the experimental protocols."
+    }
+  ]
+}
