@@ -27,6 +27,38 @@
     {
       "value": "10000",
       "justification": "Fixed bootstrap resample count declared in the experimental protocols."
+    },
+    {
+      "value": "-1000",
+      "justification": "Tabular Q-learning terminal collision penalty documented as a reward-model constant."
+    },
+    {
+      "value": "-1000.0",
+      "justification": "Tabular and sensor reinforcement-learning terminal collision penalty, expressed with decimal formatting."
+    },
+    {
+      "value": "1000",
+      "justification": "Tabular Q-learning terminal goal bonus documented as a reward-model constant."
+    },
+    {
+      "value": "1000.0",
+      "justification": "Tabular and sensor reinforcement-learning terminal goal reward, expressed with decimal formatting."
+    },
+    {
+      "value": "-10.0",
+      "justification": "Scaled sensor-DQN terminal collision penalty: -1000 divided by 100."
+    },
+    {
+      "value": "10.0",
+      "justification": "Scaled sensor-DQN terminal goal reward: +1000 divided by 100."
+    },
+    {
+      "value": "0.001",
+      "justification": "Sensor-DQN Adam learning-rate hyperparameter."
+    },
+    {
+      "value": "-53.80",
+      "justification": "Derived seed-0 paired mean dose difference: 65.347326 - 119.147810 a.u., displayed to two decimals."
     }
   ]
 }

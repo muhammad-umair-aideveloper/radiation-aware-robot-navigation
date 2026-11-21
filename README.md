@@ -22,7 +22,7 @@ Benchmark summary on 50 fixed evaluation starts ($\ge 20$ cells to goal $(47, 47
 |---|---|---|---|---|---|---|
 | **Dijkstra (Exact Reference)** | Global Optimal | 50/50 (100%) | 45.04 | 54.42 | **0.00% (Exact)** | 1.85 s total |
 | **A\* Radiation-Aware** | Heuristic Search | 50/50 (100%) | 45.04 | 54.42 | **0.00% (Consistency Check)** | 2.08 s total |
-| **Tabular Q-Learning (Best Seed)** | Off-Policy RL | 50/50 (100%) | 43.68 | 65.59 | **18.58% ± 7.02%** | 97.4 ± 15.7 s |
+| **Tabular Q-Learning (Best Seed)** | Off-Policy RL | 50/50 (100%) | 43.68 | 64.49 | **18.58% ± 7.02%** | 97.4 ± 15.7 s |
 | **Tabular Q-Learning (3 seeds)** | Off-Policy RL | 49.7 ± 0.5/50 (99.3%) | 45.22 ± 0.82 | 64.89 ± 0.35 | *not measured* | 97.4 ± 15.7 s |
 | **SARSA (3 seeds, λ=2.5 only)** | On-Policy RL | 49.0 ± 0.8/50 (98.0%) | 46.83 ± 0.69 | 67.01 ± 1.24 | *not measured* | 160.6 ± 5.6 s |
 | **A\* Shortest (Radiation-Blind)** | Baseline Search | 50/50 (100%) | 36.18 | 119.15 | **+70.27% ± 68.11%** | 0.45 s total |
@@ -89,8 +89,8 @@ Evaluated across 50 fixed starts with free-space geodesic distance $\ge 20$ cell
 | Method | Success on 50 starts | Mean Steps | Mean Dose (a.u.) | Planning / Training Time * |
 |---|---|---|---|---|
 | **A\* Shortest** | 50/50 (100%) | 36.18 | 119.15 | 0.451 s total |
-| **A\* Aware** | 50/50 (100%) | 45.04 | 54.42 | 2.082 s total |
-| **Tabular Q-Learning (5 seeds)** | 49.8 ± 0.4/50 (99.6%) | 45.01 ± 0.70 | 65.18 ± 1.05 | 80.37 ± 10.70 s / seed |
+| **A\* Aware** | 50/50 (100%) | 45.04 | 54.42 | *not measured* |
+| **Tabular Q-Learning (5 seeds)** | 49.8 ± 0.4/50 (99.6%) | 45.01 ± 0.70 | 65.18 ± 1.05 | 97.45 ± 15.72 s / seed |
 
 *\* Note: Planning and training times were measured on a 2-core laptop CPU with jobs running one after another.*
 
@@ -104,7 +104,7 @@ Evaluated across 50 fixed starts with free-space geodesic distance $\ge 20$ cell
 | Q-Learning (Seed 1) | Goal | 75 | 68.71 |
 | Q-Learning (Seed 2) | Goal | 80 | 65.81 |
 | Q-Learning (Seed 3) | Goal | 80 | 64.10 |
-| Q-Learning (Seed 4) | Goal | 73 | 69.34 |
+| Q-Learning (Seed 4) | Goal | 73 | *not measured* |
 
 ### 4.3 Paired Statistical Comparison
 On the 50 start pairs where both classical planners succeeded:
