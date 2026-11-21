@@ -13,7 +13,6 @@ from __future__ import annotations
 import argparse
 from datetime import datetime, timezone
 import json
-import math
 from pathlib import Path
 import sys
 import time
@@ -26,9 +25,9 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.environment import RadiationEnv, START_CELL, GOAL_CELL
 from src.sensor_env import SensorNavigationEnv
-from src.sensors import get_sensor_observation, OBS_DIM
+from src.sensors import OBS_DIM
 from src.dqn_agent import DQNAgent
-from src.sensor_pairs import load_pair_set, load_sensor_pairs
+from src.sensor_pairs import load_pair_set
 from src.planners import astar_search, QLearningAgent
 
 RESULTS_DIR = REPO_ROOT / "results"
@@ -289,10 +288,10 @@ def run_full_sensor_evaluation(
     out_json.parent.mkdir(parents=True, exist_ok=True)
     out_md.parent.mkdir(parents=True, exist_ok=True)
 
-    print(f"\n=======================================================")
-    print(f"Sensor Agent Evaluation Benchmark")
+    print("\n=======================================================")
+    print("Sensor Agent Evaluation Benchmark")
     print(f"Target Pair Set: {pair_set} | Output: {out_md.name}")
-    print(f"=======================================================")
+    print("=======================================================")
 
     eval_pairs = load_pair_set(pair_set)
     base_env = RadiationEnv()

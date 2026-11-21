@@ -9,10 +9,9 @@ Generates:
 from __future__ import annotations
 
 import json
-import math
 from pathlib import Path
 import sys
-from typing import Any, Dict, List, Tuple
+from typing import List, Tuple
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt

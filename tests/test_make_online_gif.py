@@ -14,7 +14,6 @@ if str(ROOT / "src") not in sys.path:
     sys.path.insert(0, str(ROOT / "src"))
 
 from make_online_gif import dose_upto, frame_steps, reconstruct_readings
-from src.environment import RadiationEnv
 from src.online_sim import run_online_episode
 
 

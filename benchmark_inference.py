@@ -21,7 +21,7 @@ REPO_ROOT = Path(__file__).resolve().parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.environment import RadiationEnv, create_wall_mask
+from src.environment import RadiationEnv
 
 N_SAMPLES: int = 1_000
 Q_PATH: Path = REPO_ROOT / "models" / "q_table_best.npy"

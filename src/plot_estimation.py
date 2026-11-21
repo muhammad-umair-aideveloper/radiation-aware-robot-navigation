@@ -14,11 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from main import generate_evaluation_starts
 from src.environment import RadiationEnv
 from src.estimators import idw, kernel_regression
 from src.geiger_model import counts_to_intensity, sample_measurement_cells, simulate_counts
-from src.map_error_study import evaluate_path_on_true_field
 from src.planners import astar_search
 
 RESULTS = ROOT / "results"

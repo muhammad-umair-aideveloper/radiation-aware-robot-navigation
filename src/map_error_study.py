@@ -15,7 +15,6 @@ import json
 import math
 from pathlib import Path
 import sys
-import time
 from typing import Any, Dict, List, Tuple
 import numpy as np
 
@@ -25,8 +24,6 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.environment import (
     RadiationEnv,
-    START_CELL,
-    GOAL_CELL,
     SOURCES,
     compute_radiation_field,
 )

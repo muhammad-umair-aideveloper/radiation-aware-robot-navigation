@@ -15,7 +15,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.environment import START_CELL, GOAL_CELL, RadiationEnv
-from src.layouts import generate_random_layout, check_connectivity, Layout
+from src.layouts import generate_random_layout, check_connectivity
 
 
 def test_layout_determinism() -> None:

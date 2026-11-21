@@ -5,19 +5,16 @@ Uses plain asserts following project standards.
 
 from __future__ import annotations
 
-import json
-import math
 from pathlib import Path
 import sys
-import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.environment import RadiationEnv, START_CELL, GOAL_CELL
-from src.sweep_lambda import run_astar_sweep, format_astar_markdown_table, SWEEP_LAMBDAS
-from src.plot_pareto import load_astar_sweep_data, load_qlearning_sweep_data
+from src.environment import RadiationEnv, START_CELL
+from src.sweep_lambda import run_astar_sweep, format_astar_markdown_table
+from src.plot_pareto import load_astar_sweep_data
 
 
 def test_astar_sweep_monotonic_dose_tradeoff() -> None:
@@ -31,8 +28,8 @@ def test_astar_sweep_monotonic_dose_tradeoff() -> None:
     assert "astar_shortest" in res
     assert "astar_aware" in res
 
-    doses = [res["astar_aware"][str(l)]["mean_dose"] for l in lambdas]
-    steps = [res["astar_aware"][str(l)]["mean_steps"] for l in lambdas]
+    doses = [res["astar_aware"][str(lam)]["mean_dose"] for lam in lambdas]
+    steps = [res["astar_aware"][str(lam)]["mean_steps"] for lam in lambdas]
 
     # Dose should decrease or remain equal as radiation penalty increases
     assert doses[0] >= doses[1] >= doses[2], f"Expected non-increasing dose: {doses}"

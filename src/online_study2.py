@@ -1,12 +1,16 @@
 from __future__ import annotations
-import argparse, json, sys, time
+import argparse
+import json
+import sys
+import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
 import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
-if str(ROOT) not in sys.path: sys.path.insert(0, str(ROOT))
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
 from src.environment import RadiationEnv
 from src.estimation_study import bootstrap
 from src.online_references import reference_doses
@@ -124,9 +128,11 @@ def _run_one(reference: Dict[str, float]) -> None:
     print(f"projected_total_minutes: {projected} = "
           "elapsed_seconds * (20 * 5 + 8) / 60")
 def main() -> None:
-    parser = argparse.ArgumentParser(); parser.add_argument("--one", action="store_true")
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--one", action="store_true")
     args = parser.parse_args()
-    if not _controls_pass(): raise SystemExit(1)
+    if not _controls_pass():
+        raise SystemExit(1)
     reference = reference_doses(list(STARTS))
     if args.one:
         _run_one(reference)
@@ -146,4 +152,5 @@ def main() -> None:
         print(f"finished {estimator}/{pattern}/t"
               f"{'inf' if noise_free else f'{dwell:g}'}/b{beta:g} "
               f"{result['elapsed_seconds']:.2f}s")
-if __name__ == "__main__": main()
+if __name__ == "__main__":
+    main()

@@ -7,10 +7,9 @@ Generates:
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 import sys
-from typing import Any, Dict, List, Tuple
+from typing import List, Tuple
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -23,7 +22,6 @@ if str(REPO_ROOT) not in sys.path:
 
 from src.environment import RadiationEnv
 from src.sensor_env import SensorNavigationEnv
-from src.sensors import get_sensor_observation
 from src.dqn_agent import DQNAgent
 from src.sensor_pairs import load_sensor_pairs
 from src.planners import astar_search
@@ -165,7 +163,7 @@ def plot_sensor_trajectories(
         d_free = p["free_space_distance"]
 
         # 1. Heatmap & Walls
-        im = ax.imshow(
+        ax.imshow(
             env_base.radiation,
             cmap="inferno",
             origin="upper",

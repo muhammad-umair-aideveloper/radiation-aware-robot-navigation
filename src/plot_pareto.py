@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import sys
-from typing import Dict, List
+from typing import Any, Dict, List
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -156,7 +156,7 @@ def plot_pareto_front(
                 capsize=4,
                 markersize=8,
                 zorder=6,
-                label=f"Q-Learning (3 seeds mean ± std)",
+                label="Q-Learning (3 seeds mean ± std)",
             )
             for lam, x, y in zip(valid_lams, q_steps_vals, q_dose_vals):
                 ax.annotate(

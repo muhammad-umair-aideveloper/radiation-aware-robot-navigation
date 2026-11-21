@@ -24,7 +24,7 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.environment import RadiationEnv
-from src.sensor_env import SensorNavigationEnv, FrameStack
+from src.sensor_env import SensorNavigationEnv
 from src.dqn_agent import DQNAgent, compute_epsilon
 from src.sensor_pairs import load_sensor_pairs, POOL_150_FILE
 from main import compute_free_space_distances
@@ -109,13 +109,13 @@ def train_dqn_sensor_agent(
         with open(summary_file, "r", encoding="utf-8") as f:
             return json.load(f)
 
-    print(f"\n=======================================================")
+    print("\n=======================================================")
     print(f"Starting Training: {run_tag}")
     print(
         f"Variant: {variant} | Lambda: {lambda_rad} | Seed: {seed} | Steps: {total_steps} | "
         f"Stack: {stack} | Curriculum: {curriculum} | GoalPool: {goal_pool}"
     )
-    print(f"=======================================================")
+    print("=======================================================")
 
     # Load training goals
     base_env = RadiationEnv()

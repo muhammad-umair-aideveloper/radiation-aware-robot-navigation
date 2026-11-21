@@ -5,7 +5,7 @@ from __future__ import annotations
 import math
 from pathlib import Path
 import sys
-from typing import Any, Dict, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -16,8 +16,6 @@ from src.environment import (
     RadiationEnv,
     ACTIONS,
     ACTION_LENGTHS,
-    START_CELL,
-    GOAL_CELL,
 )
 from src.sensors import get_sensor_observation, OBS_DIM
 from main import compute_free_space_distances

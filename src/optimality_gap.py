@@ -19,17 +19,16 @@ import json
 import math
 from pathlib import Path
 import sys
-import time
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple
 import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.environment import RadiationEnv, START_CELL, GOAL_CELL
+from src.environment import RadiationEnv, START_CELL
 from src.dp_reference import dijkstra_search
-from src.planners import astar_search, QLearningAgent
+from src.planners import astar_search
 from evaluate import greedy_rollout
 from main import generate_evaluation_starts
 

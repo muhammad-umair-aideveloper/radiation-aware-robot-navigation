@@ -2,9 +2,8 @@
 
 from __future__ import annotations
 
-import math
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import List, Optional, Tuple
 import numpy as np
 
 from src.nn import MLP, AdamOptimizer, compute_huber_loss_and_grad

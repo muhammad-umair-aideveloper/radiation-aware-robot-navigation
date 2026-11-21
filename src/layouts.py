@@ -8,7 +8,7 @@ reachability between start and goal without corner-cutting collisions.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import List, Optional, Tuple
+from typing import List, Tuple
 import numpy as np
 
 from src.environment import (
@@ -16,7 +16,6 @@ from src.environment import (
     START_CELL,
     GOAL_CELL,
     RadiationEnv,
-    compute_radiation_field,
 )
 
 

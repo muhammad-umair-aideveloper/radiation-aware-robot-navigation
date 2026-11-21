@@ -20,7 +20,7 @@ at a source location (d=0), yielding I_max = I0 / epsilon.
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Sequence, Tuple
 
 import numpy as np

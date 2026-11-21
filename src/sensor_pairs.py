@@ -7,7 +7,7 @@ import json
 import math
 from pathlib import Path
 import sys
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 
 REPO_ROOT = Path(__file__).resolve().parents[1]

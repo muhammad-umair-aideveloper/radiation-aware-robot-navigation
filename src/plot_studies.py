@@ -8,7 +8,6 @@ Outputs:
 from __future__ import annotations
 
 import json
-import math
 from pathlib import Path
 import sys
 import matplotlib
@@ -20,7 +19,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.environment import START_CELL, GOAL_CELL, RadiationEnv
+from src.environment import START_CELL, GOAL_CELL
 from src.layouts import generate_random_layout
 from src.planners import astar_search
 
@@ -42,7 +41,7 @@ def plot_layouts_overview(out_path: Path, dpi: int = 200) -> None:
         env = layout.to_env()
 
         # Heatmap
-        im = ax.imshow(
+        ax.imshow(
             env.radiation,
             cmap="inferno",
             origin="upper",
@@ -115,8 +114,8 @@ def plot_robustness_curve(json_path: Path, out_path: Path, dpi: int = 200) -> No
     base_o = data["baselines"]["oracle_aware"]["mean_dose"]
 
     levels = [1, 2, 3]
-    means = [data["levels"][str(l)]["mean_true_dose"] for l in levels]
-    stds = [data["levels"][str(l)]["std_true_dose"] for l in levels]
+    means = [data["levels"][str(level)]["mean_true_dose"] for level in levels]
+    stds = [data["levels"][str(level)]["std_true_dose"] for level in levels]
 
     plt.style.use("dark_background")
     fig, ax = plt.subplots(figsize=(9, 6), facecolor="#111111")

@@ -13,7 +13,6 @@ from __future__ import annotations
 
 import argparse
 import json
-import math
 from pathlib import Path
 import sys
 import time
@@ -24,8 +23,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from src.environment import START_CELL, GOAL_CELL, RadiationEnv
-from src.layouts import generate_random_layout, Layout
+from src.environment import START_CELL, RadiationEnv
+from src.layouts import generate_random_layout
 from src.planners import astar_search, QLearningAgent
 from main import compute_free_space_distances
 

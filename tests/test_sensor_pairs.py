@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-import json
-import math
 from pathlib import Path
 import sys
 import numpy as np
@@ -17,7 +15,6 @@ from src.sensor_pairs import (
     load_sensor_pairs,
     load_pair_set,
     SENSOR_PAIRS_S6_FILE,
-    dist_euclidean,
     min_dist_to_set,
 )
 

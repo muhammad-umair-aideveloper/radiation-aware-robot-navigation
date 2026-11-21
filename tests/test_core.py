@@ -17,16 +17,12 @@ if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
 from src.environment import (
-    ACTIONS,
-    ACTION_LENGTHS,
     GOAL_CELL,
-    GRID_SHAPE,
     START_CELL,
     RadiationEnv,
     compute_radiation_field,
-    create_wall_mask,
 )
-from src.planners import QLearningAgent, astar_search, octile_distance
+from src.planners import QLearningAgent, astar_search
 
 
 # ---------------------------------------------------------------------------
@@ -157,9 +153,6 @@ def test_inverse_square_monotonicity() -> None:
 
 def test_zero_radiation_equivalence() -> None:
     """With lambda=0 (kappa=0), aware A* step cost = L = shortest, so paths are identical cost."""
-    # Build a minimal env where radiation is non-zero (use default env)
-    env = RadiationEnv()
-
     # With kappa=0 in aware mode the step cost equals L, same as shortest.
     # We test on a small obstacle-free sub-environment to get a unique path.
     env_flat = RadiationEnv(start=(5, 5), goal=(10, 15), max_steps=100)

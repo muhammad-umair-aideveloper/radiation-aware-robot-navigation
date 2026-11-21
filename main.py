@@ -7,13 +7,12 @@ Generates publication-quality dark-themed plots and GIF.
 
 from __future__ import annotations
 
-import collections
 import heapq
 import math
 from pathlib import Path
 import sys
 import time
-from typing import Dict, List, Tuple
+from typing import List, Tuple
 import numpy as np
 
 # Ensure repository root is on sys.path
@@ -25,13 +24,10 @@ from src.environment import (
     ACTIONS,
     ACTION_LENGTHS,
     GOAL_CELL,
-    GRID_SHAPE,
     START_CELL,
     RadiationEnv,
-    compute_radiation_field,
-    create_wall_mask,
 )
-from src.planners import QLearningAgent, astar_search, octile_distance
+from src.planners import QLearningAgent, astar_search
 from src.visualize import (
     generate_navigation_gif,
     plot_rl_convergence,

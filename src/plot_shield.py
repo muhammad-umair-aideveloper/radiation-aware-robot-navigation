@@ -13,10 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.environment import RadiationEnv
 from src.estimators import (
-    kernel_regression,
-    idw,
     parametric_sources,
     parametric_sources_shielded,
 )

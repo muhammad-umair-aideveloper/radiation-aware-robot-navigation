@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import math
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import List, Tuple
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -12,10 +12,7 @@ from matplotlib.animation import PillowWriter
 import numpy as np
 
 from src.environment import (
-    ACTIONS,
-    ACTION_LENGTHS,
     GOAL_CELL,
-    GRID_SHAPE,
     START_CELL,
     RadiationEnv,
 )

@@ -15,7 +15,6 @@ from src.environment import (
     ACTIONS,
     ACTION_LENGTHS,
     GOAL_CELL,
-    GRID_SHAPE,
     RadiationEnv,
 )
 

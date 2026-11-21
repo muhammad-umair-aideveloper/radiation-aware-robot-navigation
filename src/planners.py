@@ -12,11 +12,8 @@ from src.environment import (
     ACTIONS,
     ACTION_LENGTHS,
     GOAL_CELL,
-    GRID_SHAPE,
     START_CELL,
     RadiationEnv,
-    compute_radiation_field,
-    create_wall_mask,
 )
 
 
@@ -276,7 +273,6 @@ class QLearningAgent:
         r, c = start
         path = [(r, c)]
         total_dose = 0.0
-        visited = { (r, c) }
 
         for step in range(self.max_steps):
             if (r, c) == self.env.goal:

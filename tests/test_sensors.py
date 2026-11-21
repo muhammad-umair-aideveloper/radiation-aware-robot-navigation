@@ -14,7 +14,6 @@ if str(REPO_ROOT) not in sys.path:
 from src.sensors import (
     compute_lidar_distances,
     compute_geiger_readings,
-    compute_goal_features,
     get_sensor_observation,
     LIDAR_NUM_RAYS,
     LIDAR_MAX_RANGE,
