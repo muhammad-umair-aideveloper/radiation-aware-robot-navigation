@@ -151,6 +151,63 @@ def test_parametric_source_signature() -> None:
     ]
 
 
+def test_estimator_input_validation() -> None:
+    """Estimator helpers reject malformed cells, values, masks, and parameters."""
+    mask = np.ones((3, 3), dtype=bool)
+    for function in (estimators.kernel_regression, estimators.idw):
+        try:
+            function(np.array([1, 2]), np.array([1.0]), mask)
+            assert False
+        except ValueError:
+            pass
+        try:
+            function(np.array([[0, 0]]), np.array([1.0, 2.0]), mask)
+            assert False
+        except ValueError:
+            pass
+    try:
+        estimators.kernel_regression(
+            np.array([[0, 0], [1, 1]]),
+            np.array([1.0, 2.0]),
+            mask,
+            bandwidths=(0.0,),
+        )
+        assert False
+    except ValueError:
+        pass
+
+
+def test_shielded_parametric_estimator() -> None:
+    """Shield-aware parametric fitting preserves shape and wall masking."""
+    mask = np.ones((6, 6), dtype=bool)
+    mask[2, 2] = False
+    cells = np.array([[0, 0], [1, 1], [4, 4], [5, 5]])
+    values = np.array([4.0, 3.0, 1.0, 0.5])
+    atten = np.ones((36, 36), dtype=float)
+    field, sources = estimators.parametric_sources_shielded(
+        cells,
+        values,
+        mask,
+        atten,
+        k=2,
+        refine_passes=1,
+    )
+    assert field.shape == mask.shape
+    assert len(sources) == 2
+    assert np.all(field >= 0.0)
+    assert np.all(field[~mask] == 0.0)
+    try:
+        estimators.idw(
+            np.array([[0, 0], [1, 1]]),
+            np.array([1.0, 2.0]),
+            mask,
+            power=0.0,
+        )
+        assert False
+    except ValueError:
+        pass
+
+
 if __name__ == "__main__":
     test_output_shape_and_mask()
     test_kernel_measured_values()

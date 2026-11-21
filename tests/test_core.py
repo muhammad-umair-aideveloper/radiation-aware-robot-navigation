@@ -102,6 +102,24 @@ def test_collision_rewards_terminate() -> None:
     print("PASS: test_collision_rewards_terminate")
 
 
+def test_reset_goal_and_timeout() -> None:
+    """Reset restores the start and goal/timeout transitions terminate correctly."""
+    env = RadiationEnv(start=(2, 2), goal=(2, 3), max_steps=2)
+    assert env.reset((3, 3)) == (3, 3)
+    assert env.reset() == (2, 2)
+
+    _, reward, done, info = env.step(2)
+    assert done is True
+    assert reward == 1000.0
+    assert info["outcome"] == "goal"
+
+    env.reset(start=(2, 2))
+    env.step(1)
+    _, _, done, info = env.step(5)
+    assert done is True
+    assert info["outcome"] == "timeout"
+
+
 # ---------------------------------------------------------------------------
 # Invariant 1: Inverse-square monotonicity + no NaN/Inf
 # ---------------------------------------------------------------------------

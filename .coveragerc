@@ -1,0 +1,15 @@
+[run]
+branch = True
+source =
+    src.environment
+    src.planners
+    src.estimators
+    src.online_sim
+    src.measurement_patterns
+    src.survey
+    src.shielding
+
+[report]
+omit =
+    tests/*
+    */__pycache__/*
