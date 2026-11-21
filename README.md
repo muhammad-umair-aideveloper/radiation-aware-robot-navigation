@@ -10,6 +10,12 @@
 
 A simulation study comparing classical graph search (shortest vs. radiation-aware A*) and Tabular Q-Learning for autonomous mobile robot navigation across a 2D environment containing radiation hotspots and structural obstacles.
 
+## Where to start
+
+- [Reviewer documentation index](DOCUMENTATION_INDEX.md) provides 5-minute and 30-minute reading paths.
+- [Technical report](TECHNICAL_REPORT.md) summarizes methods, studies, limitations, and verification.
+- [Reviewer glossary](GLOSSARY.md) defines project terms.
+
 ![Radiation Navigation Animation](results/radiation_navigation.gif)
 
 ---
