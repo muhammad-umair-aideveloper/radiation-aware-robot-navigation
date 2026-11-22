@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
-from src.environment import ACTION_LENGTHS, ACTIONS, RadiationEnv
+from src.environment import RadiationEnv
 from src.geiger_model import counts_to_intensity, simulate_counts
 from src.layouts import generate_random_layout
 from src.online_sim import estimate_field, run_online_episode
@@ -305,7 +305,6 @@ def run_controls(layout_seeds: Iterable[int] = (200, 201, 202), starts_per_layou
 
 
 def projected_runtime(layout_seed: int = 200) -> Tuple[float, int]:
-    output_dir = ROOT / "results" / "s13"
     start = time.perf_counter()
     run_layout(layout_seed, 1, (0,))
     elapsed = time.perf_counter() - start
