@@ -1,0 +1,375 @@
+{
+  "metadata": {
+    "layout_count": 20,
+    "layout_seeds": [
+      200,
+      201,
+      202,
+      203,
+      204,
+      205,
+      206,
+      207,
+      208,
+      209,
+      210,
+      211,
+      212,
+      213,
+      214,
+      215,
+      216,
+      217,
+      218,
+      219
+    ],
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 42
+  },
+  "per_layout": [
+    {
+      "layout_seed": 200,
+      "oracle_saving_percent": 48.86588088644845,
+      "offline_kernel_regret_percent": 43.68484995097982,
+      "offline_idw_regret_percent": 48.69380466256211,
+      "offline_omp3_regret_percent": 33.45079085340788,
+      "online_kernel_regret_percent": 38.85698689449359,
+      "online_omp3_regret_percent": 45.77971632328888,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 201,
+      "oracle_saving_percent": 78.95444324145532,
+      "offline_kernel_regret_percent": 10.17430446122824,
+      "offline_idw_regret_percent": 16.819602200883033,
+      "offline_omp3_regret_percent": -0.18299693176437765,
+      "online_kernel_regret_percent": 241.1296104037655,
+      "online_omp3_regret_percent": 80.24036470436585,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 202,
+      "oracle_saving_percent": 56.80109491454893,
+      "offline_kernel_regret_percent": 63.82074940588159,
+      "offline_idw_regret_percent": 37.49462536757881,
+      "offline_omp3_regret_percent": 3.387781983919268,
+      "online_kernel_regret_percent": 66.11578064416845,
+      "online_omp3_regret_percent": 70.29360722740917,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 203,
+      "oracle_saving_percent": 54.46553028893525,
+      "offline_kernel_regret_percent": 25.03282124400575,
+      "offline_idw_regret_percent": 53.82412101266133,
+      "offline_omp3_regret_percent": 36.64112963443004,
+      "online_kernel_regret_percent": 32.17961745766008,
+      "online_omp3_regret_percent": 24.95489913071337,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 204,
+      "oracle_saving_percent": 54.99542166528705,
+      "offline_kernel_regret_percent": 8.599794939951948,
+      "offline_idw_regret_percent": 16.385266319016083,
+      "offline_omp3_regret_percent": 22.78765359925918,
+      "online_kernel_regret_percent": 53.20028702254018,
+      "online_omp3_regret_percent": 72.64002423298513,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 205,
+      "oracle_saving_percent": 60.70844509235664,
+      "offline_kernel_regret_percent": 41.05133856439426,
+      "offline_idw_regret_percent": 58.83459172137739,
+      "offline_omp3_regret_percent": 12.555256965630942,
+      "online_kernel_regret_percent": 89.01206158357094,
+      "online_omp3_regret_percent": 55.63363976133584,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 206,
+      "oracle_saving_percent": 53.23923206524719,
+      "offline_kernel_regret_percent": 41.46841911227503,
+      "offline_idw_regret_percent": 92.08858094692114,
+      "offline_omp3_regret_percent": 9.52764512071196,
+      "online_kernel_regret_percent": 66.41730196529542,
+      "online_omp3_regret_percent": 41.17789630272671,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 207,
+      "oracle_saving_percent": 69.98344080079843,
+      "offline_kernel_regret_percent": 128.775594547981,
+      "offline_idw_regret_percent": 63.54693496706945,
+      "offline_omp3_regret_percent": 9.74690165904812,
+      "online_kernel_regret_percent": 137.26539211050746,
+      "online_omp3_regret_percent": 49.18883126327195,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 208,
+      "oracle_saving_percent": 53.42697486568165,
+      "offline_kernel_regret_percent": 38.607847058012865,
+      "offline_idw_regret_percent": 13.649568583605246,
+      "offline_omp3_regret_percent": 0.276394315602626,
+      "online_kernel_regret_percent": 97.38580925375734,
+      "online_omp3_regret_percent": 53.57164769863112,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 209,
+      "oracle_saving_percent": 64.02663056575166,
+      "offline_kernel_regret_percent": 15.35274353245436,
+      "offline_idw_regret_percent": 26.424747779814744,
+      "offline_omp3_regret_percent": 11.26044514371822,
+      "online_kernel_regret_percent": 128.709992139199,
+      "online_omp3_regret_percent": 93.14578152525525,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 210,
+      "oracle_saving_percent": 19.00269492401482,
+      "offline_kernel_regret_percent": 9.866480480502666,
+      "offline_idw_regret_percent": 9.472955654120716,
+      "offline_omp3_regret_percent": 9.087066240454883,
+      "online_kernel_regret_percent": 18.828449713923963,
+      "online_omp3_regret_percent": 9.244806715173182,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 211,
+      "oracle_saving_percent": 9.691063255039763,
+      "offline_kernel_regret_percent": 10.90897045585794,
+      "offline_idw_regret_percent": 8.951256207395557,
+      "offline_omp3_regret_percent": 3.4747430901732685,
+      "online_kernel_regret_percent": 15.861862261119224,
+      "online_omp3_regret_percent": 28.011710492503056,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 212,
+      "oracle_saving_percent": 45.99650927708176,
+      "offline_kernel_regret_percent": 41.11504567322643,
+      "offline_idw_regret_percent": 54.552763038565914,
+      "offline_omp3_regret_percent": 46.25524154029576,
+      "online_kernel_regret_percent": 54.82156549158786,
+      "online_omp3_regret_percent": 62.268514407032804,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 213,
+      "oracle_saving_percent": 59.53513095255553,
+      "offline_kernel_regret_percent": 31.837032469398213,
+      "offline_idw_regret_percent": 27.174362461047807,
+      "offline_omp3_regret_percent": 0.41794332349830493,
+      "online_kernel_regret_percent": 74.41327958655222,
+      "online_omp3_regret_percent": 43.43705878337453,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 214,
+      "oracle_saving_percent": 44.99964813028486,
+      "offline_kernel_regret_percent": 66.3295058140327,
+      "offline_idw_regret_percent": 73.03252385051698,
+      "offline_omp3_regret_percent": 107.51077846204315,
+      "online_kernel_regret_percent": 62.529282012888046,
+      "online_omp3_regret_percent": 33.96706300281346,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 215,
+      "oracle_saving_percent": 59.04038302904805,
+      "offline_kernel_regret_percent": 56.05213398336042,
+      "offline_idw_regret_percent": 23.87603420920185,
+      "offline_omp3_regret_percent": 10.359781203552128,
+      "online_kernel_regret_percent": 57.97677601948348,
+      "online_omp3_regret_percent": 69.02284256287973,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 216,
+      "oracle_saving_percent": 69.22810516983456,
+      "offline_kernel_regret_percent": 30.835931172231795,
+      "offline_idw_regret_percent": 53.37477541544053,
+      "offline_omp3_regret_percent": 25.66432845490899,
+      "online_kernel_regret_percent": 108.12170883230057,
+      "online_omp3_regret_percent": 90.3010455740303,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 217,
+      "oracle_saving_percent": 45.698163190137315,
+      "offline_kernel_regret_percent": 50.36353593353263,
+      "offline_idw_regret_percent": 49.32433453150329,
+      "offline_omp3_regret_percent": 43.69778860609887,
+      "online_kernel_regret_percent": 95.81378716552136,
+      "online_omp3_regret_percent": 79.16710283794819,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 218,
+      "oracle_saving_percent": 64.49830745864239,
+      "offline_kernel_regret_percent": 45.45177264293871,
+      "offline_idw_regret_percent": 99.8685040734127,
+      "offline_omp3_regret_percent": 36.71524692002509,
+      "online_kernel_regret_percent": 98.91645296964302,
+      "online_omp3_regret_percent": 95.03703199457486,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    },
+    {
+      "layout_seed": 219,
+      "oracle_saving_percent": 46.02536009513579,
+      "offline_kernel_regret_percent": 29.51950576045857,
+      "offline_idw_regret_percent": 30.8161186094697,
+      "offline_omp3_regret_percent": 0.274170280693822,
+      "online_kernel_regret_percent": 100.65871592593626,
+      "online_omp3_regret_percent": 40.36803717522333,
+      "offline_kernel_success_rate": 1.0,
+      "offline_idw_success_rate": 1.0,
+      "offline_omp3_success_rate": 1.0,
+      "online_kernel_success_rate": 1.0,
+      "online_omp3_success_rate": 1.0
+    }
+  ],
+  "pooled": {
+    "oracle_saving_percent": {
+      "mean": 52.959122993414255,
+      "ci_low": 45.83109152520474,
+      "ci_high": 59.55077603611207
+    },
+    "offline_kernel_regret_percent": {
+      "mean": 39.44241886013525,
+      "ci_low": 28.806702378586802,
+      "ci_high": 52.06912677238993
+    },
+    "offline_idw_regret_percent": {
+      "mean": 42.91027358060823,
+      "ci_low": 31.8676452796929,
+      "ci_high": 54.53601035803322
+    },
+    "offline_omp3_regret_percent": {
+      "mean": 21.145404523285404,
+      "ci_low": 11.560607634562812,
+      "ci_high": 33.20236987690604
+    },
+    "online_kernel_regret_percent": {
+      "mean": 81.91073597269569,
+      "ci_low": 62.181922384729766,
+      "ci_high": 105.16777225518913
+    },
+    "online_omp3_regret_percent": {
+      "mean": 56.872581085776844,
+      "ci_low": 46.725546619876226,
+      "ci_high": 67.20110361985829
+    },
+    "offline_kernel_saving_percent": {
+      "mean": 35.645498526823175,
+      "ci_low": 27.699845032037253,
+      "ci_high": 43.705857896021215
+    },
+    "offline_omp3_saving_percent": {
+      "mean": 42.669463146477135,
+      "ci_low": 32.58455284813694,
+      "ci_high": 52.16172514559466
+    },
+    "online_kernel_saving_percent": {
+      "mean": 20.017077296960956,
+      "ci_low": 13.637481487574508,
+      "ci_high": 26.04835847808589
+    },
+    "online_omp3_saving_percent": {
+      "mean": 28.6440863524438,
+      "ci_low": 21.183654973821763,
+      "ci_high": 35.94086038015932
+    }
+  },
+  "paired_counts": {
+    "offline_omp3_beats_kernel_layouts": 16,
+    "online_omp3_beats_kernel_layouts": 14,
+    "oracle_saving_at_least_10_layouts": 19,
+    "kernel_online_regret_over_50_layouts": 16,
+    "layout_count": 20
+  },
+  "hypothesis_verdicts": {
+    "H1": "not supported",
+    "H2": "supported",
+    "H3": "supported"
+  }
+}
