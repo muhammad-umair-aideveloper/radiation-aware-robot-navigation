@@ -283,7 +283,7 @@ def main() -> int:
         f"| Oracle saving at least 10% | {s13_counts['oracle_saving_at_least_10_layouts']}/20 |",
         f"| Kernel online regret over 50% | {s13_counts['kernel_online_regret_over_50_layouts']}/20 |",
         "",
-        f"| Hypothesis | Verdict |",
+        "| Hypothesis | Verdict |",
         "|---|---|",
         f"| H1 | {s13_verdicts['H1']} |",
         f"| H2 | {s13_verdicts['H2']} |",

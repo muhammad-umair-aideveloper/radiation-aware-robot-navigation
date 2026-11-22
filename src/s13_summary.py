@@ -191,7 +191,7 @@ def main() -> None:
         "",
         "## Hypothesis verdicts",
         "",
-        f"| Hypothesis | Verdict |",
+        "| Hypothesis | Verdict |",
         "|---|---|",
         f"| H1: omp3 online beats kernel in at least 15 layouts | {hypotheses['H1']} |",
         f"| H2: oracle saving is at least 10% in at least 15 layouts | {hypotheses['H2']} |",
