@@ -305,3 +305,53 @@ H3: **not supported**. In the reported dwell 1 and dwell 10 results, total dose 
 ### Limitations
 
 The tour is fixed and ignores information gain; the study uses one layout, perfect movement, readings that cost no time, and no shielding.
+
+## S13: fresh-layout replication of online estimation
+
+S13 repeated the online and offline measure-estimate-replan comparison on 20 layouts with seeds 200 through 219. Each layout used 10 fixed starts, offline 50-cell measurements at dwell 1, and online 3x3 measurements at dwell 1 with replanning every 3 steps and a 300-step limit. The noise seeds were 0, 1, and 2. OMP3 used the known three-source softened inverse-square model; kernel and IDW did not have that source knowledge.
+
+### Pooled S13 results
+
+| Metric | Mean [95% layout bootstrap interval] |
+|---|---:|
+| Oracle saving versus A* shortest (%) | 52.959 [45.831, 59.551] |
+| Offline kernel dose regret (%) | 39.442 [28.807, 52.069] |
+| Offline IDW dose regret (%) | 42.910 [31.868, 54.536] |
+| Offline omp3 dose regret (%) | 21.145 [11.561, 33.202] |
+| Online kernel dose regret (%) | 81.911 [62.182, 105.168] |
+| Online omp3 dose regret (%) | 56.873 [46.726, 67.201] |
+| Offline kernel dose saving (%) | 35.645 [27.700, 43.706] |
+| Offline omp3 dose saving (%) | 42.669 [32.585, 52.162] |
+| Online kernel dose saving (%) | 20.017 [13.637, 26.048] |
+| Online omp3 dose saving (%) | 28.644 [21.184, 35.941] |
+
+The per-layout table and exact layout values are in [the S13 summary](../results/s13_summary.md). The JSON table is [results/s13_summary.json](../results/s13_summary.json).
+
+| Paired comparison or threshold | Layout count |
+|---|---:|
+| OMP3 offline beats kernel offline | 16/20 |
+| OMP3 online beats kernel online | 14/20 |
+| Oracle saving at least 10% | 19/20 |
+| Kernel online regret over 50% | 16/20 |
+
+### Figures
+
+![S13 paired online dose regret](../results/s13_online_paired.png)
+
+![S13 oracle dose-saving distribution](../results/s13_oracle_saving.png)
+
+![S13 offline versus online pooled regret](../results/s13_offline_online_regret.png)
+
+### What the numbers show
+
+The pooled online and offline intervals support higher online than offline regret for each estimator: kernel online regret is 81.911 [62.182, 105.168]% versus 39.442 [28.807, 52.069]% offline, and omp3 online regret is 56.873 [46.726, 67.201]% versus 21.145 [11.561, 33.202]% offline. The kernel-OMP3 online intervals overlap, and OMP3 beats kernel in only 14/20 layouts, so that result does not meet the H1 threshold; the interval-based comparison does not support a lower OMP3 online regret claim. H2 is supported by oracle saving of at least 10% in 19/20 layouts. H3 is supported by kernel online regret over 50% in 16/20 layouts.
+
+**Hypothesis verdicts**
+
+- H1: **not supported**. OMP3 beats kernel online in 14/20 layouts, below the required 15.
+- H2: **supported**. The oracle saves at least 10% in 19/20 layouts.
+- H3: **supported**. Kernel online regret exceeds 50% in 16/20 layouts.
+
+### Limitations
+
+The study uses a toy procedural layout generator, 20 layouts, perfect movement, known walls and goals, readings that cost no time or dose, and no shielding. OMP3 has the strong known-source-form and known-source-count assumptions; the layout-seed and noise-seed ranges limit extrapolation.

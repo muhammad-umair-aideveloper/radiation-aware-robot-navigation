@@ -62,6 +62,7 @@ def main() -> int:
     param = load("param_summary.json")
     shield = load("shield_summary.json")
     s12 = load("s12_summary.json")
+    s13 = load("s13_summary.json")
 
     lambdas = sweep["per_lambda"]["2.5"]
     aware = lambdas["astar_aware"]
@@ -86,6 +87,9 @@ def main() -> int:
     )
     shield_ref = shield["references"]["2.0"]
     omp3s_shield = shield["configurations"]["2.0"]["N50_t10"]["omp3s"]["dose_regret_percent"]
+    s13_pooled = s13["pooled"]
+    s13_counts = s13["paired_counts"]
+    s13_verdicts = s13["hypothesis_verdicts"]
 
     lines = [
         "# Radiation-Aware Robot Navigation: Technical Report",
@@ -263,6 +267,31 @@ def main() -> int:
         "",
         "Key finding: fixed surveys increased total steps and dose for all 12",
         "reported B=30 and B=60 cases; B=0 remained the lower-dose surveyed comparison.",
+        "",
+        "### S13: Fresh-Layout Online Replication",
+        "",
+        "| Metric | Pooled mean [95% layout interval] |",
+        "|---|---:|",
+        f"| Oracle saving versus shortest (%) | {fmt(s13_pooled['oracle_saving_percent']['mean'])} [{fmt(s13_pooled['oracle_saving_percent']['ci_low'])}, {fmt(s13_pooled['oracle_saving_percent']['ci_high'])}] |",
+        f"| Kernel online dose regret (%) | {fmt(s13_pooled['online_kernel_regret_percent']['mean'])} [{fmt(s13_pooled['online_kernel_regret_percent']['ci_low'])}, {fmt(s13_pooled['online_kernel_regret_percent']['ci_high'])}] |",
+        f"| OMP3 online dose regret (%) | {fmt(s13_pooled['online_omp3_regret_percent']['mean'])} [{fmt(s13_pooled['online_omp3_regret_percent']['ci_low'])}, {fmt(s13_pooled['online_omp3_regret_percent']['ci_high'])}] |",
+        "",
+        "| Paired threshold | Layout count |",
+        "|---|---:|",
+        f"| OMP3 beats kernel offline | {s13_counts['offline_omp3_beats_kernel_layouts']}/20 |",
+        f"| OMP3 beats kernel online | {s13_counts['online_omp3_beats_kernel_layouts']}/20 |",
+        f"| Oracle saving at least 10% | {s13_counts['oracle_saving_at_least_10_layouts']}/20 |",
+        f"| Kernel online regret over 50% | {s13_counts['kernel_online_regret_over_50_layouts']}/20 |",
+        "",
+        f"| Hypothesis | Verdict |",
+        "|---|---|",
+        f"| H1 | {s13_verdicts['H1']} |",
+        f"| H2 | {s13_verdicts['H2']} |",
+        f"| H3 | {s13_verdicts['H3']} |",
+        "",
+        "Key finding: the pooled online regret intervals for kernel and OMP3 overlap;",
+        "H1 is not supported by the 14/20 paired layout count. H2 and H3 are supported.",
+        "Detailed limits and layout values are in the S13 documentation and summary.",
         "",
         "## Negative and Null Results",
         "",

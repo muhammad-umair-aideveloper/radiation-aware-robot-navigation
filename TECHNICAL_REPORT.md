@@ -176,6 +176,31 @@ Key finding: shield-aware OMP3S reduced the tested wall-shielded planning regret
 Key finding: fixed surveys increased total steps and dose for all 12
 reported B=30 and B=60 cases; B=0 remained the lower-dose surveyed comparison.
 
+### S13: Fresh-Layout Online Replication
+
+| Metric | Pooled mean [95% layout interval] |
+|---|---:|
+| Oracle saving versus shortest (%) | 52.96 [45.83, 59.55] |
+| Kernel online dose regret (%) | 81.91 [62.18, 105.17] |
+| OMP3 online dose regret (%) | 56.87 [46.73, 67.20] |
+
+| Paired threshold | Layout count |
+|---|---:|
+| OMP3 beats kernel offline | 16/20 |
+| OMP3 beats kernel online | 14/20 |
+| Oracle saving at least 10% | 19/20 |
+| Kernel online regret over 50% | 16/20 |
+
+| Hypothesis | Verdict |
+|---|---|
+| H1 | not supported |
+| H2 | supported |
+| H3 | supported |
+
+Key finding: the pooled online regret intervals for kernel and OMP3 overlap;
+H1 is not supported by the 14/20 paired layout count. H2 and H3 are supported.
+Detailed limits and layout values are in the S13 documentation and summary.
+
 ## Negative and Null Results
 
 - Sensor DQN held-out success was effectively zero despite low collision rates.
