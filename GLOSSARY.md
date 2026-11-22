@@ -62,6 +62,11 @@ An interpolation or parametric model that constructs a radiation field from
 measurements. The project primarily uses kernel regression, inverse-distance
 weighting, parametric source fitting, and shield-aware parametric fitting.
 
+## Fresh-Layout Replication
+
+A study that evaluates methods on layouts generated for the replication and not used
+by earlier layout or online-estimation studies. S13 uses layout-level aggregation.
+
 ## Held-Out Set
 
 A pair or goal set excluded from model selection and reserved for a final guarded
@@ -109,6 +114,12 @@ of evidence.
 A planning reference that executes the relevant A* calculation on the true radiation
 field. An oracle is an experimental reference, not an implementable online policy.
 
+## Layout-Level Bootstrap
+
+A percentile bootstrap that resamples layouts, rather than individual episodes or
+starts, and recomputes the layout-mean statistic. It describes layout sampling
+uncertainty under the fixed replication protocol.
+
 ## OMP
 
 Orthogonal matching pursuit over candidate source positions. OMP3 assumes three
@@ -119,6 +130,12 @@ sources, while OMP3S additionally assumes a known shielding model.
 A comparison of two methods on the same starts or episodes, restricted to mutual
 successes. It preserves per-start pairing rather than comparing independent
 aggregates.
+
+## Paired Layout Count
+
+The number of layouts in which one predeclared method beats another, or in which
+a layout metric crosses a fixed threshold. S13 reports layout counts for estimator
+and hypothesis comparisons.
 
 ## Parametric Estimator
 

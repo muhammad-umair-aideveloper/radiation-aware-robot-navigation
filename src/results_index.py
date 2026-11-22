@@ -11,6 +11,13 @@ RESULTS = ROOT / "results"
 OUTPUT = ROOT / "RESULTS_INDEX.md"
 
 CLAIMS: Dict[str, Tuple[str, str]] = {
+    "s13": ("src/s13_summary.py", "python src/s13_summary.py"),
+    "s13_layout": ("src/s13_study.py", "python src/s13_study.py"),
+    "s13_layouts": ("src/s13_layouts.py", "python src/s13_layouts.py"),
+    "s13_controls": ("src/s13_study.py", "python src/s13_study.py --controls"),
+    "s13_online_paired": ("src/plot_s13.py", "python src/plot_s13.py"),
+    "s13_oracle_saving": ("src/plot_s13.py", "python src/plot_s13.py"),
+    "s13_offline_online_regret": ("src/plot_s13.py", "python src/plot_s13.py"),
     "s12": ("src/s12_study.py", "python src/s12_study.py"),
     "s12_summary": ("src/s12_summary.py", "python src/s12_summary.py"),
     "s12_tradeoff": ("src/plot_s12.py", "python src/plot_s12.py"),

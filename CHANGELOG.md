@@ -4,6 +4,9 @@ Generated from conventional commit subjects.
 
 ## Features
 
+- `1bb978e` feat: add reproducible S13 demo
+- `175c3cc` feat: add resumable S13 study runner
+- `807a520` feat: add fixed S13 layout set
 - `f022e9c` feat(requirements): add initial dependencies for the project
 - `c7b4a04` feat(plot): add S12 survey trade-off figures
 - `c0cc491` feat(results): add S12 survey study outputs
@@ -93,12 +96,16 @@ Generated from conventional commit subjects.
 
 ## Fixes
 
+- `6dc94dc` fix: remove unused S13 study symbols
 - `59c6c29` fix(study): fix table row breaks in online summary
 - `0b02074` fix(tests): use ascii output in core test
 - `03338be` fix(evaluate): support w_0 weight key
 
 ## Documentation
 
+- `af9a306` docs: add three-minute demo quick start
+- `18631be` docs: add fixed S13 replication plan
+- `1aaa64e` docs(changelog): generate conventional commit history
 - `286f97f` docs(index): add reviewer reading paths
 - `4b86c9e` docs(review): add project terminology glossary
 - `9c4cb01` docs(report): add generated technical synthesis
@@ -218,6 +225,11 @@ Generated from conventional commit subjects.
 
 ## Other
 
+- `7ea74db` Document project design decisions
+- `159647d` Document S13 replication findings
+- `82e422c` Add S13 replication result plots
+- `34efcf3` Add S13 replication summary tables
+- `b696bad` Add layout JSON files for seeds 212 to 219 with updated metadata and performance metrics
 - `4394986` Add kernel estimation results for varying dwell times and sample sizes
 - `ec562f8` results(study): add S10 parametric estimator study outputs
 - `62cb993` Add new kernel estimation results for various configurations

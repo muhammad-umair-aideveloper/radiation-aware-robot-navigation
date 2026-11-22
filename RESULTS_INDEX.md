@@ -10,6 +10,7 @@
 | results/s12/ | src/s12_study.py | `python src/s12_study.py` |  |
 | results/s12/kernel/ | src/s12_study.py | `python src/s12_study.py` |  |
 | results/s12/omp3/ | src/s12_study.py | `python src/s12_study.py` |  |
+| results/s13/ | src/s13_summary.py | `python src/s13_summary.py` |  |
 | results/sensor_runs/ | not claimed | `not recorded` |  |
 | results/shield/ | src/shield_study.py | `python src/shield_study.py` |  |
 | results/sweep_q/ | not claimed | `not recorded` |  |
@@ -194,6 +195,33 @@
 | results/s12_summary.json | src/s12_study.py | `python src/s12_study.py` |  |
 | results/s12_summary.md | src/s12_study.py | `python src/s12_study.py` |  |
 | results/s12_tradeoff.png | src/s12_study.py | `python src/s12_study.py` |  |
+| results/s13/layout_200.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_201.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_202.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_203.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_204.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_205.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_206.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_207.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_208.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_209.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_210.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_211.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_212.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_213.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_214.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_215.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_216.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_217.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_218.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13/layout_219.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13_controls.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13_layouts.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13_offline_online_regret.png | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13_online_paired.png | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13_oracle_saving.png | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13_summary.json | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s13_summary.md | src/s13_summary.py | `python src/s13_summary.py` |  |
 | results/s6_distance_bins.png | not claimed | `not recorded` |  |
 | results/s6_learning_curves.png | not claimed | `not recorded` |  |
 | results/s6_trajectories.png | not claimed | `not recorded` |  |
