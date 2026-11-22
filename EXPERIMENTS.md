@@ -336,5 +336,50 @@ All goal locations must be free cells satisfying low radiation $I < 0.05$ a.u., 
 - Runtime rule: if the projected total runtime is above 90 minutes, use seeds 0 to 2 for all configurations (decided now).
 - Limitations: fixed tour ignores information gain, one layout, perfect movement, readings cost no time, no shielding.
 
+## S13: fresh-layout replication of online estimation
+
+**Status**: Plan fixed before running S13 code or experiments.
+
+### Objective
+Test whether the main conclusions from the earlier online studies hold on layouts that were never used before.
+
+### Layouts
+- Generate 20 fresh layouts with seeds 200 through 219.
+- Do not use layouts 100 through 109; the layout seed sets are disjoint.
+- Use the existing procedural generator and validity rules: 50 x 50 grid, connected free space, wall fraction from 10% to 25%, and three random point sources with intensities in the earlier range of 120.0 to 200.0 arbitrary units.
+- Use the existing start and goal rules. For each layout, select 10 seeded free-space start cells whose geodesic distance to the goal is at least 20 cells.
+
+### Methods
+- For every layout and start, compute A* shortest and the oracle as A* aware with the true field and lambda 2.5.
+- Offline estimation uses 50 random free cells measured at dwell 1. The estimators are kernel, idw, and the physics-informed omp3 estimator.
+- Online replanning uses 3 x 3 readings, dwell 1, replanning every 3 steps, and a 300-step maximum. Compare kernel and omp3.
+- Noise seeds are 0, 1, and 2. The physics-informed omp3 estimator assumes that the number of sources is known to be 3 and that the inverse-square source model form from S10 is known.
+
+### Metrics
+- Per layout, report oracle dose saving versus A* shortest in percent, dose regret versus the oracle in percent for every estimator (offline and online), and success rate.
+- The replication unit is the layout. Report means over layouts with 95% bootstrap intervals over layouts using 10,000 resamples and a fixed bootstrap seed.
+- Report per-layout values and, for paired method comparisons, the number of layouts in which method A beats method B.
+- Doses and dose differences use arbitrary units (a.u.).
+
+### Controls
+Before the study, execute on layouts 200 through 202 with 3 starts each:
+- A control that supplies the true field to the online loop must make executed path cost equal the oracle cost within 1e-9.
+- A zero-field control must make executed path length equal the A* shortest path length within 1e-9.
+
+### Hypotheses
+These hypotheses are tested, not claimed:
+- H1: omp3 has lower online dose regret than kernel in at least 15 of 20 layouts.
+- H2: the oracle saves at least 10% dose versus A* shortest in at least 15 of 20 layouts.
+- H3: kernel online regret exceeds 50% in at least 15 of 20 layouts, replicating the S8 failure pattern.
+
+### Reporting convention
+Each hypothesis will be reported as supported, not supported, or unclear from the completed layout replication. Explanations of why a result happened will be labelled "Hypothesis:".
+
+### Runtime rule
+If projected total runtime exceeds 90 minutes, use noise seeds 0 and 1 only. This rule is decided now and will not be changed after seeing results.
+
+### Limitations
+The toy procedural generator, 20 layouts, perfect movement, absence of shielding, simple estimator settings, and the parametric estimator's physics knowledge all limit extrapolation beyond this study.
+
 
 
