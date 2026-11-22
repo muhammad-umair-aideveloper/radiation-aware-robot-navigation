@@ -20,6 +20,18 @@ A simulation study comparing classical graph search (shortest vs. radiation-awar
 
 ---
 
+## Quick start (3 minutes)
+
+From the repository root on Windows, run:
+
+```powershell
+python src/s13_demo.py
+```
+
+The demo recomputes oracle and shortest-path mean doses on the 25 fixed starts, runs kernel and OMP3 online replanning on 5 starts, prints a compact real-number table, and writes a comparison figure and CSV to `demo_output/`. Use `python src/s13_demo.py --fast` for a 2-start run, or `python -m pytest -q tests/test_s13_demo.py` for the fast smoke test.
+
+---
+
 ## Project quality checks
 
 On Windows, run the complete local quality gate from the repository root:
