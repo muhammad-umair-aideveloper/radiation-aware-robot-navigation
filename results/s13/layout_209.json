@@ -1,0 +1,183 @@
+{
+  "metadata": {
+    "layout_seed": 209,
+    "lambda": 2.5,
+    "starts": [
+      [
+        20,
+        30
+      ],
+      [
+        21,
+        12
+      ],
+      [
+        17,
+        17
+      ],
+      [
+        4,
+        25
+      ],
+      [
+        14,
+        49
+      ],
+      [
+        30,
+        37
+      ],
+      [
+        1,
+        46
+      ],
+      [
+        19,
+        17
+      ],
+      [
+        34,
+        1
+      ],
+      [
+        5,
+        44
+      ]
+    ],
+    "noise_seeds": [
+      0,
+      1,
+      2
+    ],
+    "offline": {
+      "n_cells": 50,
+      "dwell": 1.0,
+      "estimators": [
+        "kernel",
+        "idw",
+        "omp3"
+      ]
+    },
+    "online": {
+      "pattern": "3x3",
+      "dwell": 1.0,
+      "replan_every": 3,
+      "max_steps": 300,
+      "estimators": [
+        "kernel",
+        "omp3"
+      ]
+    },
+    "bootstrap_resamples": 10000,
+    "bootstrap_seed": 42
+  },
+  "references": {
+    "oracle_mean_dose": 66.23150937703682,
+    "shortest_mean_dose": 184.11261001862476,
+    "oracle_saving_percent": 64.02663056575166
+  },
+  "offline": {
+    "kernel": {
+      "per_seed": [
+        {
+          "mean_true_dose": 81.93645886515144,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 75.69161794384674,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 71.57151263910205,
+          "success_rate": 1.0
+        }
+      ],
+      "mean_true_dose": 76.39986314936674,
+      "mean_dose_regret_percent": 15.35274353245436,
+      "mean_dose_saving_percent": 58.50373141652918,
+      "success_rate": 1.0
+    },
+    "idw": {
+      "per_seed": [
+        {
+          "mean_true_dose": 86.91037419676914,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 77.20681602494035,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 87.08186582033991,
+          "success_rate": 1.0
+        }
+      ],
+      "mean_true_dose": 83.73301868068314,
+      "mean_dose_regret_percent": 26.424747779814744,
+      "mean_dose_saving_percent": 54.520758424850555,
+      "success_rate": 1.0
+    },
+    "omp3": {
+      "per_seed": [
+        {
+          "mean_true_dose": 77.06321149431463,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 65.53207470575693,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 78.47313027481238,
+          "success_rate": 1.0
+        }
+      ],
+      "mean_true_dose": 73.68947215829463,
+      "mean_dose_regret_percent": 11.26044514371822,
+      "mean_dose_saving_percent": 59.975869034261024,
+      "success_rate": 1.0
+    }
+  },
+  "online": {
+    "kernel": {
+      "per_seed": [
+        {
+          "mean_true_dose": 139.97752253264073,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 172.64653771183572,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 141.81017942520472,
+          "success_rate": 1.0
+        }
+      ],
+      "mean_true_dose": 151.47807988989373,
+      "mean_dose_regret_percent": 128.709992139199,
+      "mean_dose_saving_percent": 17.725309594725605,
+      "success_rate": 1.0
+    },
+    "omp3": {
+      "per_seed": [
+        {
+          "mean_true_dose": 124.93245350902528,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 128.7005154301679,
+          "success_rate": 1.0
+        },
+        {
+          "mean_true_dose": 130.13713026755823,
+          "success_rate": 1.0
+        }
+      ],
+      "mean_true_dose": 127.92336640225047,
+      "mean_dose_regret_percent": 93.14578152525525,
+      "mean_dose_saving_percent": 30.518954465253746,
+      "success_rate": 1.0
+    }
+  }
+}
