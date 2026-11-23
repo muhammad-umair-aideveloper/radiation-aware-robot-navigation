@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Dependencies](https://img.shields.io/badge/dependencies-numpy%20%7C%20matplotlib%20%7C%20pillow-green.svg)](#)
 
-A simulation study comparing classical graph search (shortest vs. radiation-aware A*) and Tabular Q-Learning for autonomous mobile robot navigation across a 2D environment containing radiation hotspots and structural obstacles.
+A simulation study comparing classical graph search (shortest vs. radiation-aware A*), reinforcement learning (tabular Q-learning, SARSA, and sensor-based DQN), online Geiger/LiDAR field estimation, pre-goal exploratory surveys (S12), and multi-layout replication across 20 unseen environments (S13) for autonomous mobile robot navigation containing radiation hotspots and structural obstacles.
 
 ## Where to start
 
@@ -57,8 +57,12 @@ Benchmark summary on 50 fixed evaluation starts ($\ge 20$ cells to goal $(47, 47
 | **A\* Shortest (Radiation-Blind)** | Baseline Search | 50/50 (100%) | 36.18 | 119.15 | **+70.27% ± 68.11%** | 0.45 s total |
 | **Sensor DQN Baseline (Shaped λ=2.5, 3 seeds)** | Map-Free Deep RL | 0.0 ± 0.0% (100 test pairs) | *not measured* (0 successes) | *not measured* (0 successes) | *not measured* | ~315 s / seed (400k steps) |
 | **Sensor DQN M1 (Frame Stack k=4, Seed 0)** | Map-Free Deep RL | 1/100 (1.0% on test set) | 29.00 (N=1) | 158.00 (N=1) | *not measured* | 258.9 s (400k steps) |
+| **Online OMP3 Direct (S12 B=0)** | Online Replanning | 25/25 (100%) | 42.6 | 73.5 | *regret 30.8%* | 25 starts, dwell 1 |
+| **Online OMP3 Survey (S12 B=30)** | Online Replanning | 25/25 (100%) | 91.2 | 182.2 | *regret 224.0%* | survey dose share 0.569 |
+| **Online OMP3 (S13 20 Fresh Layouts)** | Multi-Layout Replication | 200/200 (100%) | *varies by layout* | *varies by layout* | *regret 56.9% [46.7, 67.2]* | beats kernel in 14/20 layouts |
+| **Online Kernel (S13 20 Fresh Layouts)** | Multi-Layout Replication | 200/200 (100%) | *varies by layout* | *varies by layout* | *regret 81.9% [62.2, 105.2]* | regret > 50% in 16/20 layouts |
 
-*\* Note: Training times were measured sequentially on a 2-core laptop CPU. SARSA was measured only at $\lambda = 2.5$. The 0.00% optimality gap of A* Aware is a consistency check (both methods optimize the identical objective with an admissible heuristic), not evidence that A* is superior. The per-layout Q-learning study uses 1 seed per layout. Sensor DQN agents were evaluated on 100 held-out test pairs ($d_{\text{free}} \ge 20$); all baseline seeds reached 0% success (92–100% timeouts), while M1 reached 1% success (88% timeouts, 11% collisions).*
+*\* Note: Training times were measured sequentially on a 2-core laptop CPU. SARSA was measured only at $\lambda = 2.5$. The 0.00% optimality gap of A* Aware is a consistency check (both methods optimize the identical objective with an admissible heuristic), not evidence that A* is superior. The per-layout Q-learning study uses 1 seed per layout. Sensor DQN agents were evaluated on 100 held-out test pairs ($d_{\text{free}} \ge 20$); all baseline seeds reached 0% success (92–100% timeouts), while M1 reached 1% success (88% timeouts, 11% collisions). S12 survey budgets ($B=30, 60$) increased total absorbed dose relative to direct navigation ($B=0$). S13 replicated online replanning across 20 fresh layouts (seeds 200 through 219); OMP3 achieved lower online regret than kernel in 14/20 layouts (H1 not supported at threshold 15), while kernel online regret exceeded 50% in 16/20 layouts (H3 supported).*
 
 ---
 
