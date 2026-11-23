@@ -197,8 +197,17 @@ reported B=30 and B=60 cases; B=0 remained the lower-dose surveyed comparison.
 | H2 | supported |
 | H3 | supported |
 
+Supplementary post-hoc analysis (decided after S13 results were seen; descriptive, p-values unadjusted):
+
+| Mode | OMP3 wins vs kernel | Ties | Exact p-value | Paired regret diff mean [%] | 95% bootstrap interval |
+|---|---:|---:|---:|---:|---:|
+| Offline | 16/20 | 0 | 0.0118 | 18.30 | [5.17, 32.99] |
+| Online | 14/20 | 0 | 0.1153 | 25.04 | [9.11, 44.69] |
+
 Key finding: the pooled online regret intervals for kernel and OMP3 overlap;
 H1 is not supported by the 14/20 paired layout count. H2 and H3 are supported.
+The supplementary paired difference interval excludes zero [9.11, 44.69]%, but the
+exact sign test (p = 0.1153) and layout count remain below confirmatory thresholds.
 Detailed limits and layout values are in the S13 documentation and summary.
 
 ## Negative and Null Results

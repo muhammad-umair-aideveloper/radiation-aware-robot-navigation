@@ -131,11 +131,23 @@ A comparison of two methods on the same starts or episodes, restricted to mutual
 successes. It preserves per-start pairing rather than comparing independent
 aggregates.
 
+## Paired Difference
+
+The layout-by-layout or start-by-start difference between two methods evaluated under
+identical conditions (for example, baseline regret minus candidate regret). Reporting
+paired differences isolates method contrasts from across-layout variance.
+
 ## Paired Layout Count
 
 The number of layouts in which one predeclared method beats another, or in which
 a layout metric crosses a fixed threshold. S13 reports layout counts for estimator
 and hypothesis comparisons.
+
+## Post Hoc Analysis
+
+An analysis formulated or decided after experimental results have been observed. In this
+repository, post-hoc analyses are strictly labeled as such, keep all pre-declared hypothesis
+thresholds unchanged, and are treated as descriptive rather than confirmatory.
 
 ## Parametric Estimator
 
@@ -160,6 +172,13 @@ loss along straight segments passing through wall cells.
 
 A map-free navigation agent that observes local geometry, radiation, and
 goal-relative features instead of an absolute global radiation map.
+
+## Sign Test
+
+A non-parametric statistical test that evaluates whether one method systematically
+outperforms another on paired samples by testing the count of positive differences
+against a null binomial distribution ($p = 0.5$). Ties are dropped and the number
+of ties is reported.
 
 ## Survey Budget
 

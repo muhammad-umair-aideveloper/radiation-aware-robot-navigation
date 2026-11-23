@@ -352,6 +352,17 @@ The pooled online and offline intervals support higher online than offline regre
 - H2: **supported**. The oracle saves at least 10% in 19/20 layouts.
 - H3: **supported**. Kernel online regret exceeds 50% in 16/20 layouts.
 
+### Supplementary post-hoc analysis
+
+Status: post hoc (decided after S13 results were seen). Note: 2 planned comparisons; p-values are unadjusted and descriptive. Pre-declared verdicts (H1: not supported, H2: supported, H3: supported) remain unchanged under their pre-declared thresholds.
+
+To characterize paired layout differences beyond independent group intervals, a supplementary post-hoc analysis evaluated exact binomial sign tests (ties dropped, 0 ties observed) and paired differences in dose regret per layout (kernel regret minus OMP3 regret in percent, where positive values favor OMP3):
+
+- **Offline**: OMP3 had lower regret in 16/20 layouts (0 ties, exact two-sided binomial $p = 0.0118$). The paired dose regret difference mean was 18.297 [5.168, 32.989]% (median 9.485%).
+- **Online**: OMP3 had lower regret in 14/20 layouts (0 ties, exact two-sided binomial $p = 0.1153$). The paired dose regret difference mean was 25.038 [9.110, 44.686]% (median 17.234%).
+
+**Interpretation**: While the paired difference interval for online regret excludes zero [9.110, 44.686]%, the exact sign test ($p = 0.1153$) and the pre-declared layout count (14/20 < 15) do not meet the confirmatory bar. Hypothesis H1 remains **not supported** by the pre-declared threshold; the post-hoc analysis provides descriptive evidence that paired differences are positive on average across the 20 layouts, but cannot overturn the pre-declared threshold verdict.
+
 ### Limitations
 
 The study uses a toy procedural layout generator, 20 layouts, perfect movement, known walls and goals, readings that cost no time or dose, and no shielding. OMP3 has the strong known-source-form and known-source-count assumptions; the layout-seed and noise-seed ranges limit extrapolation.

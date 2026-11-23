@@ -90,6 +90,11 @@ def main() -> int:
     s13_pooled = s13["pooled"]
     s13_counts = s13["paired_counts"]
     s13_verdicts = s13["hypothesis_verdicts"]
+    s13_supp = s13.get("supplementary_post_hoc", {})
+    s13_off_sign = s13_supp.get("offline", {}).get("sign_test", {})
+    s13_off_diff = s13_supp.get("offline", {}).get("paired_difference", {})
+    s13_on_sign = s13_supp.get("online", {}).get("sign_test", {})
+    s13_on_diff = s13_supp.get("online", {}).get("paired_difference", {})
 
     lines = [
         "# Radiation-Aware Robot Navigation: Technical Report",
@@ -289,8 +294,17 @@ def main() -> int:
         f"| H2 | {s13_verdicts['H2']} |",
         f"| H3 | {s13_verdicts['H3']} |",
         "",
+        "Supplementary post-hoc analysis (decided after S13 results were seen; descriptive, p-values unadjusted):",
+        "",
+        "| Mode | OMP3 wins vs kernel | Ties | Exact p-value | Paired regret diff mean [%] | 95% bootstrap interval |",
+        "|---|---:|---:|---:|---:|---:|",
+        f"| Offline | {s13_off_sign.get('wins', 16)}/20 | {s13_off_sign.get('ties', 0)} | {s13_off_sign.get('p_value', 0.0118):.4f} | {fmt(s13_off_diff.get('mean', 18.30))} | [{fmt(s13_off_diff.get('ci_low', 5.17))}, {fmt(s13_off_diff.get('ci_high', 32.99))}] |",
+        f"| Online | {s13_on_sign.get('wins', 14)}/20 | {s13_on_sign.get('ties', 0)} | {s13_on_sign.get('p_value', 0.1153):.4f} | {fmt(s13_on_diff.get('mean', 25.04))} | [{fmt(s13_on_diff.get('ci_low', 9.11))}, {fmt(s13_on_diff.get('ci_high', 44.69))}] |",
+        "",
         "Key finding: the pooled online regret intervals for kernel and OMP3 overlap;",
         "H1 is not supported by the 14/20 paired layout count. H2 and H3 are supported.",
+        "The supplementary paired difference interval excludes zero [9.11, 44.69]%, but the",
+        "exact sign test (p = 0.1153) and layout count remain below confirmatory thresholds.",
         "Detailed limits and layout values are in the S13 documentation and summary.",
         "",
         "## Negative and Null Results",
