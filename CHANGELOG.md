@@ -4,6 +4,7 @@ Generated from conventional commit subjects.
 
 ## Features
 
+- `65b443e` feat(s13): implement post-hoc sign test and paired difference analysis
 - `1bb978e` feat: add reproducible S13 demo
 - `175c3cc` feat: add resumable S13 study runner
 - `807a520` feat: add fixed S13 layout set
@@ -103,6 +104,10 @@ Generated from conventional commit subjects.
 
 ## Documentation
 
+- `262d68f` docs(readme): refresh summary and results table for S12 and S13
+- `8b88818` docs: add reviewer FAQ answering 15 technical and committee questions
+- `baf74d4` docs(s13): document post-hoc sign test and paired difference findings
+- `2d156c5` docs(experiments): add post-hoc analysis plan for S13 results
 - `af9a306` docs: add three-minute demo quick start
 - `18631be` docs: add fixed S13 replication plan
 - `1aaa64e` docs(changelog): generate conventional commit history
@@ -225,6 +230,8 @@ Generated from conventional commit subjects.
 
 ## Other
 
+- `392684e` Fix S13 lint formatting
+- `97e6375` Refresh reviewer documentation indexes
 - `7ea74db` Document project design decisions
 - `159647d` Document S13 replication findings
 - `82e422c` Add S13 replication result plots
