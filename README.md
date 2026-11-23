@@ -14,6 +14,7 @@ A simulation study comparing classical graph search (shortest vs. radiation-awar
 
 - [Reviewer documentation index](DOCUMENTATION_INDEX.md) provides 5-minute and 30-minute reading paths.
 - [Technical report](TECHNICAL_REPORT.md) summarizes methods, studies, limitations, and verification.
+- [Reviewer FAQ](docs/reviewer_faq.md) answers 15 key technical and methodological evaluation questions.
 - [Reviewer glossary](GLOSSARY.md) defines project terms.
 
 ![Radiation Navigation Animation](results/radiation_navigation.gif)
@@ -303,6 +304,7 @@ This project was developed with AI coding assistance (Antigravity / Gemini). The
 
 ## Further studies
 
+- [Reviewer FAQ](docs/reviewer_faq.md): Answers to 15 key technical and methodological reviewer questions
 - [Sensor-based agent](docs/sensor_agent.md): 5. Sensor-Based Agent (LiDAR + Geiger), 6. S6: Why the Sensor Agent Fails and What Helped
 - [Field estimation and online replanning](docs/field_estimation.md): Measure, estimate, plan, Wall shielding, Online measure, estimate, replan, Controls, sensor range and unexplored cells, Physics-informed field estimator
 

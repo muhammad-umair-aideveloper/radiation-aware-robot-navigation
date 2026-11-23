@@ -8,7 +8,9 @@ protocol sources, and verification artifacts.
 1. Read [README.md](README.md) for the project overview and headline findings.
 2. Read [TECHNICAL_REPORT.md](TECHNICAL_REPORT.md) for the synthesis, limitations,
    and negative results.
-3. Use [GLOSSARY.md](GLOSSARY.md) when a term such as oracle or dose regret needs
+3. Consult [docs/reviewer_faq.md](docs/reviewer_faq.md) for concise answers to 15 key
+   technical and methodological evaluation questions.
+4. Use [GLOSSARY.md](GLOSSARY.md) when a term such as oracle or dose regret needs
    a precise meaning.
 
 ## 30-Minute Path
@@ -44,4 +46,5 @@ protocol sources, and verification artifacts.
 | [EXPERIMENTS.md](EXPERIMENTS.md) | Pre-declared experimental plans |
 | [RESULTS_INDEX.md](RESULTS_INDEX.md) | Result producer and provenance index |
 | [docs/design_decisions.md](docs/design_decisions.md) | Reviewer-facing implementation decisions and alternatives |
+| [docs/reviewer_faq.md](docs/reviewer_faq.md) | Answers to 15 key reviewer questions grounded in study evidence |
 | [COVERAGE.md](COVERAGE.md) | Core-module coverage summary |
