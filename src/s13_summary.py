@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 from typing import Iterable
 
@@ -34,6 +35,66 @@ def bootstrap(values: Iterable[float]) -> dict[str, float]:
 
 def ci_text(value: dict[str, float]) -> str:
     return f"{value['mean']:.1f} [{value['ci_low']:.1f}, {value['ci_high']:.1f}]"
+
+
+def exact_binomial_sign_test(wins: int, losses: int) -> dict[str, float | int]:
+    """Exact two-sided binomial sign test against H0: p = 0.5 with ties dropped."""
+    n = wins + losses
+    if n == 0:
+        return {"wins": wins, "losses": losses, "n": 0, "p_value": 1.0}
+    p_value = sum(
+        math.comb(n, i)
+        for i in range(n + 1)
+        if abs(i - n / 2) >= abs(wins - n / 2)
+    ) / (2**n)
+    return {
+        "wins": wins,
+        "losses": losses,
+        "n": n,
+        "p_value": float(p_value),
+    }
+
+
+def compute_sign_test(diffs: Iterable[float]) -> dict[str, float | int]:
+    """Compute exact two-sided binomial sign test from differences, dropping ties."""
+    diff_list = [float(d) for d in diffs]
+    wins = int(sum(d > 0.0 for d in diff_list))
+    losses = int(sum(d < 0.0 for d in diff_list))
+    ties = int(sum(d == 0.0 for d in diff_list))
+    test_res = exact_binomial_sign_test(wins, losses)
+    return {
+        "wins": wins,
+        "losses": losses,
+        "ties": ties,
+        "n": test_res["n"],
+        "p_value": test_res["p_value"],
+    }
+
+
+def paired_regret_difference(
+    kernel_regrets: Iterable[float],
+    omp3_regrets: Iterable[float],
+    seed: int = BOOTSTRAP_SEED,
+    resamples: int = BOOTSTRAP_RESAMPLES,
+) -> dict[str, float]:
+    """Paired difference of dose regret per layout: kernel minus omp3 (%).
+    
+    Positive values mean kernel regret is higher than omp3 (omp3 performs better).
+    """
+    k_arr = np.asarray(list(kernel_regrets), dtype=np.float64)
+    o_arr = np.asarray(list(omp3_regrets), dtype=np.float64)
+    diff = k_arr - o_arr
+    mean_val = float(np.mean(diff))
+    median_val = float(np.median(diff))
+    rng = np.random.RandomState(seed)
+    indices = rng.randint(0, len(diff), size=(resamples, len(diff)))
+    means = np.mean(diff[indices], axis=1)
+    return {
+        "mean": mean_val,
+        "median": median_val,
+        "ci_low": float(np.percentile(means, 2.5)),
+        "ci_high": float(np.percentile(means, 97.5)),
+    }
 
 
 def verdict(count: int, threshold: int = 15) -> str:
@@ -125,6 +186,35 @@ def main() -> None:
         "H2": verdict(oracle_saving_at_least_10),
         "H3": verdict(kernel_online_over_50),
     }
+
+    offline_diffs = [
+        row["offline_kernel_regret_percent"] - row["offline_omp3_regret_percent"]
+        for row in per_layout
+    ]
+    online_diffs = [
+        row["online_kernel_regret_percent"] - row["online_omp3_regret_percent"]
+        for row in per_layout
+    ]
+    offline_sign = compute_sign_test(offline_diffs)
+    online_sign = compute_sign_test(online_diffs)
+    offline_paired_diff = paired_regret_difference(offline_kernel_regrets, offline_omp3_regrets)
+    online_paired_diff = paired_regret_difference(online_kernel_regrets, online_omp3_regrets)
+
+    supplementary = {
+        "status": "post hoc (decided after the S13 results were seen)",
+        "comparisons_count": 2,
+        "adjusted_p_values": False,
+        "nature": "descriptive",
+        "offline": {
+            "sign_test": offline_sign,
+            "paired_difference": offline_paired_diff,
+        },
+        "online": {
+            "sign_test": online_sign,
+            "paired_difference": online_paired_diff,
+        },
+    }
+
     summary = {
         "metadata": {
             "layout_count": len(records),
@@ -136,6 +226,7 @@ def main() -> None:
         "pooled": pooled,
         "paired_counts": paired_counts,
         "hypothesis_verdicts": hypotheses,
+        "supplementary_post_hoc": supplementary,
     }
     OUTPUT_JSON.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
 
@@ -196,6 +287,24 @@ def main() -> None:
         f"| H1: omp3 online beats kernel in at least 15 layouts | {hypotheses['H1']} |",
         f"| H2: oracle saving is at least 10% in at least 15 layouts | {hypotheses['H2']} |",
         f"| H3: kernel online regret exceeds 50% in at least 15 layouts | {hypotheses['H3']} |",
+        "",
+        "## Supplementary post-hoc analysis",
+        "",
+        "Status: post hoc (decided after S13 results were seen). Note: 2 planned comparisons; p-values are unadjusted and descriptive. Pre-declared verdicts (H1: not supported, H2: supported, H3: supported) remain unchanged under their pre-declared thresholds.",
+        "",
+        "### Exact two-sided binomial sign test (omp3 vs kernel)",
+        "",
+        "| Mode | Wins (omp3) | Losses (kernel) | Ties | n | Two-sided p-value |",
+        "|---|---:|---:|---:|---:|---:|",
+        f"| offline | {offline_sign['wins']} | {offline_sign['losses']} | {offline_sign['ties']} | {offline_sign['n']} | {offline_sign['p_value']:.4f} |",
+        f"| online | {online_sign['wins']} | {online_sign['losses']} | {online_sign['ties']} | {online_sign['n']} | {online_sign['p_value']:.4f} |",
+        "",
+        "### Paired dose regret difference (kernel minus omp3, %)",
+        "",
+        "| Mode | Mean diff [%] | Median diff [%] | 95% bootstrap interval |",
+        "|---|---:|---:|---:|",
+        f"| offline | {offline_paired_diff['mean']:.1f} | {offline_paired_diff['median']:.1f} | [{offline_paired_diff['ci_low']:.1f}, {offline_paired_diff['ci_high']:.1f}] |",
+        f"| online | {online_paired_diff['mean']:.1f} | {online_paired_diff['median']:.1f} | [{online_paired_diff['ci_low']:.1f}, {online_paired_diff['ci_high']:.1f}] |",
     ]
     OUTPUT_MD.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(json.dumps({"pooled": pooled, "paired_counts": paired_counts, "hypothesis_verdicts": hypotheses}, indent=2))

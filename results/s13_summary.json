@@ -371,5 +371,41 @@
     "H1": "not supported",
     "H2": "supported",
     "H3": "supported"
+  },
+  "supplementary_post_hoc": {
+    "status": "post hoc (decided after the S13 results were seen)",
+    "comparisons_count": 2,
+    "adjusted_p_values": false,
+    "nature": "descriptive",
+    "offline": {
+      "sign_test": {
+        "wins": 16,
+        "losses": 4,
+        "ties": 0,
+        "n": 20,
+        "p_value": 0.01181793212890625
+      },
+      "paired_difference": {
+        "mean": 18.297014336849845,
+        "median": 9.485292410242778,
+        "ci_low": 5.168360470130287,
+        "ci_high": 32.989105337060145
+      }
+    },
+    "online": {
+      "sign_test": {
+        "wins": 14,
+        "losses": 6,
+        "ties": 0,
+        "n": 20,
+        "p_value": 0.11531829833984375
+      },
+      "paired_difference": {
+        "mean": 25.03815488691886,
+        "median": 17.23367379292172,
+        "ci_low": 9.110148958116426,
+        "ci_high": 44.68601300446506
+      }
+    }
   }
 }

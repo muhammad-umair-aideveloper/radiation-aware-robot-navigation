@@ -56,3 +56,21 @@
 | H1: omp3 online beats kernel in at least 15 layouts | not supported |
 | H2: oracle saving is at least 10% in at least 15 layouts | supported |
 | H3: kernel online regret exceeds 50% in at least 15 layouts | supported |
+
+## Supplementary post-hoc analysis
+
+Status: post hoc (decided after S13 results were seen). Note: 2 planned comparisons; p-values are unadjusted and descriptive. Pre-declared verdicts (H1: not supported, H2: supported, H3: supported) remain unchanged under their pre-declared thresholds.
+
+### Exact two-sided binomial sign test (omp3 vs kernel)
+
+| Mode | Wins (omp3) | Losses (kernel) | Ties | n | Two-sided p-value |
+|---|---:|---:|---:|---:|---:|
+| offline | 16 | 4 | 0 | 20 | 0.0118 |
+| online | 14 | 6 | 0 | 20 | 0.1153 |
+
+### Paired dose regret difference (kernel minus omp3, %)
+
+| Mode | Mean diff [%] | Median diff [%] | 95% bootstrap interval |
+|---|---:|---:|---:|
+| offline | 18.3 | 9.5 | [5.2, 33.0] |
+| online | 25.0 | 17.2 | [9.1, 44.7] |
