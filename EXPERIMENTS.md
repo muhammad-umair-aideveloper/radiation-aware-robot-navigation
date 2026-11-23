@@ -381,5 +381,16 @@ If projected total runtime exceeds 90 minutes, use noise seeds 0 and 1 only. Thi
 ### Limitations
 The toy procedural generator, 20 layouts, perfect movement, absence of shielding, simple estimator settings, and the parametric estimator's physics knowledge all limit extrapolation beyond this study.
 
+### Supplementary analysis: post hoc (decided after the S13 results were seen)
+- Status: post hoc (decided after the S13 results were seen).
+- Objective: provide a supplementary statistical characterization of the existing S13 per-layout results without running new experiments or altering pre-declared thresholds.
+- Pre-declared verdicts: the verdicts for H1 (not supported), H2 (supported), and H3 (supported) remain unchanged under their pre-declared thresholds.
+- Estimator comparison: physics-informed estimator (`omp3`) versus non-parametric `kernel`, evaluated across both offline and online modes on the 20 replication layouts (seeds 200 through 219).
+- Statistical tests:
+  - Exact two-sided binomial sign test over layouts comparing `omp3` against `kernel` (ties dropped, the number of ties reported).
+  - Paired difference of dose regret per layout (`kernel` minus `omp3` in percent), reporting the mean difference, median difference, and a 95% bootstrap interval over layouts (10000 resamples, fixed seed 42).
+- Comparisons and inference: there are two planned comparisons (offline and online). The resulting p-values are not adjusted for multiple comparisons and are descriptive.
+
+
 
 
