@@ -391,6 +391,60 @@ The toy procedural generator, 20 layouts, perfect movement, absence of shielding
   - Paired difference of dose regret per layout (`kernel` minus `omp3` in percent), reporting the mean difference, median difference, and a 95% bootstrap interval over layouts (10000 resamples, fixed seed 42).
 - Comparisons and inference: there are two planned comparisons (offline and online). The resulting p-values are not adjusted for multiple comparisons and are descriptive.
 
+## S14: exploratory failure analysis of online estimation (post hoc, exploratory)
+
+**Status**: Post hoc, exploratory plan fixed before running S14 analysis code or diagnostic runs.
+
+### Context and Objective
+In study S13 across 20 fresh layouts (seeds 200 through 219), the physics-informed estimator (`omp3`) achieved lower online dose regret than `kernel` in 14 of 20 layouts, but lost in 6 layouts. Consequently, the confirmatory hypothesis H1 verdict remains "not supported" under its pre-declared protocol threshold. This study conducts an exploratory post-hoc failure analysis to investigate layout and estimator characteristics associated with the layouts where `omp3` lost. This exploratory analysis does not modify any earlier verdict.
+
+### Unit of Replication and Outcome
+- The unit of replication is the layout (20 layouts, seeds 200 through 219).
+- The outcome metric is the paired online difference in dose regret per layout: `kernel` regret minus `omp3` regret in percent, obtained from stored S13 results. A negative difference indicates that `omp3` lost.
+- Layout groups are fixed by the stored S13 outcomes:
+  - "omp3 loses": the 6 layouts with negative paired difference (seeds 200, 202, 204, 211, 212, and 215).
+  - "omp3 wins": the remaining 14 layouts with positive paired difference.
+  These group assignments are fixed and will never be redefined.
+
+### Pre-declared Layout Features
+Six layout features are declared before analysis; no features will be added or removed:
+1. Oracle dose saving versus A* shortest in percent.
+2. Wall fraction of the layout.
+3. Minimum pairwise Euclidean distance between any two of the three sources.
+4. Mean distance from the three sources to the A* shortest path (averaged across the layout's start cells).
+5. Share of total true field intensity on free cells within 5 cells of the A* shortest path.
+6. Mean A* shortest-path length across the layout's start cells.
+
+### Association Statistics
+- For each of the six features, compute the Spearman rank correlation against the paired online difference over the 20 layouts.
+- Report a 95% bootstrap confidence interval over layouts (10000 resamples, fixed seed 42) and a two-sided permutation test p-value (fixed seed 42).
+- All six feature comparisons are reported without multiplicity adjustment; all p-values are strictly descriptive and hypothesis-generating.
+
+### Estimator Diagnostics
+For online `omp3` episodes (3x3 measurement pattern, dwell 1, S13 start cells and noise seeds), replay the readings accumulated by the robot at episode end and fit the `omp3` parametric model:
+- Per episode, compute:
+  - Matched source position error: mean Euclidean distance in cells under optimal one-to-one assignment between fitted and true sources.
+  - Source recovery flag: boolean indicator whether all three sources are matched within 3 cells of true locations.
+  - Relative L2 field error: relative L2 error of fitted field versus true field over free cells.
+  - Distinct measured cells: count of unique cells measured during the episode.
+- Aggregate diagnostic metrics per layout (mean over starts and noise seeds).
+
+### Exploratory Hypotheses
+These hypotheses are tested as exploratory questions, not confirmatory claims:
+- H4: the median matched source position error of the losing layouts is larger than that of the winning layouts, and the 95% bootstrap confidence interval of the difference of medians (losing minus winning) excludes zero.
+- H5: the paired difference is positively correlated with oracle dose saving (Spearman correlation greater than zero, and the 95% bootstrap interval excludes zero).
+- Verdicts will be reported as "supported", "not supported", or "unclear" solely against these pre-declared thresholds.
+
+### Fidelity Control
+Before running the full diagnostics run, re-simulating the online `omp3` episodes of two layouts (e.g., layouts 200 and 201) must reproduce their stored S13 doses within a tolerance of 1e-9. A failure aborts the run with a non-zero exit code.
+
+### Runtime Rule
+If the projected total runtime of the diagnostic simulation exceeds 60 minutes, evaluate noise seed 0 only.
+
+### Limitations
+The analysis is post hoc and exploratory; 20 layouts provide limited statistical power; six features were formulated after observing S13 outcomes; correlation does not imply causation; no multiplicity corrections are applied; and the evaluation uses a single estimator setting under idealized noise-free grid movement without shielding.
+
+
 
 
 
