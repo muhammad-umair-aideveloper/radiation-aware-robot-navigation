@@ -62,6 +62,12 @@ An interpolation or parametric model that constructs a radiation field from
 measurements. The project primarily uses kernel regression, inverse-distance
 weighting, parametric source fitting, and shield-aware parametric fitting.
 
+## Exploratory Analysis
+
+An analysis formulated or executed to investigate patterns after observing initial
+experimental results. In this project, exploratory analyses are explicitly labeled,
+generate hypotheses, and cannot retroactively modify pre-declared confirmatory verdicts.
+
 ## Fresh-Layout Replication
 
 A study that evaluates methods on layouts generated for the replication and not used
@@ -91,6 +97,11 @@ leave-one-out cross-validation on measured cells.
 
 The rule defining which free cells a robot measures. Examples include the current
 cell, a Moore neighborhood, and discs of a named radius.
+
+## Matched Position Error
+
+The mean Euclidean distance in grid cells between true and estimated radiation source
+locations under the optimal one-to-one assignment minimizing total assignment distance.
 
 ## Mutual Success
 
@@ -155,6 +166,12 @@ A source-model estimator that represents the field as weighted inverse-square
 source kernels. It differs from a generic spatial interpolator because it assumes
 a physical source form.
 
+## Permutation Test
+
+A non-parametric significance test that evaluates an observed association by repeatedly
+permuting paired observations under the null hypothesis of no relationship to compute an
+empirical two-sided p-value.
+
 ## Radiation-Aware
 
 Planning or learning that includes radiation intensity in the cost or reward.
@@ -179,6 +196,12 @@ A non-parametric statistical test that evaluates whether one method systematical
 outperforms another on paired samples by testing the count of positive differences
 against a null binomial distribution ($p = 0.5$). Ties are dropped and the number
 of ties is reported.
+
+## Spearman Rank Correlation
+
+A non-parametric measure of statistical dependence between the rankings of two variables.
+It quantifies monotonic relationships without assuming linear association or normal error
+distributions.
 
 ## Survey Budget
 

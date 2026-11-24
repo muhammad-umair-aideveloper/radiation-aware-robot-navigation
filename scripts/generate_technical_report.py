@@ -63,6 +63,7 @@ def main() -> int:
     shield = load("shield_summary.json")
     s12 = load("s12_summary.json")
     s13 = load("s13_summary.json")
+    s14 = load("s14_analysis.json")
 
     lambdas = sweep["per_lambda"]["2.5"]
     aware = lambdas["astar_aware"]
@@ -306,6 +307,36 @@ def main() -> int:
         "The supplementary paired difference interval excludes zero [9.11, 44.69]%, but the",
         "exact sign test (p = 0.1153) and layout count remain below confirmatory thresholds.",
         "Detailed limits and layout values are in the S13 documentation and summary.",
+        "",
+        "### S14: Exploratory Failure Analysis of Online Estimation",
+        "",
+        "Status: post hoc, exploratory. Six layout features were evaluated without multiplicity adjustment.",
+        "",
+        "| Feature | Spearman rho | 95% CI | Permutation p |",
+        "|---|---:|---:|---:|",
+        f"| oracle_saving_percent | {s14['correlations']['oracle_saving_percent']['spearman_rho']:.3f} | [{s14['correlations']['oracle_saving_percent']['ci_low']:.3f}, {s14['correlations']['oracle_saving_percent']['ci_high']:.3f}] | {s14['correlations']['oracle_saving_percent']['permutation_p']:.4f} |",
+        f"| wall_fraction | {s14['correlations']['wall_fraction']['spearman_rho']:.3f} | [{s14['correlations']['wall_fraction']['ci_low']:.3f}, {s14['correlations']['wall_fraction']['ci_high']:.3f}] | {s14['correlations']['wall_fraction']['permutation_p']:.4f} |",
+        f"| min_source_distance | {s14['correlations']['min_source_distance']['spearman_rho']:.3f} | [{s14['correlations']['min_source_distance']['ci_low']:.3f}, {s14['correlations']['min_source_distance']['ci_high']:.3f}] | {s14['correlations']['min_source_distance']['permutation_p']:.4f} |",
+        f"| mean_source_to_shortest_dist | {s14['correlations']['mean_source_to_shortest_dist']['spearman_rho']:.3f} | [{s14['correlations']['mean_source_to_shortest_dist']['ci_low']:.3f}, {s14['correlations']['mean_source_to_shortest_dist']['ci_high']:.3f}] | {s14['correlations']['mean_source_to_shortest_dist']['permutation_p']:.4f} |",
+        f"| corridor_intensity_share | {s14['correlations']['corridor_intensity_share']['spearman_rho']:.3f} | [{s14['correlations']['corridor_intensity_share']['ci_low']:.3f}, {s14['correlations']['corridor_intensity_share']['ci_high']:.3f}] | {s14['correlations']['corridor_intensity_share']['permutation_p']:.4f} |",
+        f"| mean_shortest_path_length | {s14['correlations']['mean_shortest_path_length']['spearman_rho']:.3f} | [{s14['correlations']['mean_shortest_path_length']['ci_low']:.3f}, {s14['correlations']['mean_shortest_path_length']['ci_high']:.3f}] | {s14['correlations']['mean_shortest_path_length']['permutation_p']:.4f} |",
+        "",
+        "| Quantity | Group value |",
+        "|---|---:|",
+        f"| Losing layouts median matched error (cells) | {s14['group_comparison']['loses_median_matched_error']:.2f} |",
+        f"| Winning layouts median matched error (cells) | {s14['group_comparison']['wins_median_matched_error']:.2f} |",
+        f"| Difference of medians (loses minus wins) | {s14['group_comparison']['diff_of_medians']:.2f} |",
+        "",
+        "| Hypothesis | Verdict |",
+        "|---|---|",
+        f"| H4 | {s14['verdicts']['H4']} |",
+        f"| H5 | {s14['verdicts']['H5']} |",
+        f"| H1 (confirmatory from S13) | {s14['verdicts']['H1_unchanged']} |",
+        "",
+        "Key finding: matched source position error does not separate losing from winning layouts",
+        "(H4 not supported); oracle dose saving correlation interval spans zero (H5 not supported);",
+        "and H1 remains not supported. Minimum source distance showed a descriptive sample correlation.",
+        "Detailed limits and per-layout tables are in the field estimation documentation.",
         "",
         "## Negative and Null Results",
         "",
