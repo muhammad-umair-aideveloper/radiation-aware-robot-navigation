@@ -4,6 +4,11 @@ Generated from conventional commit subjects.
 
 ## Features
 
+- `fa48fce` feat(s14): plot paired differences, feature associations, and extreme fields
+- `99c679c` feat(s14): compute exploratory failure analysis statistics and verdicts
+- `86f584d` feat: add simulation result layouts 200 through 219
+- `30cabd3` feat(s14): add diagnostics runner and fidelity control
+- `71cd8d2` feat(s14): compute layout features for failure analysis
 - `65b443e` feat(s13): implement post-hoc sign test and paired difference analysis
 - `1bb978e` feat: add reproducible S13 demo
 - `175c3cc` feat: add resumable S13 study runner
@@ -97,6 +102,8 @@ Generated from conventional commit subjects.
 
 ## Fixes
 
+- `b655f24` fix(s14): derive figure annotations from analysis results
+- `869d7f8` fix(s14): correct tied ranks and complete layout analysis table
 - `6dc94dc` fix: remove unused S13 study symbols
 - `59c6c29` fix(study): fix table row breaks in online summary
 - `0b02074` fix(tests): use ascii output in core test
@@ -104,6 +111,11 @@ Generated from conventional commit subjects.
 
 ## Documentation
 
+- `4ebaf47` docs(review): add S14 failure-analysis guidance
+- `62ab3ce` docs(s14): document exploratory failure analysis findings
+- `e0d6121` docs: add field estimation documentation and technical report generator script
+- `895cb30` docs(experiments): pre-declare S14 exploratory failure analysis plan
+- `748c9be` docs(changelog): update changelog for Day 15 deliverables
 - `262d68f` docs(readme): refresh summary and results table for S12 and S13
 - `8b88818` docs: add reviewer FAQ answering 15 technical and committee questions
 - `baf74d4` docs(s13): document post-hoc sign test and paired difference findings

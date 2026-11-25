@@ -11,6 +11,7 @@
 | results/s12/kernel/ | src/s12_study.py | `python src/s12_study.py` |  |
 | results/s12/omp3/ | src/s12_study.py | `python src/s12_study.py` |  |
 | results/s13/ | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s14/ | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
 | results/sensor_runs/ | not claimed | `not recorded` |  |
 | results/shield/ | src/shield_study.py | `python src/shield_study.py` |  |
 | results/sweep_q/ | not claimed | `not recorded` |  |
@@ -222,6 +223,34 @@
 | results/s13_oracle_saving.png | src/s13_summary.py | `python src/s13_summary.py` |  |
 | results/s13_summary.json | src/s13_summary.py | `python src/s13_summary.py` |  |
 | results/s13_summary.md | src/s13_summary.py | `python src/s13_summary.py` |  |
+| results/s14/layout_200.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_201.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_202.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_203.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_204.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_205.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_206.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_207.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_208.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_209.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_210.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_211.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_212.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_213.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_214.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_215.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_216.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_217.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_218.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14/layout_219.json | src/s14_diagnostics.py | `python src/s14_diagnostics.py` |  |
+| results/s14_analysis.json | src/s14_analysis.py | `python src/s14_analysis.py` |  |
+| results/s14_analysis.md | src/s14_analysis.py | `python src/s14_analysis.py` |  |
+| results/s14_extreme_field_comparisons.png | src/plot_s14.py | `python src/plot_s14.py` |  |
+| results/s14_feature_scatters.png | src/plot_s14.py | `python src/plot_s14.py` |  |
+| results/s14_features.json | src/s14_features.py | `python src/s14_features.py` |  |
+| results/s14_features.md | src/s14_features.py | `python src/s14_features.py` |  |
+| results/s14_paired_difference.png | src/plot_s14.py | `python src/plot_s14.py` |  |
+| results/s14_source_error_by_group.png | src/plot_s14.py | `python src/plot_s14.py` |  |
 | results/s6_distance_bins.png | not claimed | `not recorded` |  |
 | results/s6_learning_curves.png | not claimed | `not recorded` |  |
 | results/s6_trajectories.png | not claimed | `not recorded` |  |
