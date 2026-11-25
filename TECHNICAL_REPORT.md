@@ -230,6 +230,10 @@ The unit of replication is the layout; the outcome is kernel regret minus OMP3 r
 | Winning layouts median matched error (cells) | 18.85 |
 | Difference of medians (loses minus wins), 95% CI | -2.07 [-4.05, 4.87] |
 
+The group medians are similar, while both errors are substantial relative to the 50x50 grid.
+Hypothesis: the online advantage of the physics-informed estimator may not arise from
+precise source-position estimates. The two associations with intervals excluding zero
+are unadjusted and exploratory, based on six feature comparisons across 20 layouts.
 | Hypothesis | Verdict |
 |---|---|
 | H4 | not supported |

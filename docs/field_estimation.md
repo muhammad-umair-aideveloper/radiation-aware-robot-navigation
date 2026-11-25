@@ -397,8 +397,9 @@ Each feature is compared with the paired difference using a Spearman rank correl
 a 95% bootstrap interval over layouts, and a two-sided permutation p-value. Both
 procedures use 10000 resamples/permutations and fixed seed 42. The analysis reports all
 six comparisons without multiplicity adjustment. Online `omp3` episodes were also
-replayed to measure matched source position error, source recovery rate, relative L2
-field error, and distinct measured cells per layout. The complete generated summary is
+replayed to measure matched source position error, the share of episodes meeting the
+all-sources-within-3-cells criterion, relative L2 field error, and distinct measured
+cells per layout. The complete generated summary is
 available as [Markdown](../results/s14_analysis.md) and [JSON](../results/s14_analysis.json).
 
 ### Fidelity control
@@ -450,6 +451,7 @@ The intervals for minimum source distance and mean shortest-path length exclude 
 their unadjusted permutation p-values are 0.0162 and 0.0711, respectively. The other
 four intervals include zero; all p-values are listed above. These are descriptive
 results only: six features were compared without adjustment on 20 layouts, so the
+two associations with intervals excluding zero are unadjusted and exploratory, and the
 results do not establish a general or causal relationship.
 
 ### Group comparison: matched source position error
@@ -461,6 +463,11 @@ results do not establish a general or causal relationship.
 
 Difference of medians (loses minus wins): -2.07 cells, 95% bootstrap interval
 [-4.05, 4.87] ([generated S14 summary](../results/s14_analysis.md)).
+
+The group medians are similar, while both errors are substantial on the 50x50 grid.
+Hypothesis: the online advantage of the physics-informed estimator may not arise from
+precise source-position estimates. This is an exploratory interpretation, not a causal
+claim.
 
 ### Figures
 
