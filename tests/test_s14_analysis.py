@@ -15,7 +15,9 @@ from src.s14_analysis import (
     _rank,
     bootstrap_median_diff_ci,
     bootstrap_spearman_ci,
+    paired_online_difference,
     permutation_p_value,
+    run_analysis,
     spearman_rank_correlation,
 )
 
@@ -49,10 +51,7 @@ class TestSpearmanRankCorrelation:
         x = np.array([1.0, 2.0, 2.0, 4.0])
         y = np.array([1.0, 3.0, 2.0, 4.0])
         rho = spearman_rank_correlation(x, y)
-        # With ties, rank of x = [1, 2.5, 2.5, 4], rank of y = [1, 3, 2, 4]
-        # d = [0, -0.5, 0.5, 0], d^2 = [0, 0.25, 0.25, 0] = 0.5
-        # rho = 1 - 6*0.5/(4*15) = 1 - 3/60 = 1 - 0.05 = 0.95
-        assert abs(rho - 0.95) < 1e-12
+        assert abs(rho - np.sqrt(0.9)) < 1e-12
 
     def test_determinism(self):
         rng = np.random.RandomState(99)
@@ -138,3 +137,23 @@ class TestGroupComparison:
         diff, ci_lo, ci_hi = bootstrap_median_diff_ci(a, b, n_boot=1000, seed=42)
         assert diff > 0  # a > b
         assert ci_lo > 0  # interval should exclude zero for well-separated groups
+
+
+def test_paired_online_difference_is_kernel_minus_omp3():
+    layout = {
+        "online": {
+            "kernel": {"mean_dose_regret_percent": 12.0},
+            "omp3": {"mean_dose_regret_percent": 17.0},
+        }
+    }
+    assert paired_online_difference(layout) == -5.0
+
+
+def test_s13_outcome_split_matches_predeclared_losing_layouts():
+    result = run_analysis()
+    losing = {
+        row["layout_seed"]
+        for row in result["per_layout"]
+        if row["group"] == "omp3 loses"
+    }
+    assert losing == {200, 202, 204, 211, 212, 215}

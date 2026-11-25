@@ -13,7 +13,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 FEATURES_JSON = ROOT / "results" / "s14_features.json"
-S13_SUMMARY_JSON = ROOT / "results" / "s13_summary.json"
+S13_DIR = ROOT / "results" / "s13"
 S14_DIR = ROOT / "results" / "s14"
 OUTPUT_JSON = ROOT / "results" / "s14_analysis.json"
 OUTPUT_MD = ROOT / "results" / "s14_analysis.md"
@@ -31,17 +31,29 @@ BOOTSTRAP_N = 10000
 BOOTSTRAP_SEED = 42
 PERMUTATION_N = 10000
 PERMUTATION_SEED = 42
+EXPECTED_LOSING_LAYOUTS = {200, 202, 204, 211, 212, 215}
 
 
 def spearman_rank_correlation(x: np.ndarray, y: np.ndarray) -> float:
     """Spearman rank correlation between two arrays."""
-    n = len(x)
-    if n < 3:
+    if len(x) != len(y):
+        raise ValueError("Spearman inputs must have equal lengths")
+    if len(x) < 3:
         return 0.0
     rx = _rank(x)
     ry = _rank(y)
-    d = rx - ry
-    return float(1.0 - 6.0 * np.sum(d ** 2) / (n * (n ** 2 - 1)))
+    if np.ptp(rx) == 0.0 or np.ptp(ry) == 0.0:
+        return 0.0
+    return float(np.corrcoef(rx, ry)[0, 1])
+
+
+def paired_online_difference(s13_layout: dict) -> float:
+    """Return kernel regret minus omp3 regret from one stored S13 layout."""
+    online = s13_layout["online"]
+    return float(
+        online["kernel"]["mean_dose_regret_percent"]
+        - online["omp3"]["mean_dose_regret_percent"]
+    )
 
 
 def _rank(arr: np.ndarray) -> np.ndarray:
@@ -121,16 +133,46 @@ def bootstrap_median_diff_ci(
 def run_analysis() -> dict:
     """Run the full S14 analysis and return the results dict."""
     features_data = json.loads(FEATURES_JSON.read_text(encoding="utf-8"))
-    records = features_data["records"]
+    feature_records = features_data["records"]
+    records = []
 
-    # Load diagnostics summaries
+    # Join the declared features to the stored per-layout S13 outcomes and diagnostics.
     diag_summaries: dict[int, dict] = {}
-    for rec in records:
+    for rec in feature_records:
         seed = rec["layout_seed"]
+        s13_path = S13_DIR / f"layout_{seed}.json"
+        s13_layout = json.loads(s13_path.read_text(encoding="utf-8"))
+        if s13_layout["metadata"]["layout_seed"] != seed:
+            raise ValueError(f"S13 layout seed mismatch in {s13_path}")
+
+        diff = paired_online_difference(s13_layout)
+        if not np.isclose(diff, rec["paired_online_difference"], rtol=0.0, atol=1e-9):
+            raise ValueError(f"S13 paired difference mismatch for layout {seed}")
+        if diff == 0.0:
+            raise ValueError(f"Layout {seed} has no declared S14 outcome group")
+        group = "omp3 loses" if diff < 0.0 else "omp3 wins"
+        if group != rec["group"]:
+            raise ValueError(f"S13 outcome group mismatch for layout {seed}")
+        records.append({
+            "layout_seed": seed,
+            "paired_online_difference": diff,
+            "group": group,
+            "features": rec["features"],
+        })
+
         diag_path = S14_DIR / f"layout_{seed}.json"
-        if diag_path.exists():
-            diag = json.loads(diag_path.read_text(encoding="utf-8"))
-            diag_summaries[seed] = diag["summary"]
+        diag = json.loads(diag_path.read_text(encoding="utf-8"))
+        if diag["layout_seed"] != seed:
+            raise ValueError(f"Diagnostic layout seed mismatch in {diag_path}")
+        diag_summaries[seed] = diag["summary"]
+
+    losing_layouts = {
+        rec["layout_seed"] for rec in records if rec["paired_online_difference"] < 0.0
+    }
+    if losing_layouts != EXPECTED_LOSING_LAYOUTS:
+        raise ValueError(
+            f"S13 losing layouts differ from the pre-declared set: {sorted(losing_layouts)}"
+        )
 
     # Build arrays
     seeds = [r["layout_seed"] for r in records]
@@ -190,7 +232,7 @@ def run_analysis() -> dict:
 
     # H4 verdict
     h4_larger = loses_median > wins_median
-    h4_excludes_zero = diff_ci_lo > 0.0
+    h4_excludes_zero = diff_ci_hi < 0.0 or diff_ci_lo > 0.0
     if h4_larger and h4_excludes_zero:
         h4_verdict = "supported"
     elif h4_larger and not h4_excludes_zero:
@@ -201,7 +243,7 @@ def run_analysis() -> dict:
     # H5 verdict: oracle saving positively correlated with paired diff
     oracle_corr = correlations["oracle_saving_percent"]
     h5_positive = oracle_corr["spearman_rho"] > 0.0
-    h5_excludes_zero = oracle_corr["ci_low"] > 0.0
+    h5_excludes_zero = oracle_corr["ci_high"] < 0.0 or oracle_corr["ci_low"] > 0.0
     if h5_positive and h5_excludes_zero:
         h5_verdict = "supported"
     elif h5_positive and not h5_excludes_zero:
@@ -219,12 +261,14 @@ def run_analysis() -> dict:
             "group": rec["group"],
         }
         entry.update(rec["features"])
-        if seed in diag_summaries:
-            ds = diag_summaries[seed]
-            entry["mean_matched_source_error"] = ds["mean_matched_source_position_error"]
-            entry["all_sources_within_3_rate"] = ds["all_sources_within_3_rate"]
-            entry["mean_relative_l2_error"] = ds["mean_relative_l2_field_error"]
-            entry["mean_distinct_cells"] = ds["mean_distinct_measured_cells"]
+        ds = diag_summaries[seed]
+        entry["mean_matched_source_position_error"] = ds["mean_matched_source_position_error"]
+        entry["all_sources_within_3_rate"] = ds["all_sources_within_3_rate"]
+        entry["mean_relative_l2_field_error"] = ds["mean_relative_l2_field_error"]
+        entry["mean_distinct_measured_cells"] = ds["mean_distinct_measured_cells"]
+        entry["mean_true_dose"] = ds["mean_true_dose"]
+        entry["mean_steps"] = ds["mean_steps"]
+        entry["success_rate"] = ds["success_rate"]
         per_layout_table.append(entry)
 
     result = {
@@ -270,18 +314,30 @@ def write_markdown(result: dict) -> None:
         "## Per-Layout Table",
         "",
         "| Layout | Group | Paired diff (%) | Oracle saving (%) | "
-        "Matched source error | Relative L2 error | Distinct cells |",
-        "|---:|---|---:|---:|---:|---:|---:|",
+        "Wall fraction | Min source distance (cells) | "
+        "Mean source-path distance (cells) | Corridor intensity share | "
+        "Mean shortest-path length (cells) | Matched source position error (cells) | "
+        "Sources within 3 cells | Relative L2 field error | Distinct measured cells | "
+        "Mean true dose (a.u.) | Mean steps | Success rate |",
+        "|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|",
     ]
     for row in result["per_layout"]:
-        mse = row.get("mean_matched_source_error", float("nan"))
-        l2 = row.get("mean_relative_l2_error", float("nan"))
-        dc = row.get("mean_distinct_cells", float("nan"))
         lines.append(
             f"| {row['layout_seed']} | {row['group']} | "
             f"{row['paired_online_difference']:.2f} | "
             f"{row['oracle_saving_percent']:.1f} | "
-            f"{mse:.2f} | {l2:.4f} | {dc:.1f} |"
+            f"{row['wall_fraction']:.4f} | "
+            f"{row['min_source_distance']:.2f} | "
+            f"{row['mean_source_to_shortest_dist']:.2f} | "
+            f"{row['corridor_intensity_share']:.4f} | "
+            f"{row['mean_shortest_path_length']:.2f} | "
+            f"{row['mean_matched_source_position_error']:.2f} | "
+            f"{row['all_sources_within_3_rate']:.4f} | "
+            f"{row['mean_relative_l2_field_error']:.4f} | "
+            f"{row['mean_distinct_measured_cells']:.1f} | "
+            f"{row['mean_true_dose']:.2f} | "
+            f"{row['mean_steps']:.2f} | "
+            f"{row['success_rate']:.4f} |"
         )
 
     lines += [

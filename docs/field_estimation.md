@@ -420,12 +420,12 @@ Before running the full diagnostics analysis, re-simulating the online `omp3` ep
 
 | Feature | Spearman rho | 95% CI | Permutation p |
 |---|---:|---:|---:|
-| oracle_saving_percent | 0.395 | [-0.074, 0.749] | 0.0849 |
-| wall_fraction | -0.032 | [-0.510, 0.457] | 0.8917 |
-| min_source_distance | -0.534 | [-0.782, -0.083] | 0.0166 |
-| mean_source_to_shortest_dist | -0.283 | [-0.656, 0.230] | 0.2201 |
-| corridor_intensity_share | 0.239 | [-0.211, 0.666] | 0.3104 |
-| mean_shortest_path_length | -0.414 | [-0.716, 0.014] | 0.0711 |
+| oracle_saving_percent | 0.395 | [-0.086, 0.746] | 0.0849 |
+| wall_fraction | -0.032 | [-0.524, 0.452] | 0.8942 |
+| min_source_distance | -0.536 | [-0.804, -0.101] | 0.0162 |
+| mean_source_to_shortest_dist | -0.283 | [-0.674, 0.220] | 0.2201 |
+| corridor_intensity_share | 0.239 | [-0.226, 0.663] | 0.3104 |
+| mean_shortest_path_length | -0.414 | [-0.735, -0.001] | 0.0711 |
 
 ### Group Comparison: Matched Source Position Error
 
@@ -445,12 +445,12 @@ Before running the full diagnostics analysis, re-simulating the online `omp3` ep
 
 ### Statistical Interpretation
 
-Hypothesis: Six layout features were evaluated against the paired online difference without multiplicity adjustment, so all resulting p-values and confidence intervals are strictly descriptive and hypothesis-generating. Among the six features, minimum source distance exhibits a negative sample association ($\rho = -0.534$ [$-0.782, -0.083$], permutation $p = 0.0166$), whose bootstrap interval excludes zero, suggesting that layouts with more tightly clustered sources may provide stronger OMP3 advantages or that well-separated sources challenge parametric localization. In contrast, oracle dose saving ($\rho = 0.395$ [$-0.074, 0.749$], $p = 0.0849$), wall fraction ($\rho = -0.032$ [$-0.510, 0.457$], $p = 0.8917$), mean source-to-path distance ($\rho = -0.283$ [$-0.656, 0.230$], $p = 0.2201$), corridor intensity share ($\rho = 0.239$ [$-0.211, 0.666$], $p = 0.3104$), and shortest path length ($\rho = -0.414$ [$-0.716, 0.014$], $p = 0.0711$) have confidence intervals that span zero. Because multiple tests were conducted without correction, the observed association for minimum source distance cannot be considered confirmed.
+Hypothesis: Six layout features were evaluated against the paired online difference without multiplicity adjustment, so all resulting p-values and confidence intervals are strictly descriptive and hypothesis-generating. Among the six features, minimum source distance exhibits a negative sample association ($\rho = -0.536$ [$-0.804, -0.101$], permutation $p = 0.0162$), whose bootstrap interval excludes zero, suggesting that layouts with more tightly clustered sources may provide stronger OMP3 advantages or that well-separated sources challenge parametric localization. In contrast, oracle dose saving ($\rho = 0.395$ [$-0.086, 0.746$], $p = 0.0849$), wall fraction ($\rho = -0.032$ [$-0.524, 0.452$], $p = 0.8942$), mean source-to-path distance ($\rho = -0.283$ [$-0.674, 0.220$], $p = 0.2201$), corridor intensity share ($\rho = 0.239$ [$-0.226, 0.663$], $p = 0.3104$), and shortest path length ($\rho = -0.414$ [$-0.735, -0.001$], $p = 0.0711$) have confidence intervals that span zero. Because multiple tests were conducted without correction, the observed association for minimum source distance cannot be considered confirmed.
 
 ### Hypothesis Verdicts
 
 - H4: **not supported**. The losing group matched source position error median is 16.78 cells versus 18.85 cells for the winning group; the difference of medians (losing minus winning) is -2.07 cells [$-4.05, 4.87$], and the bootstrap interval covers zero.
-- H5: **not supported**. The Spearman rank correlation between oracle dose saving and paired difference is 0.395, but the 95% bootstrap interval [$-0.074, 0.749$] spans zero.
+- H5: **not supported**. The Spearman rank correlation between oracle dose saving and paired difference is 0.395, but the 95% bootstrap interval [$-0.086, 0.746$] spans zero.
 - H1: **not supported** (confirmatory verdict from S13 remains unchanged under its pre-declared protocol threshold).
 
 ### Limitations
