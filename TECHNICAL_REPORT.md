@@ -210,6 +210,37 @@ The supplementary paired difference interval excludes zero [9.11, 44.69]%, but t
 exact sign test (p = 0.1153) and layout count remain below confirmatory thresholds.
 Detailed limits and layout values are in the S13 documentation and summary.
 
+### S14: Exploratory Failure Analysis of Online Estimation
+
+Status: post hoc, exploratory. Six layout features were evaluated without multiplicity adjustment.
+The unit of replication is the layout; the outcome is kernel regret minus OMP3 regret.
+
+| Feature | Spearman rho | 95% CI | Permutation p |
+|---|---:|---:|---:|
+| oracle_saving_percent | 0.395 | [-0.086, 0.746] | 0.0849 |
+| wall_fraction | -0.032 | [-0.524, 0.452] | 0.8942 |
+| min_source_distance | -0.536 | [-0.804, -0.101] | 0.0162 |
+| mean_source_to_shortest_dist | -0.283 | [-0.674, 0.220] | 0.2201 |
+| corridor_intensity_share | 0.239 | [-0.226, 0.663] | 0.3104 |
+| mean_shortest_path_length | -0.414 | [-0.735, -0.001] | 0.0711 |
+
+| Quantity | Group value |
+|---|---:|
+| Losing layouts median matched error (cells) | 16.78 |
+| Winning layouts median matched error (cells) | 18.85 |
+| Difference of medians (loses minus wins), 95% CI | -2.07 [-4.05, 4.87] |
+
+| Hypothesis | Verdict |
+|---|---|
+| H4 | not supported |
+| H5 | not supported |
+| H1 (confirmatory from S13) | not supported |
+
+Across 20 layouts, the minimum-source-distance 95% interval (-0.536 [-0.804, -0.101]) and mean-shortest-path-length 95% interval (-0.414 [-0.735, -0.001]) exclude zero; their unadjusted permutation p-values are 0.0162 and 0.0711. The other four intervals include zero. All six comparisons are descriptive and exploratory, with no multiplicity adjustment.
+H4 and H5 are not supported under their pre-declared thresholds; H1 remains not supported.
+Per-layout tables, figures, and limitations are in the [S14 field-estimation analysis]
+(docs/field_estimation.md#s14-failure-analysis-of-online-estimation-post-hoc-exploratory).
+
 ## Negative and Null Results
 
 - Sensor DQN held-out success was effectively zero despite low collision rates.

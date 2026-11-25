@@ -369,54 +369,73 @@ The study uses a toy procedural layout generator, 20 layouts, perfect movement, 
 
 ## S14: failure analysis of online estimation (post hoc, exploratory)
 
-**Status**: Post hoc, exploratory plan fixed before running S14 analysis code or diagnostic runs. Explanations of why a result happened are labelled "Hypothesis:". This exploratory analysis does not modify any earlier verdict.
+**Status**: post hoc, exploratory. The S14 plan was fixed before its analysis code and
+diagnostic runs. Explanations of why a result happened are labelled "Hypothesis:". This
+analysis does not modify any earlier verdict.
 
-### Context and Design
+### Research question
 
-In study S13 across 20 fresh layouts (seeds 200 through 219), the physics-informed estimator (`omp3`) achieved lower online dose regret than `kernel` in 14 of 20 layouts, but lost in 6 layouts (seeds 200, 202, 204, 211, 212, and 215). The outcome metric is the paired online difference in dose regret per layout: `kernel` regret minus `omp3` regret in percent, obtained from stored S13 results. A negative difference indicates that `omp3` lost.
+Which pre-declared layout features and source-fit diagnostics are associated with S13
+layouts where the physics-informed estimator (`omp3`) loses to `kernel` online?
 
-Six layout features were pre-declared in EXPERIMENTS.md before analyzing results:
-1. `oracle_saving_percent`: Oracle dose saving versus A* shortest in percent.
-2. `wall_fraction`: Fraction of grid cells occupied by obstacles.
-3. `min_source_distance`: Minimum pairwise Euclidean distance between any two sources.
-4. `mean_source_to_shortest_dist`: Mean distance from the three sources to the A* shortest path.
-5. `corridor_intensity_share`: Share of free-space radiation within 5 cells of the A* shortest path.
-6. `mean_shortest_path_length`: Mean geometric length of the A* shortest path across start cells.
+### Design
 
-For each feature, the Spearman rank correlation against the paired online difference was computed with a 95% bootstrap confidence interval (10000 resamples, fixed seed 42) and a two-sided permutation test p-value (10000 permutations, fixed seed 42). All six features were evaluated without multiplicity adjustment; all p-values are descriptive and hypothesis-generating.
+The unit of replication is the layout. S13 evaluated 20 fresh layouts (seeds 200 through
+219); the paired online difference is `kernel` regret minus `omp3` regret in percent, so
+a negative value indicates an `omp3` loss. The six losses are fixed by S13 outcomes:
+layouts 200, 202, 204, 211, 212, and 215. The six features below were pre-declared in
+[EXPERIMENTS.md](../EXPERIMENTS.md) for this post hoc analysis:
 
-For estimator diagnostics, each online `omp3` episode was replayed to evaluate the final parametric source fit, computing matched source position error under optimal 1-to-1 matching, relative L2 field error, and distinct measured cell counts.
+1. `oracle_saving_percent`: oracle dose saving versus A* shortest in percent.
+2. `wall_fraction`: fraction of grid cells occupied by obstacles.
+3. `min_source_distance`: minimum pairwise Euclidean distance between sources.
+4. `mean_source_to_shortest_dist`: mean distance from sources to the A* shortest path.
+5. `corridor_intensity_share`: share of free-space radiation within 5 cells of the A* shortest path.
+6. `mean_shortest_path_length`: mean geometric length of the A* shortest path across starts.
 
-### Fidelity Control
+Each feature is compared with the paired difference using a Spearman rank correlation,
+a 95% bootstrap interval over layouts, and a two-sided permutation p-value. Both
+procedures use 10000 resamples/permutations and fixed seed 42. The analysis reports all
+six comparisons without multiplicity adjustment. Online `omp3` episodes were also
+replayed to measure matched source position error, source recovery rate, relative L2
+field error, and distinct measured cells per layout. The complete generated summary is
+available as [Markdown](../results/s14_analysis.md) and [JSON](../results/s14_analysis.json).
 
-Before running the full diagnostics analysis, re-simulating the online `omp3` episodes of control layouts 200 and 201 reproduced their stored S13 doses within `7.11e-15`, well within the pre-declared `1e-9` tolerance, verifying simulation fidelity.
+### Fidelity control
 
-### Per-Layout Results and Diagnostics
+The S14 fidelity control passed: re-simulated online `omp3` doses for control layouts
+200 and 201 matched their stored S13 doses within the pre-declared tolerance of
+`1e-9` ([control implementation](../src/s14_diagnostics.py)).
 
-| Layout | Group | Paired diff (%) | Oracle saving (%) | Matched source error | Relative L2 error | Distinct cells |
-|---:|---|---:|---:|---:|---:|---:|
-| 200 | omp3 loses | -6.92 | 48.9 | 21.84 | 1.3247 | 150.6 |
-| 201 | omp3 wins | 160.89 | 79.0 | 18.35 | 1.3422 | 168.1 |
-| 202 | omp3 loses | -4.18 | 56.8 | 17.02 | 1.3891 | 177.5 |
-| 203 | omp3 wins | 7.22 | 54.5 | 20.94 | 0.8664 | 177.4 |
-| 204 | omp3 loses | -19.44 | 55.0 | 15.18 | 1.4127 | 179.4 |
-| 205 | omp3 wins | 33.38 | 60.7 | 19.34 | 1.5014 | 156.9 |
-| 206 | omp3 wins | 25.24 | 53.2 | 19.66 | 1.3319 | 156.2 |
-| 207 | omp3 wins | 88.08 | 70.0 | 13.76 | 1.3261 | 153.5 |
-| 208 | omp3 wins | 43.81 | 53.4 | 26.45 | 1.0032 | 145.1 |
-| 209 | omp3 wins | 35.56 | 64.0 | 10.75 | 1.1371 | 220.1 |
-| 210 | omp3 wins | 9.58 | 19.0 | 23.75 | 1.2499 | 158.2 |
-| 211 | omp3 loses | -12.15 | 9.7 | 24.61 | 1.3809 | 178.3 |
-| 212 | omp3 loses | -7.45 | 46.0 | 16.53 | 1.1166 | 192.3 |
-| 213 | omp3 wins | 30.98 | 59.5 | 15.89 | 1.1134 | 160.6 |
-| 214 | omp3 wins | 28.56 | 45.0 | 14.40 | 1.3958 | 168.1 |
-| 215 | omp3 loses | -11.05 | 59.0 | 16.27 | 1.5821 | 214.4 |
-| 216 | omp3 wins | 17.82 | 69.2 | 18.04 | 1.5328 | 169.5 |
-| 217 | omp3 wins | 16.65 | 45.7 | 21.84 | 1.1526 | 168.5 |
-| 218 | omp3 wins | 3.88 | 64.5 | 19.69 | 1.2214 | 154.0 |
-| 219 | omp3 wins | 60.29 | 46.0 | 16.18 | 0.9947 | 172.0 |
+### Per-layout results and diagnostics
 
-### Feature Correlations
+The following table is taken from the generated [S14 analysis summary](../results/s14_analysis.md).
+Dose is reported in arbitrary units (a.u.).
+
+| Layout | Group | Paired diff (%) | Oracle saving (%) | Wall fraction | Min source distance (cells) | Mean source-path distance (cells) | Corridor intensity share | Mean shortest-path length (cells) | Matched source position error (cells) | Sources within 3 cells | Relative L2 field error | Distinct measured cells | Mean true dose (a.u.) | Mean steps | Success rate |
+|---:|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 200 | omp3 loses | -6.92 | 48.9 | 0.1844 | 18.03 | 23.28 | 0.1461 | 39.93 | 21.84 | 0.0000 | 1.3247 | 150.6 | 61.22 | 42.87 | 1.0000 |
+| 201 | omp3 wins | 160.89 | 79.0 | 0.1276 | 10.77 | 17.48 | 0.1655 | 41.18 | 18.35 | 0.0000 | 1.3422 | 168.1 | 48.04 | 49.40 | 1.0000 |
+| 202 | omp3 loses | -4.18 | 56.8 | 0.1644 | 18.97 | 17.44 | 0.1533 | 41.12 | 17.02 | 0.0000 | 1.3891 | 177.5 | 91.09 | 51.23 | 1.0000 |
+| 203 | omp3 wins | 7.22 | 54.5 | 0.1420 | 32.89 | 14.38 | 0.3487 | 45.88 | 20.94 | 0.0000 | 0.8664 | 177.4 | 163.77 | 48.43 | 1.0000 |
+| 204 | omp3 loses | -19.44 | 55.0 | 0.1092 | 23.85 | 15.45 | 0.2503 | 42.80 | 15.18 | 0.0000 | 1.4127 | 179.4 | 107.69 | 54.73 | 1.0000 |
+| 205 | omp3 wins | 33.38 | 60.7 | 0.1224 | 21.84 | 19.61 | 0.1609 | 36.30 | 19.34 | 0.0000 | 1.5014 | 156.9 | 66.96 | 42.30 | 1.0000 |
+| 206 | omp3 wins | 25.24 | 53.2 | 0.1000 | 5.00 | 18.37 | 0.1454 | 43.08 | 19.66 | 0.0000 | 1.3319 | 156.2 | 71.19 | 45.40 | 1.0000 |
+| 207 | omp3 wins | 88.08 | 70.0 | 0.1080 | 15.30 | 12.46 | 0.2396 | 39.95 | 13.76 | 0.0333 | 1.3261 | 153.5 | 112.37 | 47.27 | 1.0000 |
+| 208 | omp3 wins | 43.81 | 53.4 | 0.1228 | 10.05 | 20.27 | 0.1981 | 38.14 | 26.45 | 0.0000 | 1.0032 | 145.1 | 68.39 | 41.30 | 1.0000 |
+| 209 | omp3 wins | 35.56 | 64.0 | 0.1140 | 8.06 | 10.44 | 0.2483 | 43.01 | 10.75 | 0.0667 | 1.1371 | 220.1 | 127.92 | 67.33 | 1.0000 |
+| 210 | omp3 wins | 9.58 | 19.0 | 0.1552 | 4.47 | 23.11 | 0.0774 | 46.89 | 23.75 | 0.0000 | 1.2499 | 158.2 | 30.12 | 43.03 | 1.0000 |
+| 211 | omp3 loses | -12.15 | 9.7 | 0.1044 | 40.05 | 26.27 | 0.0619 | 48.93 | 24.61 | 0.0000 | 1.3809 | 178.3 | 35.58 | 44.77 | 1.0000 |
+| 212 | omp3 loses | -7.45 | 46.0 | 0.1268 | 17.12 | 16.48 | 0.1856 | 44.71 | 16.53 | 0.0333 | 1.1166 | 192.3 | 105.03 | 61.33 | 1.0000 |
+| 213 | omp3 wins | 30.98 | 59.5 | 0.1588 | 8.06 | 15.32 | 0.1665 | 39.01 | 15.89 | 0.0333 | 1.1134 | 160.6 | 50.65 | 42.97 | 1.0000 |
+| 214 | omp3 wins | 28.56 | 45.0 | 0.1100 | 8.60 | 16.49 | 0.1856 | 35.23 | 14.40 | 0.0000 | 1.3958 | 168.1 | 77.72 | 42.17 | 1.0000 |
+| 215 | omp3 loses | -11.05 | 59.0 | 0.1152 | 27.86 | 17.21 | 0.1480 | 49.73 | 16.27 | 0.0000 | 1.5821 | 214.4 | 91.04 | 58.10 | 1.0000 |
+| 216 | omp3 wins | 17.82 | 69.2 | 0.1372 | 16.64 | 15.46 | 0.2116 | 39.17 | 18.04 | 0.0000 | 1.5328 | 169.5 | 97.37 | 47.10 | 1.0000 |
+| 217 | omp3 wins | 16.65 | 45.7 | 0.1340 | 11.70 | 23.40 | 0.1276 | 41.37 | 21.84 | 0.0000 | 1.1526 | 168.5 | 62.44 | 47.53 | 1.0000 |
+| 218 | omp3 wins | 3.88 | 64.5 | 0.1360 | 16.64 | 18.10 | 0.2683 | 39.24 | 19.69 | 0.0000 | 1.2214 | 154.0 | 151.63 | 49.30 | 1.0000 |
+| 219 | omp3 wins | 60.29 | 46.0 | 0.1528 | 18.97 | 14.92 | 0.2659 | 45.20 | 16.18 | 0.0000 | 0.9947 | 172.0 | 114.38 | 52.50 | 1.0000 |
+
+### Feature correlations
 
 | Feature | Spearman rho | 95% CI | Permutation p |
 |---|---:|---:|---:|
@@ -427,11 +446,21 @@ Before running the full diagnostics analysis, re-simulating the online `omp3` ep
 | corridor_intensity_share | 0.239 | [-0.226, 0.663] | 0.3104 |
 | mean_shortest_path_length | -0.414 | [-0.735, -0.001] | 0.0711 |
 
-### Group Comparison: Matched Source Position Error
+The intervals for minimum source distance and mean shortest-path length exclude zero;
+their unadjusted permutation p-values are 0.0162 and 0.0711, respectively. The other
+four intervals include zero; all p-values are listed above. These are descriptive
+results only: six features were compared without adjustment on 20 layouts, so the
+results do not establish a general or causal relationship.
 
-- Losing group (n=6): median = 16.78 cells
-- Winning group (n=14): median = 18.85 cells
-- Difference of medians (loses minus wins): -2.07 [-4.05, 4.87] cells
+### Group comparison: matched source position error
+
+| Group | Layout count | Median error (cells) |
+|---|---:|---:|
+| omp3 loses | 6 | 16.78 |
+| omp3 wins | 14 | 18.85 |
+
+Difference of medians (loses minus wins): -2.07 cells, 95% bootstrap interval
+[-4.05, 4.87] ([generated S14 summary](../results/s14_analysis.md)).
 
 ### Figures
 
@@ -443,16 +472,17 @@ Before running the full diagnostics analysis, re-simulating the online `omp3` ep
 
 ![S14 extreme field comparisons](../results/s14_extreme_field_comparisons.png)
 
-### Statistical Interpretation
+### Hypothesis verdicts
 
-Hypothesis: Six layout features were evaluated against the paired online difference without multiplicity adjustment, so all resulting p-values and confidence intervals are strictly descriptive and hypothesis-generating. Among the six features, minimum source distance exhibits a negative sample association ($\rho = -0.536$ [$-0.804, -0.101$], permutation $p = 0.0162$), whose bootstrap interval excludes zero, suggesting that layouts with more tightly clustered sources may provide stronger OMP3 advantages or that well-separated sources challenge parametric localization. In contrast, oracle dose saving ($\rho = 0.395$ [$-0.086, 0.746$], $p = 0.0849$), wall fraction ($\rho = -0.032$ [$-0.524, 0.452$], $p = 0.8942$), mean source-to-path distance ($\rho = -0.283$ [$-0.674, 0.220$], $p = 0.2201$), corridor intensity share ($\rho = 0.239$ [$-0.226, 0.663$], $p = 0.3104$), and shortest path length ($\rho = -0.414$ [$-0.735, -0.001$], $p = 0.0711$) have confidence intervals that span zero. Because multiple tests were conducted without correction, the observed association for minimum source distance cannot be considered confirmed.
-
-### Hypothesis Verdicts
-
-- H4: **not supported**. The losing group matched source position error median is 16.78 cells versus 18.85 cells for the winning group; the difference of medians (losing minus winning) is -2.07 cells [$-4.05, 4.87$], and the bootstrap interval covers zero.
-- H5: **not supported**. The Spearman rank correlation between oracle dose saving and paired difference is 0.395, but the 95% bootstrap interval [$-0.086, 0.746$] spans zero.
-- H1: **not supported** (confirmatory verdict from S13 remains unchanged under its pre-declared protocol threshold).
+- H4: **not supported**. The losing-group median source-position error is not larger than
+  the winning-group median, and the difference-of-medians interval includes zero.
+- H5: **not supported**. Oracle dose saving has a positive sample Spearman correlation,
+  but its 95% bootstrap interval includes zero.
+- H1: **not supported** (the confirmatory S13 verdict remains unchanged).
 
 ### Limitations
 
-The analysis is post hoc and exploratory; 20 layouts provide limited statistical power; six candidate features were formulated after observing S13 outcomes; correlation does not imply causation; no multiplicity corrections were applied; the evaluation is restricted to a single estimator setting (OMP3 with known source count $K=3$, dwell 1, 3x3 pattern) under idealized noise-free grid movement without shielding.
+This analysis is post hoc and exploratory. Twenty layouts provide limited statistical
+power; the six features were formulated after observing S13 outcomes; correlation does
+not imply causation; and no multiplicity correction was applied. Evaluation used one
+estimator setting under idealized noise-free grid movement without shielding.

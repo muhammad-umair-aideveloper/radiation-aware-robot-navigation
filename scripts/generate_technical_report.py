@@ -96,6 +96,8 @@ def main() -> int:
     s13_off_diff = s13_supp.get("offline", {}).get("paired_difference", {})
     s13_on_sign = s13_supp.get("online", {}).get("sign_test", {})
     s13_on_diff = s13_supp.get("online", {}).get("paired_difference", {})
+    s14_min_distance = s14["correlations"]["min_source_distance"]
+    s14_path_length = s14["correlations"]["mean_shortest_path_length"]
 
     lines = [
         "# Radiation-Aware Robot Navigation: Technical Report",
@@ -311,6 +313,7 @@ def main() -> int:
         "### S14: Exploratory Failure Analysis of Online Estimation",
         "",
         "Status: post hoc, exploratory. Six layout features were evaluated without multiplicity adjustment.",
+        "The unit of replication is the layout; the outcome is kernel regret minus OMP3 regret.",
         "",
         "| Feature | Spearman rho | 95% CI | Permutation p |",
         "|---|---:|---:|---:|",
@@ -325,7 +328,7 @@ def main() -> int:
         "|---|---:|",
         f"| Losing layouts median matched error (cells) | {s14['group_comparison']['loses_median_matched_error']:.2f} |",
         f"| Winning layouts median matched error (cells) | {s14['group_comparison']['wins_median_matched_error']:.2f} |",
-        f"| Difference of medians (loses minus wins) | {s14['group_comparison']['diff_of_medians']:.2f} |",
+        f"| Difference of medians (loses minus wins), 95% CI | {s14['group_comparison']['diff_of_medians']:.2f} [{s14['group_comparison']['diff_ci_low']:.2f}, {s14['group_comparison']['diff_ci_high']:.2f}] |",
         "",
         "| Hypothesis | Verdict |",
         "|---|---|",
@@ -333,10 +336,17 @@ def main() -> int:
         f"| H5 | {s14['verdicts']['H5']} |",
         f"| H1 (confirmatory from S13) | {s14['verdicts']['H1_unchanged']} |",
         "",
-        "Key finding: matched source position error does not separate losing from winning layouts",
-        "(H4 not supported); oracle dose saving correlation interval spans zero (H5 not supported);",
-        "and H1 remains not supported. Minimum source distance showed a descriptive sample correlation.",
-        "Detailed limits and per-layout tables are in the field estimation documentation.",
+        f"Across {s14['metadata']['layout_count']} layouts, the minimum-source-distance 95% interval "
+        f"({s14_min_distance['spearman_rho']:.3f} [{s14_min_distance['ci_low']:.3f}, "
+        f"{s14_min_distance['ci_high']:.3f}]) and mean-shortest-path-length 95% interval "
+        f"({s14_path_length['spearman_rho']:.3f} [{s14_path_length['ci_low']:.3f}, "
+        f"{s14_path_length['ci_high']:.3f}]) exclude zero; their unadjusted permutation "
+        f"p-values are {s14_min_distance['permutation_p']:.4f} and "
+        f"{s14_path_length['permutation_p']:.4f}. The other four intervals include zero. "
+        "All six comparisons are descriptive and exploratory, with no multiplicity adjustment.",
+        "H4 and H5 are not supported under their pre-declared thresholds; H1 remains not supported.",
+        "Per-layout tables, figures, and limitations are in the [S14 field-estimation analysis]",
+        "(docs/field_estimation.md#s14-failure-analysis-of-online-estimation-post-hoc-exploratory).",
         "",
         "## Negative and Null Results",
         "",
