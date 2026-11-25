@@ -145,3 +145,32 @@ and Markdown link validation (`scripts/check_links.py`). Individual experiment r
 data files are comprehensively cataloged in RESULTS_INDEX.md.
 
 Evidence: [Quality gate](../scripts/quality_gate.ps1), [Documentation Index](../DOCUMENTATION_INDEX.md), and [RESULTS_INDEX.md](../RESULTS_INDEX.md).
+
+### 16. On which fresh layouts did OMP3 lose to kernel online?
+
+In the S13 comparison, the paired difference is kernel regret minus OMP3 regret, so
+negative values indicate OMP3 losses. The six losses were layouts 200, 202, 204, 211,
+212, and 215. This describes the observed replication; H1 remains not supported under
+its pre-declared threshold.
+
+Evidence: [S14 per-layout analysis](../results/s14_analysis.md), [S13 summary](../results/s13_summary.md), and [S14 protocol](../EXPERIMENTS.md#s14-exploratory-failure-analysis-of-online-estimation-post-hoc-exploratory).
+
+### 17. Which layout features were associated with OMP3 losses?
+
+The sample correlations for minimum source distance and mean shortest-path length were
+negative: -0.536 [-0.804, -0.101] and -0.414 [-0.735, -0.001], respectively. These
+two 95% bootstrap intervals exclude zero; their unadjusted permutation p-values are
+0.0162 and 0.0711. The analysis compared six features without adjustment on 20 layouts,
+so these exploratory associations do not establish a causal failure mechanism.
+
+Evidence: [S14 correlation table](../results/s14_analysis.md), [field-estimation analysis](field_estimation.md#s14-failure-analysis-of-online-estimation-post-hoc-exploratory), and [S14 protocol](../EXPERIMENTS.md#s14-exploratory-failure-analysis-of-online-estimation-post-hoc-exploratory).
+
+### 18. Do source-position error or oracle dose saving explain the losses?
+
+Neither pre-declared exploratory threshold was met. H4 was not supported: the losing
+group median source-position error was 16.78 cells versus 18.85 for the winning group,
+with a losing-minus-winning difference of -2.07 [-4.05, 4.87]. H5 was not supported:
+the oracle-saving Spearman correlation was 0.395 [-0.086, 0.746], with an interval
+that includes zero.
+
+Evidence: [S14 verdicts and group comparison](../results/s14_analysis.md), [field-estimation analysis](field_estimation.md#s14-failure-analysis-of-online-estimation-post-hoc-exploratory), and [S14 protocol](../EXPERIMENTS.md#s14-exploratory-failure-analysis-of-online-estimation-post-hoc-exploratory).

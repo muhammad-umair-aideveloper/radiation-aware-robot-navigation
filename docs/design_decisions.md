@@ -111,6 +111,24 @@ or completed; they do not predict future performance.
   and [results index](../RESULTS_INDEX.md).
 - **Status:** Implemented.
 
+## 11. Separate exploratory S14 analysis from S13 verdicts
+
+- **Context:** S13's confirmatory online comparison produced a result below its pre-declared
+  layout-count threshold, motivating a follow-up examination of the layouts where OMP3 lost.
+- **Decision:** Keep the S13 H1 verdict fixed as not supported. The S14 question was post hoc
+  because it was selected after S13 results were seen; before S14 analysis code and diagnostics
+  ran, the plan fixed the six features, association procedures, diagnostic measures, and H4/H5
+  thresholds. Label the follow-up post hoc and exploratory, report it as descriptive, and prefix
+  any proposed explanation with "Hypothesis:".
+- **Alternatives considered:** Reinterpreting the S13 outcome or changing H1's threshold in
+  response to exploratory results would blur the distinction between confirmatory and
+  hypothesis-generating analyses.
+- **Evidence:** [S14 plan](../EXPERIMENTS.md#s14-exploratory-failure-analysis-of-online-estimation-post-hoc-exploratory),
+  [S13 summary](../results/s13_summary.md), [S14 results](../results/s14_analysis.md), and
+  [project changelog](../CHANGELOG.md). In repository history, the S14 plan commit
+  `895cb30` precedes its feature, diagnostics, and analysis implementation commits.
+- **Status:** S14 is reported as post hoc and exploratory; it does not change H1.
+
 ## What I would do differently
 
 Given the completed work, I would add machine-readable protocol metadata to every summary
