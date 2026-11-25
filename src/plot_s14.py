@@ -123,8 +123,14 @@ def plot_source_error_by_group(data: dict) -> None:
     per_layout = data["per_layout"]
     gc = data["group_comparison"]
 
-    loses = [r["mean_matched_source_error"] for r in per_layout if r["group"] == "omp3 loses"]
-    wins = [r["mean_matched_source_error"] for r in per_layout if r["group"] == "omp3 wins"]
+    loses = [
+        r["mean_matched_source_position_error"]
+        for r in per_layout if r["group"] == "omp3 loses"
+    ]
+    wins = [
+        r["mean_matched_source_position_error"]
+        for r in per_layout if r["group"] == "omp3 wins"
+    ]
 
     fig, ax = plt.subplots(figsize=(7, 5))
     positions = [1, 2]
@@ -155,19 +161,12 @@ def plot_source_error_by_group(data: dict) -> None:
         f"omp3 wins\nmedian = {gc['wins_median_matched_error']:.2f}",
     ], fontsize=10)
     ax.set_ylabel("Mean matched source position error (cells)")
-    ax.set_title("S14: Matched Source Position Error by Outcome Group")
-
-    annot = (
-        f"Diff of medians: {gc['diff_of_medians']:.2f} cells\n"
-        f"95% CI: [{gc['diff_ci_low']:.2f}, {gc['diff_ci_high']:.2f}]\n"
-        f"H4: not supported (CI covers zero)"
-    )
-    ax.text(
-        0.05, 0.95, annot,
-        transform=ax.transAxes,
-        fontsize=9,
-        verticalalignment="top",
-        bbox=dict(boxstyle="round,pad=0.4", facecolor="#101820", edgecolor="#666666", alpha=0.85),
+    ax.set_title(
+        "S14: Matched Source Position Error by Outcome Group\n"
+        f"Median difference (loses - wins): {gc['diff_of_medians']:.2f} cells "
+        f"[{gc['diff_ci_low']:.2f}, {gc['diff_ci_high']:.2f}]\n"
+        f"H4: {data['verdicts']['H4']}",
+        fontsize=11,
     )
     ax.legend(loc="upper right")
 
@@ -194,8 +193,8 @@ def plot_extreme_field_comparison(data: dict) -> None:
     """Figure (d): Side-by-side picture of true field and final omp3 estimate for extreme layouts."""
     # Choice rule: layout with minimum and maximum paired online difference
     sorted_layouts = sorted(data["per_layout"], key=lambda r: r["paired_online_difference"])
-    min_row = sorted_layouts[0]   # most negative (layout 204)
-    max_row = sorted_layouts[-1]  # most positive (layout 201)
+    min_row = sorted_layouts[0]
+    max_row = sorted_layouts[-1]
 
     min_seed = min_row["layout_seed"]
     max_seed = max_row["layout_seed"]
@@ -290,12 +289,14 @@ def plot_extreme_field_comparison(data: dict) -> None:
         ax_est.legend(by_label.values(), by_label.keys(), loc="lower right", fontsize=7.5)
 
     caption = (
-        "Figure: True radiation fields versus final online OMP3 estimates for the extreme layouts.\n"
-        "Selection rule: The layouts with the most negative paired difference (Layout 204, -19.44%) and the most\n"
-        "positive paired difference (Layout 201, +160.89%) were chosen. Evaluated on noise seed 0, start 0."
+        "Selection: minimum and maximum paired online differences "
+        "(kernel regret minus OMP3 regret).\n"
+        f"Layout {min_seed} ({min_row['paired_online_difference']:.2f}%) and "
+        f"Layout {max_seed} ({max_row['paired_online_difference']:.2f}%); "
+        "noise seed 0, start index 0."
     )
-    fig.text(0.5, 0.01, caption, ha="center", fontsize=8, color="#cccccc")
-    fig.tight_layout(rect=[0, 0.04, 1, 1])
+    fig.text(0.5, 0.012, caption, ha="center", fontsize=7.5, color="#cccccc")
+    fig.tight_layout(rect=[0, 0.07, 1, 1])
 
     out_path = RESULTS / "s14_extreme_field_comparisons.png"
     fig.savefig(out_path)
