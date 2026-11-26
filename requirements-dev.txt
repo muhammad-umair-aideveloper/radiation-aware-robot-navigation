@@ -2,3 +2,4 @@
 coverage==7.13.1
 pytest-cov==7.0.0
 ruff==0.15.4
+mypy>=1.13,<2.0

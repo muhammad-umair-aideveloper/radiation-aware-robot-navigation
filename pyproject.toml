@@ -5,3 +5,17 @@ line-length = 100
 [tool.ruff.lint]
 select = ["E4", "E7", "E9", "F"]
 ignore = ["E402"]
+
+[tool.mypy]
+python_version = "3.10"
+files = [
+    "src/environment.py",
+    "src/planners.py",
+    "src/estimators.py",
+    "src/geiger_model.py",
+    "src/measurement_patterns.py",
+    "src/online_sim.py",
+    "src/survey.py",
+    "src/shielding.py",
+]
+ignore_missing_imports = true
