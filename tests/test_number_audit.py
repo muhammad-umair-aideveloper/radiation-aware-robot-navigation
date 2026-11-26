@@ -52,11 +52,11 @@ v3.11.2
 
 def test_unmatched_detection(tmp_path: Path) -> None:
     (tmp_path / "results").mkdir()
-    (tmp_path / "results" / "summary.md").write_text("Known 12.34\n")
+    (tmp_path / "results" / "summary.md").write_text("Known 12.34\n", encoding="utf-8")
     (tmp_path / "allowlist.json").write_text(
         json.dumps({"entries": []}), encoding="utf-8"
     )
     doc = tmp_path / "README.md"
-    doc.write_text("Measured 12.34 and unknown 987.65\n")
+    doc.write_text("Measured 12.34 and unknown 987.65\n", encoding="utf-8")
     unmatched = audit(tmp_path, tmp_path / "allowlist.json", [doc])
     assert unmatched == [("README.md", 1, "987.65")]

@@ -23,7 +23,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def test_golden_references() -> None:
     reference = json.loads(
-        (ROOT / "tests" / "golden_reference.json").read_text()
+        (ROOT / "tests" / "golden_reference.json").read_text(encoding="utf-8")
     )
     env = RadiationEnv()
     starts = tuple(generate_evaluation_starts(env, 50, 123)[::2])
