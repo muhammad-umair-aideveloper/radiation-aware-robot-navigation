@@ -38,7 +38,7 @@ def setup() -> None:
 
 
 def plot_regret() -> None:
-    summary = json.loads(SUMMARY.read_text())
+    summary = json.loads(SUMMARY.read_text(encoding="utf-8"))
     fig, axes = plt.subplots(1, 2, figsize=(13, 5), sharey=True)
     colors = {
         "kernel": "#56b4e9",

@@ -42,7 +42,7 @@ def _controls_pass() -> None:
     path = ROOT / "results" / "controls.json"
     if not path.exists():
         raise RuntimeError("controls.json is missing; run online_controls.py first")
-    controls = json.loads(path.read_text())
+    controls = json.loads(path.read_text(encoding="utf-8"))
     if not controls.get("true", {}).get("passed", False):
         raise RuntimeError("true simulator control failed")
     if not controls.get("zero", {}).get("passed", False):
@@ -309,7 +309,7 @@ def main() -> None:
         references = _references(mu, atten)
         OUTPUT.mkdir(parents=True, exist_ok=True)
         reference_path = OUTPUT / f"references_mu{mu:g}.json"
-        reference_path.write_text(json.dumps(references, indent=2))
+        reference_path.write_text(json.dumps(references, indent=2), encoding="utf-8")
 
         for estimator in ESTIMATORS:
             for n in NS:
@@ -322,7 +322,7 @@ def main() -> None:
                         estimator, n, dwell, mu, SEEDS,
                         atten, shielded, references,
                     )
-                    path.write_text(json.dumps(result, indent=2))
+                    path.write_text(json.dumps(result, indent=2), encoding="utf-8")
                     print(f"finished {name}")
 
 

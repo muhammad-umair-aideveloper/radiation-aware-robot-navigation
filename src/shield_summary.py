@@ -35,7 +35,7 @@ def _build_summary() -> Dict[str, Any]:
         if not reference_path.exists():
             missing.append(reference_path.name)
             continue
-        reference = json.loads(reference_path.read_text())
+        reference = json.loads(reference_path.read_text(encoding="utf-8"))
         reference["oracle_saving_percent"] = (
             (reference["shortest_dose_mean"] - reference["oracle_dose_mean"])
             / reference["shortest_dose_mean"]
@@ -54,7 +54,7 @@ def _build_summary() -> Dict[str, Any]:
                     if not path.exists():
                         missing.append(name)
                         continue
-                    result = json.loads(path.read_text())
+                    result = json.loads(path.read_text(encoding="utf-8"))
                     configurations[mu_key][key][estimator] = {
                         "dose_regret_percent": result["summary"]["dose_regret_percent"],
                         "l2_error": result["summary"]["l2_error"],
@@ -116,8 +116,8 @@ def _markdown(summary: Dict[str, Any]) -> str:
 
 def main() -> None:
     summary = _build_summary()
-    SUMMARY_JSON.write_text(json.dumps(summary, indent=2))
-    SUMMARY_MD.write_text(_markdown(summary))
+    SUMMARY_JSON.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    SUMMARY_MD.write_text(_markdown(summary), encoding="utf-8")
 
 
 if __name__ == "__main__":
