@@ -93,7 +93,7 @@ def run_one(write: bool = True) -> Dict[str, Any]:
     result = run_configuration("kernel", 50, 1, env, starts)
     if write:
         OUTPUT.mkdir(parents=True, exist_ok=True)
-        configuration_path("kernel", 50, 1).write_text(json.dumps(result, indent=2))
+        configuration_path("kernel", 50, 1).write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result
 def run_all() -> None:
     """Run every missing study configuration."""
@@ -105,10 +105,10 @@ def run_all() -> None:
             for dwell in DWELLS:
                 path = configuration_path(estimator, n, dwell)
                 if not path.exists():
-                    path.write_text(json.dumps(run_configuration(estimator, n, dwell, env, starts), indent=2))
+                    path.write_text(json.dumps(run_configuration(estimator, n, dwell, env, starts), indent=2), encoding="utf-8")
 def write_summary() -> None:
     """Write summary tables and missing-configuration list."""
-    files = {path.name: json.loads(path.read_text()) for path in OUTPUT.glob("*.json")
+    files = {path.name: json.loads(path.read_text(encoding="utf-8")) for path in OUTPUT.glob("*.json")
              if path.name != "summary.json"}
     lines = ["# S7 estimation study summary", "", "## Dose regret vs oracle (%)"]
     for estimator in ESTIMATORS:
@@ -125,8 +125,8 @@ def write_summary() -> None:
     missing_lines = [f"- {name}" for name in missing] or ["- none"]
     lines += ["", "## References", json.dumps(next(iter(files.values()))["references"] if files else {}),
               "", "## Missing configurations"] + missing_lines
-    (ROOT / "results" / "estimation_summary.md").write_text("\n".join(lines) + "\n")
-    (ROOT / "results" / "estimation_summary.json").write_text(json.dumps({"missing": missing, "files": sorted(files)}, indent=2))
+    (ROOT / "results" / "estimation_summary.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (ROOT / "results" / "estimation_summary.json").write_text(json.dumps({"missing": missing, "files": sorted(files)}, indent=2), encoding="utf-8")
 def main() -> None:
     """Parse flags and run the requested study action."""
     parser = argparse.ArgumentParser()

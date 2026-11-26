@@ -27,7 +27,7 @@ NS = (10, 25, 50, 100, 200)
 
 def load(name: str, n: int, dwell: float) -> Dict:
     """Load one configuration result."""
-    return json.loads((ESTIMATION / f"{name}_N{n}_t{dwell:g}.json").read_text())
+    return json.loads((ESTIMATION / f"{name}_N{n}_t{dwell:g}.json").read_text(encoding="utf-8"))
 
 
 def setup() -> None:
