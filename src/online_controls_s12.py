@@ -77,10 +77,10 @@ def run_control() -> Dict[str, object]:
     env = RadiationEnv()
     starts = tuple(generate_evaluation_starts(env, 50, 123)[::2])
     kernel_reference = json.loads(
-        (ROOT / "results" / "online" / "kernel_3x3_t1.json").read_text()
+        (ROOT / "results" / "online" / "kernel_3x3_t1.json").read_text(encoding="utf-8")
     )
     omp_reference = json.loads(
-        (ROOT / "results" / "param" / "online_omp3_3x3_t1.json").read_text()
+        (ROOT / "results" / "param" / "online_omp3_3x3_t1.json").read_text(encoding="utf-8")
     )
 
     checks: list[Dict[str, object]] = []
@@ -127,7 +127,7 @@ if __name__ == "__main__":
     result = run_control()
     output = ROOT / "results" / "s12_control.json"
     output.parent.mkdir(parents=True, exist_ok=True)
-    output.write_text(json.dumps(result, indent=2))
+    output.write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(json.dumps(result, indent=2))
     if not result["passed"]:
         raise SystemExit(1)

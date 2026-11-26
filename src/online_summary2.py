@@ -14,7 +14,7 @@ ONLINE2 = RESULTS / "online2"
 def load_results() -> Dict[str, Dict[str, Any]]:
     """Load all S9 configuration results by filename."""
     return {
-        path.name: json.loads(path.read_text())
+        path.name: json.loads(path.read_text(encoding="utf-8"))
         for path in ONLINE2.glob("*.json")
         if path.name != "references.json"
     }
@@ -48,11 +48,11 @@ def table(headers: List[str], rows: List[List[str]]) -> str:
 def main() -> None:
     """Write the S9 markdown and JSON summaries."""
     data = load_results()
-    references = json.loads((ONLINE2 / "references.json").read_text())
-    controls = json.loads((RESULTS / "controls.json").read_text())
+    references = json.loads((ONLINE2 / "references.json").read_text(encoding="utf-8"))
+    controls = json.loads((RESULTS / "controls.json").read_text(encoding="utf-8"))
     s8: Dict[str, Dict[str, Any]] = {}
     for path in (RESULTS / "online").glob("*_3x3_t*.json"):
-        item = json.loads(path.read_text())
+        item = json.loads(path.read_text(encoding="utf-8"))
         if item["dwell"] in (10, 1):
             s8[f"{item['estimator']}_{int(item['dwell'])}"] = item
 
@@ -116,7 +116,7 @@ def main() -> None:
                     })
 
     lines = ["", "# S9 online study summary", "", "## Controls", "",
-             (RESULTS / "controls.md").read_text().strip(), "",
+             (RESULTS / "controls.md").read_text(encoding="utf-8").strip(), "",
              "## References", "",
              table(["reference", "mean dose (a.u.)", "mean steps", "oracle saving %"], [
                  ["oracle", one(references["oracle_dose_mean"]),
@@ -145,8 +145,8 @@ def main() -> None:
                   ])]
     lines += ["## Missing configurations", "",
               "none" if not missing else "\n".join(missing), ""]
-    (RESULTS / "online2_summary.md").write_text("\n".join(lines))
-    (RESULTS / "online2_summary.json").write_text(json.dumps(summary, indent=2))
+    (RESULTS / "online2_summary.md").write_text("\n".join(lines), encoding="utf-8")
+    (RESULTS / "online2_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
 
 if __name__ == "__main__":

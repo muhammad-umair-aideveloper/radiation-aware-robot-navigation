@@ -133,7 +133,7 @@ def main() -> None:
         return
 
     OUTPUT.mkdir(parents=True, exist_ok=True)
-    (OUTPUT / "references.json").write_text(json.dumps(reference, indent=2))
+    (OUTPUT / "references.json").write_text(json.dumps(reference, indent=2), encoding="utf-8")
     for estimator in ESTIMATORS:
         for pattern in PATTERNS:
             for dwell in DWELLS:
@@ -141,7 +141,7 @@ def main() -> None:
                 if path.exists():
                     continue
                 result = run_configuration(estimator, pattern, dwell, SEEDS, reference)
-                path.write_text(json.dumps(result, indent=2))
+                path.write_text(json.dumps(result, indent=2), encoding="utf-8")
                 print(
                     f"finished {estimator}/{pattern}/t{dwell:g} "
                     f"{result['elapsed_seconds']:.2f}s"

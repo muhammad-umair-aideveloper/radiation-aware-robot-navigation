@@ -30,7 +30,7 @@ PATTERNS = ("cell", "3x3")
 def _load(estimator: str, pattern: str, dwell: float) -> Dict[str, Any]:
     """Load one saved result."""
     name = f"{estimator}_{pattern}_t{dwell:g}.json"
-    return json.loads((ONLINE / name).read_text())
+    return json.loads((ONLINE / name).read_text(encoding="utf-8"))
 
 
 def _setup() -> None:
@@ -41,7 +41,7 @@ def _setup() -> None:
 
 def plot_regret() -> None:
     """Plot online and offline dose regret with bootstrap intervals."""
-    references = json.loads((ONLINE / "references.json").read_text())
+    references = json.loads((ONLINE / "references.json").read_text(encoding="utf-8"))
     shortest_regret = (
         (references["shortest_dose_mean"] - references["oracle_dose_mean"])
         / references["oracle_dose_mean"]

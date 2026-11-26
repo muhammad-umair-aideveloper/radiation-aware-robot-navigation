@@ -60,7 +60,7 @@ def _table(estimator: str, configs: Dict[str, Any]) -> List[str]:
 
 def main() -> None:
     """Read configurations and write markdown and JSON summaries."""
-    references = json.loads((RESULTS / "references.json").read_text())
+    references = json.loads((RESULTS / "references.json").read_text(encoding="utf-8"))
     configs: Dict[str, Any] = {}
     missing: List[str] = []
     for estimator in ESTIMATORS:
@@ -69,7 +69,7 @@ def main() -> None:
                 name = _config_name(estimator, pattern, dwell)
                 path = RESULTS / name
                 if path.exists():
-                    configs[name] = json.loads(path.read_text())
+                    configs[name] = json.loads(path.read_text(encoding="utf-8"))
                 else:
                     missing.append(name)
 
@@ -84,7 +84,7 @@ def main() -> None:
         "configurations": configs,
         "missing_configurations": missing,
     }
-    SUMMARY_JSON.write_text(json.dumps(summary, indent=2))
+    SUMMARY_JSON.write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
     lines = [
         "# S8 online measure-estimate-replan summary\n",
@@ -107,7 +107,7 @@ def main() -> None:
         lines.extend(f"- {name}\n" for name in missing)
     else:
         lines.append("- none\n")
-    SUMMARY_MD.write_text("".join(lines))
+    SUMMARY_MD.write_text("".join(lines), encoding="utf-8")
 
 
 if __name__ == "__main__":

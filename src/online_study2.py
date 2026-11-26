@@ -112,7 +112,7 @@ def _controls_pass() -> bool:
     if not path.exists():
         print("controls.json is missing; run online_controls.py first")
         return False
-    controls = json.loads(path.read_text())
+    controls = json.loads(path.read_text(encoding="utf-8"))
     if not controls.get("true", {}).get("passed", False):
         print("true simulator control failed; aborting study")
         return False
@@ -140,7 +140,7 @@ def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     references_path = OUTPUT / "references.json"
     if not references_path.exists():
-        references_path.write_text(json.dumps(reference, indent=2))
+        references_path.write_text(json.dumps(reference, indent=2), encoding="utf-8")
     for estimator, pattern, dwell, beta, noise_free in _configurations():
         path = OUTPUT / _filename(estimator, pattern, dwell, beta, noise_free)
         if path.exists():
@@ -148,7 +148,7 @@ def main() -> None:
         seeds = (0,) if noise_free else SEEDS
         result = run_configuration(estimator, pattern, dwell, beta, seeds,
                                    noise_free, reference)
-        path.write_text(json.dumps(result, indent=2))
+        path.write_text(json.dumps(result, indent=2), encoding="utf-8")
         print(f"finished {estimator}/{pattern}/t"
               f"{'inf' if noise_free else f'{dwell:g}'}/b{beta:g} "
               f"{result['elapsed_seconds']:.2f}s")

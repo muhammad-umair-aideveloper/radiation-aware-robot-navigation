@@ -105,7 +105,7 @@ def main() -> None:
     results = run_controls(STARTS)
     output = ROOT / "results"
     output.mkdir(parents=True, exist_ok=True)
-    (output / "controls.json").write_text(json.dumps(results, indent=2))
+    (output / "controls.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
     markdown = [
         "| control | max abs difference | passed |",
         "|---|---:|---|",
@@ -116,7 +116,7 @@ def main() -> None:
             f"| {name} | {item['max_abs_difference']:.12g} | {item['passed']} |"
         )
     report = "\n".join(markdown) + "\n"
-    (output / "controls.md").write_text(report)
+    (output / "controls.md").write_text(report, encoding="utf-8")
     print(report, end="")
     print(json.dumps(results, indent=2))
     if not all(results[name]["passed"] for name in ("true", "zero")):

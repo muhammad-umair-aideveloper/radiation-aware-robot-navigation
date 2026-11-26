@@ -18,7 +18,7 @@ RESULTS = ROOT / "results"
 
 def load_summary() -> Dict[str, Any]:
     """Load the generated S9 summary."""
-    return json.loads((RESULTS / "online2_summary.json").read_text())
+    return json.loads((RESULTS / "online2_summary.json").read_text(encoding="utf-8"))
 
 
 def noisy_row(
