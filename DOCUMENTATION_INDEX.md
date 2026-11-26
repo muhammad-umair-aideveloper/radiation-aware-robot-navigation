@@ -58,4 +58,5 @@ for source data and interpretation rules.
 | [docs/design_decisions.md](docs/design_decisions.md) | Reviewer-facing implementation decisions and alternatives |
 | [docs/reviewer_faq.md](docs/reviewer_faq.md) | Answers to 18 key reviewer questions grounded in study evidence |
 | [docs/results_integrity.md](docs/results_integrity.md) | Intentional result-manifest update and verification workflow |
+| [docs/performance_baseline.md](docs/performance_baseline.md) | Machine-specific navigation and estimator timing baseline |
 | [COVERAGE.md](COVERAGE.md) | Core-module coverage summary |

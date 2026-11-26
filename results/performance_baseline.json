@@ -1,0 +1,23 @@
+{
+  "machine": {
+    "cpu": "Intel64 Family 6 Model 78 Stepping 3, GenuineIntel",
+    "cpu_count": 4,
+    "operating_system": "Windows-10-10.0.19045-SP0",
+    "python": "3.14.3",
+    "numpy": "2.4.2",
+    "matplotlib": "3.11.2",
+    "pillow": "13.0.0"
+  },
+  "layout": "canonical 50x50",
+  "repetitions": 3,
+  "timings_median_seconds": {
+    "astar_shortest": 0.014152700081467628,
+    "astar_aware": 0.03058690018951893,
+    "estimator_kernel": 0.015803700080141425,
+    "estimator_idw": 0.010989299975335598,
+    "estimator_omp3": 0.01967379986308515,
+    "estimator_omp3_shielded": 0.06387889990583062,
+    "online_episode_idw": 1.0365750999189913
+  },
+  "shield_attenuation_matrix_seconds": 69.40305679989979
+}
