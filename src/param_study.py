@@ -247,7 +247,7 @@ def _controls_pass() -> bool:
     if not path.exists():
         print("controls.json is missing; run online_controls.py first")
         return False
-    controls = json.loads(path.read_text())
+    controls = json.loads(path.read_text(encoding="utf-8"))
     if not controls.get("true", {}).get("passed", False):
         print("true simulator control failed; aborting study")
         return False
@@ -291,21 +291,21 @@ def main() -> None:
     OUTPUT.mkdir(parents=True, exist_ok=True)
     references_path = OUTPUT / "references.json"
     if not references_path.exists():
-        references_path.write_text(json.dumps(references, indent=2))
+        references_path.write_text(json.dumps(references, indent=2), encoding="utf-8")
     seeds = SEEDS
     for estimator, n, dwell in _offline_configurations():
         path = OUTPUT / f"offline_{estimator}_N{n}_t{dwell:g}.json"
         if path.exists():
             continue
         result = _offline_configuration(estimator, n, dwell, seeds, references)
-        path.write_text(json.dumps(result, indent=2))
+        path.write_text(json.dumps(result, indent=2), encoding="utf-8")
         print(f"finished {path.name}")
     for estimator, pattern, dwell in _online_configurations():
         path = OUTPUT / f"online_{estimator}_{pattern}_t{dwell:g}.json"
         if path.exists():
             continue
         result = _online_configuration(estimator, pattern, dwell, seeds, references)
-        path.write_text(json.dumps(result, indent=2))
+        path.write_text(json.dumps(result, indent=2), encoding="utf-8")
         print(f"finished {path.name}")
 
 

@@ -19,7 +19,7 @@ S8_DIR = ROOT / "results" / "online"
 
 def _read(path: Path) -> Dict[str, Any]:
     """Read one study result."""
-    return json.loads(path.read_text())
+    return json.loads(path.read_text(encoding="utf-8"))
 
 
 def _metric(result: Dict[str, Any], name: str) -> Dict[str, float]:
@@ -247,8 +247,8 @@ def _markdown(summary: Dict[str, Any]) -> str:
 def main() -> None:
     """Write the machine-readable and markdown S10 summaries."""
     summary = _build_summary()
-    SUMMARY_JSON.write_text(json.dumps(summary, indent=2))
-    SUMMARY_MD.write_text(_markdown(summary))
+    SUMMARY_JSON.write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    SUMMARY_MD.write_text(_markdown(summary), encoding="utf-8")
 
 
 if __name__ == "__main__":

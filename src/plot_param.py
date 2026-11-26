@@ -93,7 +93,7 @@ def plot_online(summary: dict) -> None:
             label=name,
             color=color,
         )
-    references = json.loads((ROOT / "results" / "param" / "references.json").read_text())
+    references = json.loads((ROOT / "results" / "param" / "references.json").read_text(encoding="utf-8"))
     shortest_regret = (
         (references["shortest_dose_mean"] - references["oracle_dose_mean"])
         / references["oracle_dose_mean"]
