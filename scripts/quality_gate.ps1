@@ -22,4 +22,8 @@ Write-Host "Quality gate: documentation links"
 python scripts/check_links.py
 if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+Write-Host "Quality gate: results integrity"
+python scripts/results_integrity.py --check
+if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
 Write-Host "QUALITY GATE PASSED"

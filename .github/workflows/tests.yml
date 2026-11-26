@@ -30,6 +30,9 @@ jobs:
           pip install -r requirements.txt
           pip install -r requirements-dev.txt
 
+      - name: Verify result integrity
+        run: python scripts/results_integrity.py --check
+
       - name: Run quality gate
         shell: pwsh
         run: ./scripts/quality_gate.ps1

@@ -57,4 +57,5 @@ for source data and interpretation rules.
 | [docs/field_estimation.md](docs/field_estimation.md) | S7-S14 estimator and replanning studies |
 | [docs/design_decisions.md](docs/design_decisions.md) | Reviewer-facing implementation decisions and alternatives |
 | [docs/reviewer_faq.md](docs/reviewer_faq.md) | Answers to 18 key reviewer questions grounded in study evidence |
+| [docs/results_integrity.md](docs/results_integrity.md) | Intentional result-manifest update and verification workflow |
 | [COVERAGE.md](COVERAGE.md) | Core-module coverage summary |
