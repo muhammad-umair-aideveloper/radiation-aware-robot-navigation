@@ -16,6 +16,10 @@ def reachable_free_cells(
 ) -> set[GridCell]:
     """Return free cells reachable from start using 8-connected movement."""
     mask = np.asarray(free_mask, dtype=bool)
+    if mask.ndim != 2:
+        raise ValueError("free_mask must be two-dimensional")
+    if not (0 <= start[0] < mask.shape[0] and 0 <= start[1] < mask.shape[1]):
+        raise ValueError("start must be within the free_mask shape")
     if not mask[start]:
         return set()
 

@@ -21,9 +21,23 @@ def estimate_field(
     estimator: str,
 ) -> np.ndarray:
     """Estimate a nonnegative radiation field from pooled readings."""
-    cells = np.array(list(readings.keys()), dtype=int)
-    values = np.array([np.mean(v) for v in readings.values()], dtype=float)
     mask = np.asarray(free_mask, dtype=bool)
+    if mask.ndim != 2:
+        raise ValueError("free_mask must be two-dimensional")
+    if not readings:
+        raise ValueError("readings must contain at least one measurement")
+    cells = np.array(list(readings.keys()), dtype=int)
+    if cells.ndim != 2 or cells.shape[1] != 2:
+        raise ValueError("reading cells must have shape (n, 2)")
+    if np.any(cells < 0) or np.any(cells[:, 0] >= mask.shape[0]) or np.any(
+        cells[:, 1] >= mask.shape[1]
+    ):
+        raise ValueError("reading cells must be within the free_mask shape")
+    if any(len(values) == 0 for values in readings.values()):
+        raise ValueError("each reading cell must contain at least one value")
+    values = np.array([np.mean(v) for v in readings.values()], dtype=float)
+    if not np.all(np.isfinite(values)):
+        raise ValueError("reading values must be finite")
     if len(cells) < 3:
         field = np.zeros(mask.shape, dtype=float)
         field[mask] = float(values.mean())
@@ -33,7 +47,12 @@ def estimate_field(
     elif estimator == "idw":
         field = idw(cells, values, mask)
     elif estimator.startswith("omp"):
-        k = int(estimator[3:])
+        try:
+            k = int(estimator[3:])
+        except ValueError as exc:
+            raise ValueError(f"Unknown estimator: {estimator}") from exc
+        if k < 1:
+            raise ValueError("OMP estimator source count must be at least one")
         field, _ = parametric_sources(cells, values, mask, k=k)
     else:
         raise ValueError(f"Unknown estimator: {estimator}")
@@ -48,13 +67,33 @@ def inflate_unknown(
     radius: int = 4,
 ) -> np.ndarray:
     """Inflate estimates in free cells far from measured cells."""
+    est = np.asarray(est, dtype=float)
+    mask = np.asarray(free_mask, dtype=bool)
+    if mask.ndim != 2:
+        raise ValueError("free_mask must be two-dimensional")
+    if est.shape != mask.shape:
+        raise ValueError("est and free_mask must have matching shapes")
+    if not np.isfinite(beta) or beta < 0.0:
+        raise ValueError("beta must be non-negative and finite")
+    if not isinstance(radius, (int, np.integer)) or radius < 0:
+        raise ValueError("radius must be a non-negative integer")
+    if not readings:
+        raise ValueError("readings must contain at least one measurement")
     measured = np.array(list(readings.keys()), dtype=int)
+    if measured.ndim != 2 or measured.shape[1] != 2:
+        raise ValueError("reading cells must have shape (n, 2)")
+    if np.any(measured < 0) or np.any(measured[:, 0] >= mask.shape[0]) or np.any(
+        measured[:, 1] >= mask.shape[1]
+    ):
+        raise ValueError("reading cells must be within the free_mask shape")
     m = float(np.mean([np.mean(v) for v in readings.values()]))
-    rows, cols = np.indices(free_mask.shape)
-    d2 = np.full(free_mask.shape, np.inf)
+    if not np.isfinite(m):
+        raise ValueError("reading values must be finite")
+    rows, cols = np.indices(mask.shape)
+    d2 = np.full(mask.shape, np.inf)
     for r, c in measured:
         d2 = np.minimum(d2, (rows - r) ** 2 + (cols - c) ** 2)
-    unknown = (d2 > radius**2) & free_mask
+    unknown = (d2 > radius**2) & mask
     out = est.copy()
     out[unknown] = np.maximum(out[unknown], beta * m)
     return out
@@ -84,8 +123,33 @@ def run_online_episode(
     waypoints for at most that many steps, then uses the usual online loop to
     reach the goal. A budget of zero preserves the original B=0 behaviour.
     """
+    true_field = np.asarray(true_field, dtype=float)
+    free_mask = np.asarray(free_mask, dtype=bool)
+    if true_field.ndim != 2 or free_mask.ndim != 2:
+        raise ValueError("true_field and free_mask must be two-dimensional")
+    if true_field.shape != free_mask.shape:
+        raise ValueError("true_field and free_mask must have matching shapes")
+    if not np.all(np.isfinite(true_field)) or np.any(true_field < 0.0):
+        raise ValueError("true_field must contain finite non-negative intensities")
+    if not np.isfinite(dwell) or dwell <= 0.0:
+        raise ValueError("dwell must be positive and finite")
+    if replan_every < 1:
+        raise ValueError("replan_every must be at least one")
+    if max_steps < 1:
+        raise ValueError("max_steps must be at least one")
+    if not np.isfinite(lam) or lam < 0.0:
+        raise ValueError("lam must be non-negative and finite")
     if survey_budget < 0:
         raise ValueError("survey_budget must be nonnegative")
+    if not (
+        0 <= start[0] < free_mask.shape[0]
+        and 0 <= start[1] < free_mask.shape[1]
+        and 0 <= goal[0] < free_mask.shape[0]
+        and 0 <= goal[1] < free_mask.shape[1]
+    ):
+        raise ValueError("start and goal must be within the free_mask shape")
+    if not free_mask[start] or not free_mask[goal]:
+        raise ValueError("start and goal must be free cells")
     readings: Dict[Tuple[int, int], List[float]] = {}
     measurement_index = 0
 

@@ -11,7 +11,12 @@ def pattern_cells(
     cell: Tuple[int, int], free_mask: np.ndarray, pattern: str
 ) -> np.ndarray:
     """Return free cells covered by a named measurement pattern."""
+    mask = np.asarray(free_mask, dtype=bool)
+    if mask.ndim != 2:
+        raise ValueError("free_mask must be two-dimensional")
     r, c = cell
+    if not (0 <= r < mask.shape[0] and 0 <= c < mask.shape[1]):
+        raise ValueError("cell must be within the free_mask shape")
     if pattern == "cell":
         offsets = [(0, 0)]
     elif pattern == "3x3":
@@ -31,7 +36,6 @@ def pattern_cells(
     else:
         raise ValueError(f"Unknown measurement pattern: {pattern}")
 
-    mask = np.asarray(free_mask, dtype=bool)
     cells = [
         (r + dr, c + dc)
         for dr, dc in offsets

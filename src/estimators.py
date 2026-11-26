@@ -20,6 +20,12 @@ def _inputs(
         raise ValueError("cells and values must have the same nonzero length")
     if mask.ndim != 2:
         raise ValueError("free_mask must be two-dimensional")
+    if not np.all(np.isfinite(points)) or not np.all(np.isfinite(measurements)):
+        raise ValueError("cells and values must contain only finite numbers")
+    if np.any(points < 0) or np.any(points != np.floor(points)):
+        raise ValueError("cells must contain non-negative integer coordinates")
+    if np.any(points[:, 0] >= mask.shape[0]) or np.any(points[:, 1] >= mask.shape[1]):
+        raise ValueError("cells must be within the free_mask shape")
     return points, measurements, mask
 
 
@@ -116,9 +122,17 @@ def parametric_sources(
     Only the measurements and the free mask are used (never the true field).
     Returns (field, sources) with sources = [(row, col, weight), ...].
     """
-    cells = np.asarray(cells, dtype=int).reshape(-1, 2)
-    y = np.asarray(values, dtype=float)
-    h, w = free_mask.shape
+    points, y, mask = _inputs(cells, values, free_mask)
+    if np.any(points != np.floor(points)):
+        raise ValueError("cells must contain integer coordinates")
+    if k < 1:
+        raise ValueError("k must be at least one source")
+    if softening <= 0.0:
+        raise ValueError("softening must be positive")
+    if refine_passes < 0:
+        raise ValueError("refine_passes must be non-negative")
+    cells = points.astype(int)
+    h, w = mask.shape
     cand = np.argwhere(np.ones((h, w), dtype=bool))  # candidate index = row * w + col
     d2 = ((cells[:, None, :] - cand[None, :, :]) ** 2).sum(axis=2)
     phi = 1.0 / (d2 + softening)
@@ -170,7 +184,7 @@ def parametric_sources(
         field += weight / ((rows - sr) ** 2 + (cols - sc) ** 2 + softening)
         sources.append((int(sr), int(sc), float(weight)))
     field = np.clip(field, 0.0, None)
-    field[~free_mask] = 0.0
+    field[~mask] = 0.0
     return field, sources
 
 
@@ -189,9 +203,20 @@ def parametric_sources_shielded(
     The form, the softening, k and the wall attenuation are ASSUMED KNOWN.
     Returns (field, sources) with sources = [(row, col, weight), ...].
     """
-    cells = np.asarray(cells, dtype=int).reshape(-1, 2)
-    y = np.asarray(values, dtype=float)
-    h, w = free_mask.shape
+    points, y, mask = _inputs(cells, values, free_mask)
+    if np.any(points != np.floor(points)):
+        raise ValueError("cells must contain integer coordinates")
+    if k < 1:
+        raise ValueError("k must be at least one source")
+    if softening <= 0.0:
+        raise ValueError("softening must be positive")
+    if refine_passes < 0:
+        raise ValueError("refine_passes must be non-negative")
+    h, w = mask.shape
+    cells = points.astype(int)
+    atten = np.asarray(atten, dtype=float)
+    if atten.shape != (h * w, h * w):
+        raise ValueError(f"atten must have shape ({h * w}, {h * w})")
     cand = np.argwhere(np.ones((h, w), dtype=bool))
     d2 = ((cells[:, None, :] - cand[None, :, :]) ** 2).sum(axis=2)
     flat = cells[:, 0] * w + cells[:, 1]
@@ -244,5 +269,5 @@ def parametric_sources_shielded(
         field += weight * atten[pid].reshape(h, w) / ((rows - sr) ** 2 + (cols - sc) ** 2 + softening)
         sources.append((int(sr), int(sc), float(weight)))
     field = np.clip(field, 0.0, None)
-    field[~free_mask] = 0.0
+    field[~mask] = 0.0
     return field, sources

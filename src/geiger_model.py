@@ -29,11 +29,29 @@ def simulate_counts(
     field: np.ndarray, cells: np.ndarray, dwell: float, seed: int
 ) -> np.ndarray:
     """Draw Poisson counts with means equal to dwell times intensity."""
-    intensity = np.asarray(field)[tuple(np.asarray(cells, dtype=int).T)]
+    field = np.asarray(field, dtype=float)
+    cells = np.asarray(cells)
+    if field.ndim != 2:
+        raise ValueError("field must be two-dimensional")
+    if cells.ndim != 2 or cells.shape[1] != 2:
+        raise ValueError("cells must have shape (n, 2)")
+    if not np.isfinite(dwell) or dwell <= 0.0:
+        raise ValueError("dwell must be positive and finite")
+    if not np.all(np.isfinite(field)) or np.any(field < 0.0):
+        raise ValueError("field must contain finite non-negative intensities")
+    if not np.all(np.isfinite(cells)) or np.any(cells != np.floor(cells)):
+        raise ValueError("cells must contain integer coordinates")
+    if np.any(cells < 0) or np.any(cells[:, 0] >= field.shape[0]) or np.any(
+        cells[:, 1] >= field.shape[1]
+    ):
+        raise ValueError("cells must be within the field shape")
+    intensity = field[tuple(cells.astype(int).T)]
     rng = np.random.default_rng(seed)
     return rng.poisson(float(dwell) * intensity).astype(float)
 
 
 def counts_to_intensity(counts: np.ndarray, dwell: float) -> np.ndarray:
     """Convert Geiger counts into intensity estimates."""
+    if not np.isfinite(dwell) or dwell <= 0.0:
+        raise ValueError("dwell must be positive and finite")
     return np.asarray(counts, dtype=float) / float(dwell)
