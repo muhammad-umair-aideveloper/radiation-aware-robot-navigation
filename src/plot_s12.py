@@ -52,12 +52,12 @@ def plot_tradeoff(summary: Dict[str, object]) -> None:
                         source = ROOT / "results" / "online" / f"kernel_3x3_t{dwell:g}.json"
                     else:
                         source = ROOT / "results" / "param" / f"online_omp3_3x3_t{dwell:g}.json"
-                    per_seed = json.loads(source.read_text())["per_seed"]
+                    per_seed = json.loads(source.read_text(encoding="utf-8"))["per_seed"]
                     step_values = [seed["mean_steps"] for seed in per_seed]
                     dose_values = [seed["mean_true_dose"] for seed in per_seed]
                 else:
                     source = ROOT / "results" / "s12" / estimator / f"3x3_t{dwell:g}_b{budget}.json"
-                    per_seed = json.loads(source.read_text())["per_seed"]
+                    per_seed = json.loads(source.read_text(encoding="utf-8"))["per_seed"]
                     step_values = [seed["mean_steps"] for seed in per_seed]
                     dose_values = [seed["mean_true_dose"] for seed in per_seed]
                 step_ci = bootstrap_ci(step_values)
@@ -142,7 +142,7 @@ def plot_regret(summary: Dict[str, object]) -> None:
 
 
 def main() -> None:
-    summary = json.loads(SUMMARY.read_text())
+    summary = json.loads(SUMMARY.read_text(encoding="utf-8"))
     plot_tradeoff(summary)
     plot_regret(summary)
 

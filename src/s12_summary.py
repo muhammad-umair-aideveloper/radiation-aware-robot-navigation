@@ -21,7 +21,7 @@ def ci(value: Dict[str, float]) -> str:
 def b0_result(estimator: str, dwell: float) -> Dict[str, Any]:
     if estimator == "kernel":
         path = ROOT / "results" / "online" / f"kernel_3x3_t{dwell:g}.json"
-        item = json.loads(path.read_text())
+        item = json.loads(path.read_text(encoding="utf-8"))
         online = item["online"]
         return {
             "success_rate": online["success_rate_mean"],
@@ -36,7 +36,7 @@ def b0_result(estimator: str, dwell: float) -> Dict[str, Any]:
             "dose_reduction_percent": online["dose_reduction_percent"],
         }
     path = ROOT / "results" / "param" / f"online_omp3_3x3_t{dwell:g}.json"
-    item = json.loads(path.read_text())
+    item = json.loads(path.read_text(encoding="utf-8"))
     return {
         "success_rate": item["success_rate"]["mean"],
         "mean_steps": item["mean_steps"]["mean"],
@@ -51,7 +51,7 @@ def b0_result(estimator: str, dwell: float) -> Dict[str, Any]:
 
 def bnew_result(estimator: str, dwell: float, budget: int) -> Dict[str, Any]:
     path = S12 / estimator / f"3x3_t{dwell:g}_b{budget}.json"
-    item = json.loads(path.read_text())
+    item = json.loads(path.read_text(encoding="utf-8"))
     metrics = item["metrics"]
     return {
         "success_rate": metrics["success_rate_mean"],
@@ -82,7 +82,7 @@ def main() -> None:
             }
 
     summary = {"configurations": configurations, "missing": missing}
-    OUTPUT_JSON.write_text(json.dumps(summary, indent=2))
+    OUTPUT_JSON.write_text(json.dumps(summary, indent=2), encoding="utf-8")
 
     lines = [
         "# S12 Survey Dose Summary\n",
@@ -103,7 +103,7 @@ def main() -> None:
                     f"{ci(item['dose_regret_percent'])} | "
                     f"{ci(item['dose_reduction_percent'])} |\n"
                 )
-    OUTPUT_MD.write_text("".join(lines))
+    OUTPUT_MD.write_text("".join(lines), encoding="utf-8")
 
 
 if __name__ == "__main__":

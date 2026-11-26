@@ -172,7 +172,7 @@ def main() -> None:
                     survey_budget,
                     projected_seeds,
                 )
-                path.write_text(json.dumps(result, indent=2))
+                path.write_text(json.dumps(result, indent=2), encoding="utf-8")
                 print(
                     f"finished {estimator}/t{dwell:g}/b{survey_budget} "
                     f"{result['elapsed_seconds']:.2f}s"
