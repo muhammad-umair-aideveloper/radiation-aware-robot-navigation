@@ -56,7 +56,7 @@ def elapsed(path: Path) -> str:
     if path.suffix != ".json":
         return ""
     try:
-        item = json.loads(path.read_text())
+        item = json.loads(path.read_text(encoding="utf-8"))
         value = item.get("elapsed_seconds")
         return f"{float(value):.2f}s" if value is not None else ""
     except (json.JSONDecodeError, OSError, TypeError, ValueError):
@@ -92,7 +92,7 @@ def main() -> None:
         lines.extend(f"- {rel}\n" for rel in unclaimed)
     else:
         lines.append("- none\n")
-    OUTPUT.write_text("".join(lines))
+    OUTPUT.write_text("".join(lines), encoding="utf-8")
     print(f"indexed {len(entries)} paths; unclaimed={len(unclaimed)}")
 
 
